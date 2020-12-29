@@ -7,12 +7,12 @@
 	0: _locations (Object Array, Object)  - Location something should be dropped off near at.
 	// Optional Parameters
 	1: _amount (Number)  		 - Amount of sectors that should be made. Default is all. || Default: -1
-	2: _sides (Sides Array) 	 - Array containing the sides that can capture it. || Default: [west, east, resistance]
-	3: _defaultOwner (Side) 	 - Default owner || Default: sideUnknow
-	4: _trigger_area (Trigger) 	 - Trigger || Default: objNull
+	2: _trigger_area (Trigger) 	 - Trigger || Default: objNull
+	3: _sides (Sides Array) 	 - Array containing the sides that can capture it. || Default: [west, east, resistance]
+	4: _defaultOwner (Side) 	 - Default owner || Default: sideUnknow
 
 	Example:
-	[_initial_sectors,-1,[WEST]] execVM "_scripts\sector_maker.sqf";
+	[[loc_alpha,loc_beta],-1,[100,100,0,false],[WEST]] execVM "_scripts\sector_maker.sqf";
 
 ******/
 
@@ -25,7 +25,8 @@ params [
 	['_locations', objNull],
 	['_amount', -1],
 	['_sides', [west, east, resistance]],
-	['_defaultOwner', -1, [ 0, sideUnknown ] ]
+	['_defaultOwner', -1, [ 0, sideUnknown ] ],
+	['_trigger_area', [ 80, 80, 0, false ], [ [], objNull ] ]
 ];
 
 private['_location','_locations_array','_area'];
@@ -67,19 +68,17 @@ for "_i" from 0 to _amount-1 do
 	_location = selectRandom _locations_array;
 	diag_log format ["%1 creation started!", _location];
 
-	_area =
-
 	_sector = [
 		//name
 		str(_location),
 		//position
-		_location call BIS_fnc_position;
+		_location call BIS_fnc_position,
 		//Sector Name, generated from stringTable 
 		format[ "str_%1",_location] call BIS_fnc_localize,
 		//Sector Designation, using first letter of Sector Name
 		format[ "str_%1",_location] call BIS_fnc_localize select [0, 1],
-		//Trigger dimensions, using the trigger "_location_t"
-		triggerArea call compile format [ "%1_t", _location],
+		//Trigger dimensions
+		_trigger_area,
 		//Sides that can capture
 		_sides,
 		//Default owning side (e.g. sideUnknown)
@@ -107,6 +106,6 @@ for "_i" from 0 to _amount-1 do
 	//just a sleep to mitigate lag
 	sleep 0.1;
 };
-diag_log "Sectors created";
 diag_log format["%1",_sector_array];
+diag_log "--- Sectors created ---";
 _sector_array

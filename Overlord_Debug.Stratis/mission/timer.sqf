@@ -3,7 +3,7 @@ _executeTime = 10; // 10 seconds
 _passive_income = {
 	//params [_locationArray];
 
-	hint "Income gained";
+	//hint "Income gained";
 
 	_base_income = 100;
 	_income = _base_income * (missionNamespace getVariable "income_multiplier");

@@ -1,6 +1,6 @@
 
 //Imported Stuff
-#include "modules\LARs\spawnSector\functions\spawnSector.fncs"
+#include "LARs\spawnSector\functions\spawnSector.fncs"
 
 #include "modules\grad-listBuymenu\grad_listBuymenu.hpp"
 #include "modules\grad-moneymenu\grad_moneymenu.hpp"
