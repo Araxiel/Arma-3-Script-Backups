@@ -1,5 +1,7 @@
 
 //Imported Stuff
+#include "modules\LARs\spawnSector\functions\spawnSector.fncs"
+
 #include "modules\grad-listBuymenu\grad_listBuymenu.hpp"
 #include "modules\grad-moneymenu\grad_moneymenu.hpp"
 class CfgFunctions {
@@ -8,7 +10,7 @@ class CfgFunctions {
 };
 
 #include "modules\grad-parameters.hpp"						  //Configuration for buymenu and moneymenu
-#include "Progression\stores.hpp"					  //Shops to buy stuff
+#include "mission\stores.hpp"					  //Shops to buy stuff
 
-allowFunctionsLog = 1;
+allowFunctionsLog = 0;
 respawnOnStart = -1;

@@ -20,4 +20,4 @@ sector_locations = [loc_beta];
 unlock_varname_list = [];
 
 income_multiplier = 1.2;
-execVM "timer.sqf";
+execVM "mission\timer.sqf";

@@ -1,1 +1,0 @@
-[spawn_supply] execVM "spawn_moneybox.sqf";

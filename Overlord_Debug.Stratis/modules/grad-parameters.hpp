@@ -1,6 +1,6 @@
 class CfgGradMoneymenu {
     canGiveDefault = 1;  
-	canGiveToAI =	1; //maybe turn on and have some kind of "investment"?
+	canGiveToAI =	1; // TODO maybe turn on and have some kind of "investment"?
     canTransferToSidesDefault[] = {"west","civilian"};
     canTakeFromDeadDefault = 0;        
     canSendDirectlyDefault = 1;                                    

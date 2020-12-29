@@ -1,6 +1,6 @@
 /*****
 ******
-	Original file: scripts\helo_random_cargo_delivery.sqf
+	Original file: _scripts\helo_random_cargo_delivery.sqf
 	Written by Araxiel
 ******
 	You are free to modifiy and distribute this file as long as this header is kept intact
@@ -8,12 +8,12 @@
 	Description: Spawns a Huron carrying a piece of cargo, dropping it at a nearby empty spot, and leaving again. Cargo is various logistical stuff. Returns an array containing the array of helicopters and the cargo.
 ******
 
-	[[_helos],[_objects]] = [_pos,_amount,_spawn,_distance,_cargo,_potential_kind,_cargo_init,_helo_init,_vehicle_lock,_debug] execVM "scripts\helo_random_cargo_delivery.sqf";
+	[[_helos],[_objects]] = [_pos,_amount,_spawn,_distance,_cargo,_potential_kind,_cargo_init,_helo_init,_vehicle_lock,_debug] execVM "_scripts\helo_random_cargo_delivery.sqf";
 	Example:
-	[player] execVM "scripts\helo_random_cargo_delivery.sqf";
-	[player,4,helo_spawn,70,"B_Slingload_01_Medevac_F"] execVM "scripts\helo_random_cargo_delivery.sqf";
-	[player,3,objNull,50,"",0,"","",True,True] execVM "scripts\helo_random_cargo_delivery.sqf";
-	_array = [player,4,objNull,"",2] execVM "scripts\helo_random_cargo_delivery.sqf";
+	[player] execVM "_scripts\helo_random_cargo_delivery.sqf";
+	[player,4,helo_spawn,70,"B_Slingload_01_Medevac_F"] execVM "_scripts\helo_random_cargo_delivery.sqf";
+	[player,3,objNull,50,"",0,"","",True,True] execVM "_scripts\helo_random_cargo_delivery.sqf";
+	_array = [player,4,objNull,"",2] execVM "_scripts\helo_random_cargo_delivery.sqf";
 
 	0: _pos (Array, Object, Marker, Group, Location)  - Location something should be dropped off near at.
 	// Optional Parameters

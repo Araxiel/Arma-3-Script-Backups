@@ -27,4 +27,8 @@ if !( _owner isEqualTo sideUnknown ) then {
 		[WEST,area_tower_respawn_point,"str_area_tower" call BIS_fnc_localize] call BIS_fnc_addRespawnPosition; 
 		execVM "sectors\tower_capped.sqf";
 	};
+
+	if ( missionNamespace getVariable "sector_locations" findIf { _x == _location } > -1 && _owner == WEST) then {
+		[_location,_sector] execVM "phase_cap.sqf";
+	};
 };
