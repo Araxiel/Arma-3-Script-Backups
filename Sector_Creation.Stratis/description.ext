@@ -1,0 +1,7 @@
+allowFunctionsLog = 1;
+
+class CfgFunctions {
+	#include "LARs\spawnSector\functions\spawnSector.fncs"
+};
+
+respawnOnStart = -1;

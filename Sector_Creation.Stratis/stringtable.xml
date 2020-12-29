@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="Stormtalon">
+  <Package name="missions">
+    <Container name="sectors">
+      <Key ID="str_area_hangars">
+        <Original>Hangars</Original>
+        <English>Hangars</English>
+        <Czech>Hangars</Czech>
+        <French>Hangars</French>
+        <Spanish>Hangars</Spanish>
+        <Italian>Hangars</Italian>
+        <Polish>Hangars</Polish>
+        <Portuguese>Hangars</Portuguese>
+        <Russian>Хангарс</Russian>
+        <German>Hangars</German>
+      </Key>
+      <Key ID="str_area_tower">
+        <Original>Tower</Original>
+        <English>Tower</English>
+        <Czech>Tower</Czech>
+        <French>Tower</French>
+        <Spanish>Tower</Spanish>
+        <Italian>Tower</Italian>
+        <Polish>Tower</Polish>
+        <Portuguese>Tower</Portuguese>
+        <Russian>Товер</Russian>
+        <German>Tower</German>
+      </Key>
+      <Key ID="str_area_field">
+        <Original>Field</Original>
+        <English>Field</English>
+        <Czech>Field</Czech>
+        <French>Field</French>
+        <Spanish>Field</Spanish>
+        <Italian>Field</Italian>
+        <Polish>Field</Polish>
+        <Portuguese>Field</Portuguese>
+        <Russian>Фиелд</Russian>
+        <German>Field</German>
+      </Key>
+    </Container>
+  </Package>
+</Project>

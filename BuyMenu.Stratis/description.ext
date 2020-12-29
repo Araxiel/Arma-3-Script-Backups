@@ -1,0 +1,14 @@
+
+//Imported Stuff
+#include "modules\grad-listBuymenu\grad_listBuymenu.hpp"
+#include "modules\grad-moneymenu\grad_moneymenu.hpp"
+class CfgFunctions {
+    #include "modules\grad-listBuymenu\cfgFunctions.hpp"
+    #include "modules\grad-moneymenu\cfgFunctions.hpp"
+};
+
+#include "modules\grad-parameters.hpp"						  //Configuration for buymenu and moneymenu
+#include "Progression\stores.hpp"					  //Shops to buy stuff
+
+allowFunctionsLog = 1;
+respawnOnStart = -1;

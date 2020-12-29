@@ -1,0 +1,49 @@
+for "_i" from 0 to 10 do 
+{ _empty_pos = [player, 0, 50, 15, 0, 0.15, 0,[], [getPos player, getPos player]] call BIS_fnc_findSafePos; 
+"VR_3DSelector_01_exit_F" createVehicle _empty_pos; };
+
+
+for "_i" from 0 to 10 do {
+    _sea_landing_pos = [player, 0, 150, 5, 1, 0, 1,[], [getPos player, getPos player]] call BIS_fnc_findSafePos;
+    _sea_landing_pos set [2, 0.1];
+    _obj = "VR_3DSelector_01_exit_F" createVehicle _sea_landing_pos;
+    _obj setPos _sea_landing_pos;
+};
+
+Sign_Sphere200cm_F
+VR_3DSelector_01_exit_F
+
+
+
+_sea_landing_pos = [getPos player, 0, 150, 5, 2, 0, 1,[], [getPos player, getPos player]] call BIS_fnc_findSafePos; 
+_sea_landing_pos set [2, 0.1];
+_obj = "Sign_Sphere200cm_F" createVehicle _sea_landing_pos;
+_obj setPos _sea_landing_pos;
+ 
+_result = [getPos sea_spawn, (getPos sea_spawn) getDir _sea_landing_pos, "B_Boat_Armed_01_minigun_F", WEST] call BIS_fnc_spawnVehicle; 
+_result params ["_vehicle", "_crew", "_group"]; 
+_result #2 deleteGroupWhenEmpty true; 
+ 
+_wp = _result #2 addWaypoint [_sea_landing_pos, 0]; 
+_wp setWaypointType "MOVE";
+
+_pos = player call BIS_fnc_position;
+for "_i" from 0 to 500 do { 
+    _pos = [[[_pos, 2500]],[[_pos, 2400]]] call BIS_fnc_randomPos;
+    _id = _i+round((random 5000)); 
+    _marker = createMarker [str(_id), _pos]; 
+    _marker setMarkerType "mil_dot"; 
+    _marker setMarkerColor "ColorEAST"; 
+};
+
+_object_array = []; _helo_array = [];
+_helo_array pushBack 'blorp'; _helo_array pushBack 'florp';
+_object_array pushBack 'snarl'; _object_array pushBack 'farl'; 
+_return_array = [_helo_array,_object_array]; _return_array
+
+
+{diag_log _x;} forEach activatedAddons;
+
+
+"a3\missions_f_tank\data\img\showcase_tankdestroyers.paa"
+"\a3\ui_f\data\gui\rsccommon\rscmsgboxkeyspresetsjets\background_ca.paa"

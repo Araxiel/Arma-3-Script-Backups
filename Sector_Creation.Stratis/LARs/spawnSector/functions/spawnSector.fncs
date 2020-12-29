@@ -1,0 +1,10 @@
+
+class spawnSector {
+	tag = "LARs";
+	class sectors {
+		file = "LARs\spawnSector\functions";
+		class spawnSector { };
+		//class createSector { postInit = 1; };
+		class sectorDistances {};
+	};
+};

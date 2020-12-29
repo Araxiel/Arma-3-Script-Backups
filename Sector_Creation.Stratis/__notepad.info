@@ -1,0 +1,33 @@
+ private ['_v','_x']; _x = 'area_hangars';
+ _v = format [ "%1_ownerWEST_v", _x]; 
+ call compile format [ "%1 = true", _v]; 
+ publicVariable call compile str(_v);
+
+ call compile format [ "%1_v == true", vehicleVarName (this)];
+
+_locations = ['hangar','stuff']; _x = [];
+if !("ARRAY" == typeName _locations) then {
+_x set [0, _locations];} else { _x = _locations};
+_x;
+
+if !(isNull area_hangars) then { _x = "Exists"} else { _x = "Doesn't Exist";};
+_x;
+
+_y = truck;
+_wp1 = (group commander _y) addWaypoint [getPos testpad, 0];
+_wp1 setWaypointType "MOVE";
+_wp1 setWaypointStatements ["true", {deleteVehicle _x} forEach crew _y + [_y]] 
+
+
+
+
+
+
+
+
+Current work:
+    Task creation in sector creation
+        Maybe have the entire argument be a string passed in?
+    Get crew out
+        How to get helo cargo crew out?
+    
