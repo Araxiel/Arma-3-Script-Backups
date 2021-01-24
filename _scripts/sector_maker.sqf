@@ -2,14 +2,15 @@
 
 	Script to send an order to the function make the sectors, using an object as reference.
 
-	[_locations,_amount,_sides,_defaultOwner] execVM "_scripts\sector_maker.sqf";
+	[_locations,_amount,_sides,_defaultOwner,_variables_array] execVM "_scripts\sector_maker.sqf";
 	
 	0: _locations (Object Array, Object)  - Location something should be dropped off near at.
 	// Optional Parameters
 	1: _amount (Number)  		 - Amount of sectors that should be made. Default is all. || Default: -1
-	2: _trigger_area (Trigger) 	 - Trigger || Default: objNull
+	2: _trigger_area (Array) 	 - Trigger || Default: objNull
 	3: _sides (Sides Array) 	 - Array containing the sides that can capture it. || Default: [west, east, resistance]
 	4: _defaultOwner (Side) 	 - Default owner || Default: sideUnknow
+	5: _variables_array (Array)	 - Array containing a bunch of variables that should be stored.
 
 	Example:
 	[[loc_alpha,loc_beta],-1,[100,100,0,false],[WEST]] execVM "_scripts\sector_maker.sqf";
@@ -24,9 +25,9 @@ if !( isServer ) exitWith {
 params [
 	['_locations', objNull],
 	['_amount', -1],
+	['_trigger_area', [ 80, 80, 0, false ]],
 	['_sides', [west, east, resistance]],
-	['_defaultOwner', -1, [ 0, sideUnknown ] ],
-	['_trigger_area', [ 80, 80, 0, false ], [ [], objNull ] ]
+	['_defaultOwner', -1, [ 0, sideUnknown ] ]
 ];
 
 private['_location','_locations_array','_area'];
@@ -62,17 +63,17 @@ _sector_array = [];
 
 for "_i" from 0 to _amount-1 do
 {
+	private ['_current_sector'];
 	// for debugging
-	diag_log format ["Starting Sector Array: %1", _locations_array];
 	// select a random element from the array
 	_location = selectRandom _locations_array;
 	diag_log format ["%1 creation started!", _location];
 
-	_sector = [
+	_current_sector = [
 		//name
 		str(_location),
 		//position
-		_location call BIS_fnc_position,
+		getPosATL _location,
 		//Sector Name, generated from stringTable 
 		format[ "str_%1",_location] call BIS_fnc_localize,
 		//Sector Designation, using first letter of Sector Name
@@ -102,7 +103,8 @@ for "_i" from 0 to _amount-1 do
 	_locations_array = _locations_array - [_location];
 	diag_log format ["%1 creation finished!", _location];
 	// add to return array
-	_sector_array pushBack _sector;
+	diag_log format ["%1 current sector!", _current_sector];
+	_sector_array pushBack _current_sector;
 	//just a sleep to mitigate lag
 	sleep 0.1;
 };
