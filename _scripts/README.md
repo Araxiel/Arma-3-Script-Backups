@@ -1,2 +1,2 @@
 ### Universal Scripts
-A bunch of scripts that are usable across multiple missions, debug or real.
+A bunch of scripts that are usable across multiple missions.

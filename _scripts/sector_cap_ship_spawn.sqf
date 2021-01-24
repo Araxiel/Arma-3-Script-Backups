@@ -24,7 +24,7 @@ for "_i" from 0 to 1 do {
 	};
 
 	//_result = [getPos sea_spawn, (getPos sea_spawn) getDir _sea_landing_pos, "B_Boat_Armed_01_minigun_F", WEST] call BIS_fnc_spawnVehicle;  
-	_result = [getPos sea_spawn, (getPos sea_spawn) getDir _sea_landing_pos, _shiptype, WEST] call BIS_fnc_spawnVehicle;  
+	_result = [getPos sea_spawn, (getPos sea_spawn) getDir _sea_landing_pos, _shiptype, WEST] call BIS_fnc_spawnVehicle;
 	_result params ["_vehicle", "_crew", "_group"];  
 	_result #2 deleteGroupWhenEmpty true;  
 	
