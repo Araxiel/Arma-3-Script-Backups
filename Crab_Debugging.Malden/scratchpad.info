@@ -1,0 +1,63 @@
+_group = [getPos spawn_hostile_1, EAST, 1] call BIS_fnc_spawnGroup; 
+_group deleteGroupWhenEmpty true; 
+ 
+{ 
+	_x addEventHandler ["Killed", { 
+		params ["_unit", "_killer", "_instigator", "_useEffects"]; 
+		[_unit,_killer,_instigator] execVM "mission\enemies\_enemy_killed.sqf"; 
+	}];
+} forEach units _group; 
+ 
+_wp1 = _group addWaypoint [getPos sector_alpha, 0]; 
+_wp1 setWaypointType "MOVE";
+
+
+
+///
+
+_group = [getPos player, WEST, 6] call BIS_fnc_spawnGroup; 
+_group deleteGroupWhenEmpty true; 
+
+_wp1 = _group addWaypoint [getPos sector_alpha, 0]; 
+_wp1 setWaypointType "MOVE";
+
+/////
+
+_sector = sector_beta;
+_selected_spawn = [spawnpoints_enemy_road, getPos _sector] call BIS_fnc_nearestPosition;
+_group = [getPos _selected_spawn, EAST, 3] call BIS_fnc_spawnGroup;
+_group deleteGroupWhenEmpty true;
+
+{
+	_x addEventHandler ["Killed", { 
+		params ["_unit", "_killer", "_instigator", "_useEffects"]; 
+		[_unit,_killer,_instigator] execVM "mission\enemies\_enemy_killed.sqf"; 
+	}];
+	;
+} forEach units _group;
+ 
+_wp1 = _group addWaypoint [getPos _sector, 0]; 
+_wp1 setWaypointType "MOVE";
+
+/////
+// example return for objectArea [5,5,0,false,0]
+
+_sector = sector_beta;
+_sector_area = _sector getVariable "objectArea";
+_units_in_sector = allUnits inAreaArray [ getPos (_sector), _sector_area # 0, _sector_area # 1, _sector_area # 2, _sector_area # 3];
+_next_sector = [sectors_blufor, getPos _sector] call BIS_fnc_nearestPosition;
+
+_group_array = [];
+{
+	if (side _x == opfor) then {
+		_group_array pushBack (group (leader _x));
+	};
+} forEach _units_in_sector; _group_array
+
+
+///
+[getPos player, EAST, 2] call BIS_fnc_spawnGroup;
+
+
+/// 
+

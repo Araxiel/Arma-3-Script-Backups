@@ -1,0 +1,1 @@
+diag_log "sector_alpha_capped.sqf";
