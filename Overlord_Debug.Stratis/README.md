@@ -6,6 +6,9 @@ The debugging and sandbox for my overlord mission type.
 ### _scripts
 _Linked_ folder with universal scripts by me/Araxiel
 
+### LARs
+Folder containing the sector spawn script by Larrow
+
 ### debug
 Folder with super temporary scripts
 

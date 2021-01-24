@@ -16,8 +16,9 @@ TAG_fnc_createTrigger = {
 	_trigger
 };
 
-sector_locations = [loc_beta];
 unlock_varname_list = [];
 
-income_multiplier = 1.2;
+income_multiplier = 10.2;
+base_income = 100;
+gained_income = 0;
 execVM "mission\timer.sqf";

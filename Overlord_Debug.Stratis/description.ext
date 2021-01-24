@@ -1,12 +1,12 @@
 
 //Imported Stuff
-#include "LARs\spawnSector\functions\spawnSector.fncs"
 
 #include "modules\grad-listBuymenu\grad_listBuymenu.hpp"
 #include "modules\grad-moneymenu\grad_moneymenu.hpp"
 class CfgFunctions {
     #include "modules\grad-listBuymenu\cfgFunctions.hpp"
     #include "modules\grad-moneymenu\cfgFunctions.hpp"
+	#include "LARs\spawnSector\functions\spawnSector.fncs"
 };
 
 #include "modules\grad-parameters.hpp"						  //Configuration for buymenu and moneymenu

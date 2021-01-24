@@ -7,6 +7,7 @@
 	Originally posted @:https://forums.bohemia.net/forums/topic/181264-sector-module-scripting/?do=findComment&comment=3294957
 ******
 	You are free to modifiy and distribute this file as long as this header is kept intact
+		EDIT: Small edit by Araxiel, giving the sector a referenceable ID
 ******
 	Description: Spawn a module sector
 ******
@@ -51,6 +52,8 @@ if !( isServer ) exitWith {
 };
 
 params[
+	// ADDED by Araxiel; giving a variable name to the sector 
+	[ "_locale", "", [ "" ] ],
 	//Position to place sector
 	[ "_pos", objNull, [ [], objNull, "", grpNull, locationNull ], [ 2, 3 ] ],
 	//Name as shown on map
@@ -127,6 +130,7 @@ if ( _sectorArea isEqualType objNull ) then {
 	_sectorArea = [ _radiusX, _radiusY, _dir, _isRect ];
 };
 
+
 //Create the sector logic
 "ModuleSector_F" createUnit [ _pos, createGroup sideLogic, format[ "
 	this setvariable [ 'BIS_fnc_initModules_disableAutoActivation', false ];
@@ -153,4 +157,7 @@ if ( _sectorArea isEqualType objNull ) then {
 	}else{
 		this setVariable [ 'objectArea', %3 ];
 	};
-",	_name, _designation, _sectorArea, _ownerLimit, str _onOwnerChange, _captureCoef, _costInfantry, _costWheeled, _costTracked, _costWater, _costAir, _costPlayers, _defaultOwner, _taskOwner, str _taskTitle, str _taskDescription, _scoreReward, _sides apply { _x call BIS_fnc_sideID } ]];
+	%19_sector = this;
+",	_name, _designation, _sectorArea, _ownerLimit, str _onOwnerChange, _captureCoef, _costInfantry, _costWheeled, _costTracked, _costWater, _costAir, _costPlayers, _defaultOwner, _taskOwner, str _taskTitle, str _taskDescription, _scoreReward, _sides apply { _x call BIS_fnc_sideID }, _locale ]];
+
+format ["%1_sector",_locale]

@@ -1,17 +1,21 @@
 _executeTime = 10; // 10 seconds
+_count = 0;
 
 _passive_income = {
 	//params [_locationArray];
 
-	//hint "Income gained";
-
-	_base_income = 100;
-	_income = _base_income * (missionNamespace getVariable "income_multiplier");
+	_base_income = missionNamespace getVariable "base_income";
+	_gained_income = missionNamespace getVariable "gained_income";
+	_income = _base_income + _gained_income;
+	_income = _income * (missionNamespace getVariable "income_multiplier");
 
 	_allPlayers = call BIS_fnc_listPlayers;
 	{
 		[_x, _income] call grad_moneymenu_fnc_addFunds;
 	} forEach _allPlayers;
+
+	_count = _count + 1;
+	hintSilent format["Income: +%1\nCount:%2",_income,_count,lineBreak];
 
 };
 
