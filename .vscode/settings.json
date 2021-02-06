@@ -1,0 +1,8 @@
+{
+    "sqflint.exclude": [
+        "Crab_Debugging.Malden/modules/grad-listBuymenu/cfgFunctions.hpp"
+    ],
+    "sqflint.ignoredVariables": [
+        "_fnc_scriptName"
+    ]
+}
