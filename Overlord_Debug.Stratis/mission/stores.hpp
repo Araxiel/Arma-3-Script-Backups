@@ -106,7 +106,7 @@ class CfgGradBuymenu {
                 //picture = "\A3\Soft_F\MRAP_01\Data\UI\MRAP_01_Base_ca.paa";  //this item uses a custom picture
                 code = "(_this select 2) setPosASL [26228,28064,24]; (_this select 2) setVehicleReceiveRemoteTargets true;";  //teleports to carrier, activate data links               
                 previewScale = 0.8;
-                condition = "unit_unlocked_fighterjet == true";
+                condition = "(unit_unlocked_fighterjet == true) && (601670 in (getDLCs 1));";
                 vehicleInit = "['DarkGreyCamo',['wing_fold_l',1]]";
             };
             class B_UAV_05_F {
