@@ -135,7 +135,7 @@ for "_i" from 0 to _amount-1 do {
 	//diag_log "Drop created!";
 	
 	// Create Helo
-	_result = [_spawn, _spawn getDir _drop, "B_Heli_Transport_03_unarmed_F", WEST] call BIS_fnc_spawnVehicle;  
+	_result = [_spawn, _spawn getDir _drop, "B_Heli_Transport_03_unarmed_F", WEST] call BIS_fnc_spawnVehicle;
 	_result params ["_vehicle", "_crew", "_group"]; 
 	_result #2 deleteGroupWhenEmpty true;
 	//diag_log format["Helo #%1 created!",_i+1];
@@ -172,6 +172,8 @@ for "_i" from 0 to _amount-1 do {
 
 	// Waypoint
 	_wp = _result #2 addWaypoint [_drop, 0];
+	_wp setWaypointBehaviour "SAFE";
+	_wp setWaypointCombatMode "GREEN";
 	_wp setWaypointType "UNHOOK";
 	_wp2 = _result #2 addWaypoint [_spawn, 0];
 	_wp2 setWaypointType "MOVE";
