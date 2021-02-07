@@ -1,5 +1,5 @@
+private ["_executeTime"];
 _executeTime = 15; // 15 seconds
-_count = 0;
 
 _passive_income = {
 	//params [_locationArray];
@@ -18,10 +18,6 @@ _passive_income = {
 	{
 		[_x, _income] call grad_moneymenu_fnc_addFunds;
 	} forEach _allPlayers;
-
-	_count = _count + 1;
-	// Hint for debugging
-	// hintSilent format["Income: +%1\nCount:%2",_income,_count];
 
 };
 

@@ -1,11 +1,6 @@
 diag_log "mission\setup_waves.sqf";
 // execVM "mission\setup_waves.sqf";
 
-if !( isServer ) exitWith {
-	//Remote execute on the server
-	_this remoteExec[ _fnc_scriptName, 2];
-};
-
 _crb_director_group = createGroup sideLogic;
 crb_director = _crb_director_group createUnit ["Curator_F", [5717,6994,0], [], 0, "FORM"];
 
