@@ -1,15 +1,17 @@
 // 1, 2 = road
-spawnpointsEnemy = [spawnHostile_1, spawnHostile_2];
+spawnpointsEnemyNormal = [spawnHostile_1, spawnHostile_2];
 // 3 = distant
 spawnpointsEnemyDistant = [spawnHostile_3];
 // all spawns
 spawnpointsEnemy = [];
-spawnpointsEnemy append spawnpointsEnemy;
+spawnpointsEnemy append spawnpointsEnemyNormal;
 spawnpointsEnemy append spawnpointsEnemyDistant;
 
 // All sectors
 sectorsAll = [ sectorAlpha, sectorBeta, sectorGamma, sectorDelta, sectorEpsilon ];
-diag_log str(sectorsAll);
+if ((missionNamespace getVariable ["debugMessages",false]) == true) then {
+	diag_log str(sectorsAll);
+};
 // Sectors Array Inits
 sectorsOpfor = [];
 sectorsBlufor = [];
@@ -29,5 +31,6 @@ sleep 1;
 } forEach sectorsAll;
 
 //TODO put sector income
-
-diag_log "-- Sectors init finished --";
+if ((missionNamespace getVariable ["debugMessages",false]) == true) then {
+	diag_log "-- Sectors init finished --";
+};

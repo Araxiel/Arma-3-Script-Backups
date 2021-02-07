@@ -7,6 +7,7 @@ execVM "mission\sectors\sector_init.sqf";
 execVM "mission\addedAceActions.sqf";
 execVM "mission\enemies\enemy_killed.sqf";
 
+debugMessages = true;
 // Init global variables
 //	mission
 crb_footholdEstablished = true;

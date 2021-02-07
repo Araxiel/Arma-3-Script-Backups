@@ -8,7 +8,10 @@ params [
 //if (!( _owner isEqualTo sideUnknown) && (serverTime > 5 ) ) then {	// making sure to not be an initial
 if (!( _owner isEqualTo sideUnknown) && (Time > 5 ) ) then {	// making sure to not be an initial - DEBUG SINGLEPLAYER
 
-	diag_log format ["%1 capped by %2!", _sector, _owner];	// just some debug info
+	if ((missionNamespace getVariable ["debugMessages",false]) == true) then {
+		diag_log format ["%1 capped by %2!", _sector, _owner];	// just some debug info
+	};
+	
 
 	if (_oldOwner isEqualTo opfor) then {
 		sectorsOpfor = sectorsOpfor - [_sector];		// remove from opfor array

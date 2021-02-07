@@ -1,4 +1,6 @@
-diag_log "mission\sectors\beta_capped.sqf";
+if ((missionNamespace getVariable ["debugMessages",false]) == true) then {
+	diag_log "mission\sectors\beta_capped.sqf";
+};
 
 {
 	_x hideObjectGlobal false;
