@@ -31,6 +31,8 @@
 		[[_helos],[_objects]]
 
 ******
+	Add script by running - execVM "_scripts\ar_fnc_heloRandomCargoDeliveryBlufor.sqf" -
+******
 ******/
 ar_fnc_heloRandomCargoDeliveryBlufor = {
 
