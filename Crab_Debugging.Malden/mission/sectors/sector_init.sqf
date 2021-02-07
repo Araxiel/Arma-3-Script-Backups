@@ -1,5 +1,5 @@
 // 1, 2 = road
-spawnpoints_enemy_road = [spawn_hostile_1, spawn_hostile_2, spawn_hostile_3];
+spawnpoints_enemy_road = [spawn_hostile_1, spawn_hostile_2];
 // 3 = distant
 spawnpoints_enemy_distant = [spawn_hostile_3];
 // all spawns

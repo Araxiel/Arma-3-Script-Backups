@@ -1,4 +1,4 @@
-diag_log "enemies\enemy_spawn.sqf";
+diag_log "mission\enemies\enemy_spawn.sqf";
 
 _selected_sector = selectRandom (missionNamespace getVariable "spawnpoints_enemy_road");
 
@@ -8,7 +8,7 @@ _group deleteGroupWhenEmpty true;
 { 
 	_x addEventHandler ["Killed", { 
 		params ["_unit", "_killer", "_instigator", "_useEffects"]; 
-		[_unit,_killer,_instigator] execVM "mission\enemies\_enemy_killed.sqf"; 
+		[_unit,_killer,_instigator] spawn cbr_fnc_enemyKilled; 
 	}];
 	;
 } forEach units _group;

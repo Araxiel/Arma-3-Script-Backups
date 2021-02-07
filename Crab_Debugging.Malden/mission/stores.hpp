@@ -1,10 +1,76 @@
 class CfgGradBuymenu {
     playersLoseMoneyOnDeath = 0;
     vehicleMarkers = 1;
-    tracking = 1;
+    tracking = 0;
     trackingTag = "myMission";
 
-    //buyables set:
+    class AirportStore {
+		
+        class airportfixedwing {
+            displayName = "Fixed-Wing Aircraft";
+            kindOf = "Vehicles";
+
+            class B_Plane_Fighter_01_F {
+                description = "A carrier-based, multi-role/air-superiority fighter jet.";
+                price = 2500;
+                stock = 2;
+                code = "(_this select 2) setVehicleReceiveRemoteTargets true;";
+                previewScale = 0.8;
+                condition = "601670 in (getDLCs 1)";
+                vehicleInit = "['DarkGreyCamo',['wing_fold_l',1]]";
+            };
+            class B_UAV_02_dynamicLoadout_F {
+                description = "A fixed-wing recon UCAV.";
+                price = 1200;
+                stock = 2;
+                code = "createVehicleCrew (_this select 2); (_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true; (_this select 2) setVehicleReportOwnPosition true";
+                previewScale = 0.8;
+            };
+        };
+
+        class airportchoppa {
+            displayName = "Helicopters";
+            kindOf = "Vehicles";
+
+            // Pawnee
+            class B_Heli_Light_01_dynamicLoadout_F {
+                description = "A light attack helicopter.";
+                price = 600;
+                stock = 4;
+            };
+            // Apache
+            class B_Heli_Attack_01_dynamicLoadout_F {
+                description = "A reconnaissance attack helicopter.";
+                price = 1000;
+                stock = 3;
+                code = "(_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true; (_this select 2) setVehicleReportOwnPosition true";
+                condition = "395180 in (getDLCs 1)";
+            };
+            class B_T_UAV_03_dynamicLoadout_F {
+                description = "The MQ-12 is a rotary-wing Unmanned Combat Aerial Vehicle.";
+                price = 1000;
+                stock = 3;
+                code = "(_this select 0) addItem 'B_UavTerminal'; (_this select 0) assignItem 'B_UavTerminal'; createVehicleCrew (_this select 2); (_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true;(_this select 2) setVehicleReportOwnPosition true";  //add AI crew, give UAV controls, activate data links  
+                previewScale = 0.75;
+            };
+        };
+
+        class airportcrew {
+            displayname = "Crew";
+            kindOf = "Units";
+
+            class B_helicrew_F {
+                description = "A crewmate.";
+                price = 10;
+                amount = 1;
+                stock = 40;
+                code = "{[_x] join player; [_x, 0, ['ACE_MainActions'], action_dismiss_unit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this select 2)";
+            };
+        };
+
+    };
+
+    // default example: buyables set:
     class AmericanStuff {
 
         //category:  
@@ -54,7 +120,7 @@ class CfgGradBuymenu {
         };
     };
 
-    //a different set of buyables
+    // default example: a different set of buyables
     class RussianStuff {        
         class Vehicles {
             displayName = "Vehicles";
@@ -85,5 +151,5 @@ class CfgGradBuymenu {
             };
         };
     };
-    
+
 };
