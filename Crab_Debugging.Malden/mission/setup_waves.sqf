@@ -31,7 +31,7 @@ crb_fnc_startWaves = {
 				// TODO Variety
 				// select random spawn
 				private ["_selectedSpawn","_group","_squadSize","_nearestSectorArea","_nearestSectorRadius", "_specificSpawn", "_payedCostPerSoldier"];
-				_selectedSpawn = selectRandom (missionNamespace getVariable "spawnpoints_enemy_road");
+				_selectedSpawn = selectRandom (missionNamespace getVariable "spawnpointsEnemyRoad");
 
 				// subtract unit cost
 				_currentCP = _director getVariable "commandPointsCurrent";
@@ -56,7 +56,7 @@ crb_fnc_startWaves = {
 					}];
 				} forEach units _group;
 
-				_nearestSector = [sectors_blufor, getPos (leader _group)] call BIS_fnc_nearestPosition;	// selects the nearest sector
+				_nearestSector = [sectorsBlufor, getPos (leader _group)] call BIS_fnc_nearestPosition;	// selects the nearest sector
 				// select the shorter size, for radius
 				_nearestSectorArea = _nearestSector getVariable "objectArea";	
 				if (_nearestSectorArea #0 >= _nearestSectorArea #1) then {

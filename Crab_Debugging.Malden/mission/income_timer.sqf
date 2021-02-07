@@ -4,15 +4,15 @@ _count = 0;
 _passive_income = {
 	//params [_locationArray];
 
-	_playercount_multiplier = 1;
+	_playercountMultiplier = 1;
 	_allPlayers = call BIS_fnc_listPlayers;
-	if ((count _allPlayers) >= 6) then { _playercount_multiplier = 0.50};
-	_playercount_multiplier = 2-(count _allPlayers)/4;
+	if ((count _allPlayers) >= 6) then { _playercountMultiplier = 0.50};
+	_playercountMultiplier = 2-(count _allPlayers)/4;
 
 	_crb_baseIncome = missionNamespace getVariable "crb_baseIncome";
 	_crb_gainedIncome = missionNamespace getVariable "crb_gainedIncome";
 	_income = _crb_baseIncome + _crb_gainedIncome;
-	_income = _income * (missionNamespace getVariable "crb_incomeMultiplier") * _playercount_multiplier;
+	_income = _income * (missionNamespace getVariable "crb_incomeMultiplier") * _playercountMultiplier;
 
 	_allPlayers = call BIS_fnc_listPlayers;
 	{

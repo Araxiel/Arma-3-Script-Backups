@@ -1,32 +1,32 @@
 // 1, 2 = road
-spawnpoints_enemy_road = [spawn_hostile_1, spawn_hostile_2];
+spawnpointsEnemyRoad = [spawnHostile_1, spawnHostile_2];
 // 3 = distant
-spawnpoints_enemy_distant = [spawn_hostile_3];
+spawnpointsEnemyDistant = [spawnHostile_3];
 // all spawns
-spawnpoints_enemy = [];
-spawnpoints_enemy append spawnpoints_enemy_road;
-spawnpoints_enemy append spawnpoints_enemy_distant;
+spawnpointsEnemy = [];
+spawnpointsEnemy append spawnpointsEnemyRoad;
+spawnpointsEnemy append spawnpointsEnemyDistant;
 
 // All sectors
-sectors_all = [sector_alpha,sector_beta,sector_gamma,sector_delta];
-diag_log str(sectors_all);
+sectorsAll = [sectorAlpha,sectorBeta,sectorGamma,sectorDelta];
+diag_log str(sectorsAll);
 // Sectors Array Inits
-sectors_opfor = [];
-sectors_blufor = [];
-sectors_unknown = [];
+sectorsOpfor = [];
+sectorsBlufor = [];
+sectorsUnknown = [];
 
 sleep 1;
 {
 	if (_x getVariable "owner"  == EAST) then {
-		sectors_opfor pushBack _x;
+		sectorsOpfor pushBack _x;
 	};
 	if (_x getVariable "owner"  == WEST) then {
-		sectors_blufor pushBack _x;
+		sectorsBlufor pushBack _x;
 	};
 	if (_x getVariable "owner"  == sideUnknown) then {
-		sectors_unknown pushBack _x;
+		sectorsUnknown pushBack _x;
 	};
-} forEach sectors_all;
+} forEach sectorsAll;
 
 //TODO put sector income
 
