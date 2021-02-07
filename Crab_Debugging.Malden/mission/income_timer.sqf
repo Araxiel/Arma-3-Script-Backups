@@ -9,10 +9,10 @@ _passive_income = {
 	if ((count _allPlayers) >= 6) then { _playercount_multiplier = 0.50};
 	_playercount_multiplier = 2-(count _allPlayers)/4;
 
-	_base_income = missionNamespace getVariable "base_income";
-	_gained_income = missionNamespace getVariable "gained_income";
-	_income = _base_income + _gained_income;
-	_income = _income * (missionNamespace getVariable "income_multiplier") * _playercount_multiplier;
+	_crb_baseIncome = missionNamespace getVariable "crb_baseIncome";
+	_crb_gainedIncome = missionNamespace getVariable "crb_gainedIncome";
+	_income = _crb_baseIncome + _crb_gainedIncome;
+	_income = _income * (missionNamespace getVariable "crb_incomeMultiplier") * _playercount_multiplier;
 
 	_allPlayers = call BIS_fnc_listPlayers;
 	{

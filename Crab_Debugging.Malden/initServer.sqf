@@ -1,10 +1,19 @@
 diag_log "----------- MAP START -------------------------------------------------------------------------------------------------------------------------";
 
-income_multiplier = 1.2;
-base_income = 100;
-gained_income = 0;
+crb_incomeMultiplier = 1.2;
+crb_baseIncome = 100;
+crb_gainedIncome = 0;
 execVM "mission\income_timer.sqf";
+execVM "mission\janitor_timer.sqf";
 execVM "mission\sectors\sector_init.sqf";
 
+execVM "mission\addedAceActions.sqf";
+execVM "mission\enemies\enemy_killed.sqf";
+
 // Init global variables
-foothold_established = true;
+crb_footholdEstablished = true;
+crb_wavesRunning = false;
+crb_opforGarrisonGroups = [];
+crb_opforAttackGroups = [];
+crb_defaultCommandPoints = 8;
+crb_defaultCRperKill = 10;
