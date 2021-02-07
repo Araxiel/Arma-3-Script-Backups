@@ -1,0 +1,1 @@
+diag_log "mission\sectors\alpha_capped.sqf";
