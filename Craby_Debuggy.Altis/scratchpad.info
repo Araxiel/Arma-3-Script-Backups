@@ -24,7 +24,7 @@ _wp1 setWaypointType "MOVE";
 /////
 
 _sector = sectorBeta;
-_selected_spawn = [spawnpointsEnemy, getPos _sector] call BIS_fnc_nearestPosition;
+_selected_spawn = [spawnpointsEnemyNormal, getPos _sector] call BIS_fnc_nearestPosition;
 _group = [getPos _selected_spawn, EAST, 3] call BIS_fnc_spawnGroup;
 _group deleteGroupWhenEmpty true;
 
@@ -73,7 +73,7 @@ _group_array = [];
 //////	garrison spawn
 
 _sector = sectorDelta;
-_selected_spawn = [spawnpointsEnemy, getPos _sector] call BIS_fnc_nearestPosition;
+_selected_spawn = [spawnpointsEnemyNormal, getPos _sector] call BIS_fnc_nearestPosition;
 for "_i" from 0 to 2 do
 {
 	_group = [getPos _selected_spawn, EAST, 5] call BIS_fnc_spawnGroup;
@@ -91,11 +91,15 @@ for "_i" from 0 to 2 do
 	_wp setWaypointCompletionRadius 10;
 	if ((_i+1) % 3 == 0) then {
 		_wp setWaypointStatements ["true", format["[group this,getPos %1] call BIS_fnc_taskDefend;",_sector]];
-		diag_log "Defender Squad";
+		if ((missionNamespace getVariable ["debugMode",false]) == true) then {
+			diag_log "Defender Squad";
+		}; // debugging message
 	}
 	else {
 		_wp setWaypointStatements ["true", format["[group this, getPos %1, 500] call BIS_fnc_taskPatrol;;",_sector]];
-		diag_log "Patrol Squad";
+		if ((missionNamespace getVariable ["debugMode",false]) == true) then {
+			diag_log "Patrol Squad";
+		}; // debugging message
 	};
 };
 
@@ -103,7 +107,7 @@ for "_i" from 0 to 2 do
 /////	Attack group spawn
 
 // select random spawn
-_selected_spawn = selectRandom (missionNamespace getVariable "spawnpointsEnemy");
+_selected_spawn = selectRandom (missionNamespace getVariable "spawnpointsEnemyNormal");
 
 //
 _squad_size = random [2, 3, 5];
@@ -149,6 +153,7 @@ _selectedSpawn = spawnHostile_2; // for debugging
 
 _roadPoint = [getPos (spawnHostile_2), 100] call BIS_fnc_nearestRoad;
 _roadPoint = getPos _roadPoint;
+
 diag_log format["_roadPoint: %1", _roadPoint];
 
 _truckModelsArray = [
@@ -203,3 +208,44 @@ _wp setWaypointType "TR UNLOAD";
 _wp = _truckGroup addWaypoint [_roadPoint, 20];
 _wp setWaypointType "MOVE";
 _wp setWaypointStatements ["true", "deleteVehicle vehicle this; {deleteVehicle _x} forEach thisList;"];
+
+// random squad size
+_squadSizeMax = 8;
+_squadSizeMedian = floor ((_squadSizeMax/2) + 5);
+_squadSize = floor (random [4, _squadSizeMedian, _squadSizeMax]); [[4,_squadSizeMedian,_squadSizeMax],_squadSize]
+// less random squad size
+private ["_currentCP","_squadSizeMax","_squadSizeMedian"];
+_currentCP = 20;
+if (_currentCP <= 4) then {
+	_squadSizeMax = 4;
+	_squadSizeMedian = 4;
+} else {
+	if (_currentCP >= 9) then {
+		_squadSizeMax = 9;
+		_squadSizeMedian = 6;
+	} else {
+		_squadSizeMax = _currentCP;
+		_squadSizeMedian = _currentCP;
+	};
+};
+_squadSize = floor (random [4, _squadSizeMedian, _squadSizeMax]); [[4,_squadSizeMedian,_squadSizeMax],_squadSize]
+
+// array rewriter
+_squadTypesWeight = [
+	2,
+	2,
+	3
+];
+_tempArray = [];
+for "_i" from 0 to (count _squadTypesWeight)-2 do {
+	_tempArray pushBack _i+1;
+};
+{ _squadTypesWeight set [_x, 0] } forEach _tempArray;_squadTypesWeight
+
+// sector flip
+sectorBeta setVariable ["owner", BLUFOR];
+
+//
+_director = crb_director;
+_squadTypesWeight = (_director getVariable "_squadTypesWeight");
+(_director getVariable "_squadTypes") selectRandomWeighted _squadTypesWeight

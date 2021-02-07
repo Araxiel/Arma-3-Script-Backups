@@ -21,4 +21,19 @@ cbr_fnc_enemyKilled = {
 	_commandPointsCurrent = crb_director getVariable "commandPointsCurrent";
 	_cpValue = _unit getVariable ["unitCommandPointCost", 0];
 	crb_director setVariable ["commandPointsCurrent", _commandPointsCurrent + _cpValue];
+	// set corps 0 CP, so no double-giving CP if deleted
+	_unit setVariable ["unitCommandPointCost", 0];
+};
+
+cbr_fnc_enemyDeleted = {
+
+	params [
+		['_unit', objNull]
+	];
+
+	// return CP value back to director
+	private ["_cpValue","_commandPointsCurrent"];
+	_commandPointsCurrent = crb_director getVariable "commandPointsCurrent";
+	_cpValue = _unit getVariable ["unitCommandPointCost", 0];
+	crb_director setVariable ["commandPointsCurrent", _commandPointsCurrent + _cpValue];
 };
