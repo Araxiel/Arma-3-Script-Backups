@@ -8,7 +8,7 @@
 	Description: Spawns a Huron carrying a piece of cargo, dropping it at a nearby empty spot, and leaving again. Cargo is various logistical stuff. Returns an array containing the array of helicopters and the cargo.
 ******
 
-	[[_helos],[_objects]] = [_pos,_amount,_spawn,_distance,_cargo,_potential_kind,_cargo_init,_helo_init,_vehicle_lock,_debug] execVM "_scripts\helo_random_cargo_delivery.sqf";
+	[[_helos],[_objects]] = [_pos,_amount,_spawn,_distance,_cargo,_potential_type,_cargo_init,_helo_init,_vehicle_lock,_debug] execVM "_scripts\helo_random_cargo_delivery.sqf";
 	Example:
 	[player] execVM "_scripts\helo_random_cargo_delivery.sqf";
 	[player,4,helo_spawn,70,"B_Slingload_01_Medevac_F"] execVM "_scripts\helo_random_cargo_delivery.sqf";
@@ -21,7 +21,7 @@
 	2: _spawn (Array, Object, Marker, Group, Location)  - Location the helicopters should spawn at. || If objNull is used, choses a random spot some 2500 meters away || Default: objNull
 	3: _distance (Number) 	 	 - Maximum distance to look for a safe spot, IF using random spawn || Default: 50
 	4: _cargo (String) 			 - Specific className of an object that should be carried. || Default: ""
-	5: _potential_kind (Number)  - What type of cargo can be carried. || 0 = Everything / 1 = Only cargo / 2 = Only logistical vehicles. || Default: 0
+	5: _potential_type (Number)  - What type of cargo can be carried. || 0 = Everything / 1 = Only cargo / 2 = Only logistical vehicles. || Default: 0
 	6: _cargo_init (String) 	 - Init code on cargo || Default: ""
 	7: _helo_init (String) 	 	 - Init code on helicopter || Default: ""
 	8: _vehicle_lock (Bool) 	 - Should the vehicle be locked || Default: True
@@ -45,7 +45,7 @@ params [
 	['_spawn', [0,0,0]],
 	['_distance', 50],
 	['_cargo', ""],
-	['_potential_kind', 0],
+	['_potential_type', 0],
 	['_cargo_init', ""],
 	['_helo_init', ""],
 	['_vehicle_lock', true],
@@ -54,13 +54,16 @@ params [
 
 private ['_marker','_marker_id','_helo_array','_object_array','_return_array'];
 
+// Security check if _pos is invalid or unassigned
 _pos = _pos call BIS_fnc_position;
 if ( _pos in [ [0,0,0], [] ] ) exitWith { "Creating Helo error: Bad position" call BIS_fnc_error };
 
+// if no spawnpoint is set, create random location far away
 _spawn = _spawn call BIS_fnc_position;
 if ( _spawn in [ [0,0,0], [] ] ) then {
 	_spawn = [[[_pos, 2500]],[[_pos, 2400]]] call BIS_fnc_randomPos;
-    _marker_id = round(random 5000); 
+    // marker for debugging purposes
+	_marker_id = round(random 5000); 
     _marker = createMarker [format["_USER_DEFINED %1",_marker_id], _spawn]; 
     _marker setMarkerType "mil_start"; 
     _marker setMarkerColor "ColorYellow"; 
@@ -69,6 +72,7 @@ if ( _spawn in [ [0,0,0], [] ] ) then {
 //_spawn set [2,300];
 diag_log format["Helo Spawn at: %1",_spawn];
 
+// potential cargo type
 _boxes = [
 	"B_Slingload_01_Cargo_F",
 	"Land_FoodSacks_01_cargo_brown_F",
@@ -95,6 +99,7 @@ _boxes_weight = [
 	1	//B_supplyCrate_F
 ];
 
+// potential vehicles
 _vehicles = [
 	"B_MRAP_01_F",
 	"B_LSV_01_unarmed_F"
@@ -130,18 +135,20 @@ for "_i" from 0 to _amount-1 do {
 	
 	// Select cargo
 	private _k = true;	// _k is true if boxes
-	if (_cargo != "") then { _selected_cargo = _cargo} else {
-		if (_potential_kind == 1) then {
+
+	if (_cargo != "") then { _selected_cargo = _cargo} else {	// if cargo is set skip, otherwise of potential type is selected, select a random one of that type 
+		if (_potential_type == 1) then {
 			_selected_cargo = _boxes selectRandomWeighted _boxes_weight;
 		};
-		if (_potential_kind == 2) then {
+		if (_potential_type == 2) then {
 			_selected_cargo = _vehicles selectRandomWeighted _vehicles_weight;
 			_k = false;
 		};
-		if (_potential_kind == 0) then {
+		// or if neither cargo nor type is selected, go completely random
+		if (_potential_type == 0) then {
 			private _r = false;
 			private ['_rk','_rw'];
-			_r = selectRandom [true,true,false];
+			_r = selectRandom [true,true,false];	// make it a 2-1 likelyhood ratio for boxes-to-vehicles
 			if _r then { _rk = _boxes; _rw = _boxes_weight } else { _rk = _vehicles; _rw = _vehicles_weight; _k = false };
 			_selected_cargo = _rk selectRandomWeighted _rw;
 		};
@@ -162,7 +169,7 @@ for "_i" from 0 to _amount-1 do {
 	_wp2 = _result #2 addWaypoint [_spawn, 0];
 	_wp2 setWaypointType "MOVE";
 	_wp2 setWaypointStatements ["true", "deleteVehicle vehicle this; {deleteVehicle _x} forEach thisList;"];
-	// move and space out spawn a little bit so no crash
+	// move and space out spawn a little bit so no crashing into each other
 	sleep (10 + round (random 10));
 	_spawn set [1, _spawn #1 + 10 + random 10];
 	diag_log format["New Spawn at: %1",_spawn];
