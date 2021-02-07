@@ -4,7 +4,7 @@ params [
 	['_sector', objNull]
 ];
 
-_selected_spawn = [spawnpointsEnemyRoad, getPos _sector] call BIS_fnc_nearestPosition;
+_selected_spawn = [spawnpointsEnemy, getPos _sector] call BIS_fnc_nearestPosition;
 
 _roadPoint = [getPos (_selected_spawn), 100] call BIS_fnc_nearestRoad;
 _roadPoint = getPos _roadPoint;

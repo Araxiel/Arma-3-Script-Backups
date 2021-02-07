@@ -1,6 +1,6 @@
 diag_log "mission\enemies\enemy_spawn.sqf";
 
-_selected_sector = selectRandom (missionNamespace getVariable "spawnpointsEnemyRoad");
+_selected_sector = selectRandom (missionNamespace getVariable "spawnpointsEnemy");
 
 _group = [getPos _selected_sector, EAST, 3] call BIS_fnc_spawnGroup; 
 _group deleteGroupWhenEmpty true;

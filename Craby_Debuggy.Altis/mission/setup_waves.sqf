@@ -26,7 +26,7 @@ crb_fnc_startWaves = {
 				// TODO Variety
 				// select random spawn
 				private ["_selectedSpawn","_group","_squadSize","_nearestSectorArea","_nearestSectorRadius", "_specificSpawn", "_payedCostPerSoldier"];
-				_selectedSpawn = selectRandom (missionNamespace getVariable "spawnpointsEnemyRoad");
+				_selectedSpawn = selectRandom (missionNamespace getVariable "spawnpointsEnemy");
 
 				// subtract unit cost
 				_currentCP = _director getVariable "commandPointsCurrent";
@@ -65,6 +65,7 @@ crb_fnc_startWaves = {
 				_wp2 setWaypointType "SAD";
 
 				diag_log format["Spawned %1 doods at %2, moving towards %3", _squadSize, _selectedSpawn, _nearestSector]; // debugging
+				sleep 2;
 
 			};	// if director ran out of command points
 			// increase current wave number
@@ -72,12 +73,17 @@ crb_fnc_startWaves = {
 			_currentWave = _director getVariable "currentWave";
 			hint format["Wave #%1 spawned!",_currentWave];
 			_director setVariable ["currentWave", _currentWave + 1];
-		};	// if no wave in progress
+
+			sleep 10;
+
+		};	// if waves stop being in progress
 		// if most of the command points have returned and are near the base, restart wave spawning
 		if (_currentCP >= (_director getVariable "commandPointsBase")-3) then {
 			_director setVariable ["waveInProgress", false];
 		};
-	};	// if no waves are running
+		sleep 10;
+
+	};	// if waves stopped are running
 };
 
 [crb_director] spawn crb_fnc_startWaves;

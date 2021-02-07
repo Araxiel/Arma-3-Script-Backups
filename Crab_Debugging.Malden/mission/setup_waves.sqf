@@ -24,8 +24,8 @@ crb_fnc_startWaves = {
 			while {_director getVariable "commandPointsCurrent" > 0} do {	//	director has command points left to spend
 
 				// TODO Variety
-				// select random spawn
 				private ["_selectedSpawn","_group","_squadSize","_nearestSectorArea","_nearestSectorRadius", "_specificSpawn", "_payedCostPerSoldier"];
+				// select random spawn
 				_selectedSpawn = selectRandom (missionNamespace getVariable "spawnpointsEnemyRoad");
 
 				// subtract unit cost

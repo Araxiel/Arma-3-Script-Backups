@@ -24,7 +24,7 @@ _wp1 setWaypointType "MOVE";
 /////
 
 _sector = sectorBeta;
-_selected_spawn = [spawnpointsEnemyRoad, getPos _sector] call BIS_fnc_nearestPosition;
+_selected_spawn = [spawnpointsEnemy, getPos _sector] call BIS_fnc_nearestPosition;
 _group = [getPos _selected_spawn, EAST, 3] call BIS_fnc_spawnGroup;
 _group deleteGroupWhenEmpty true;
 
@@ -73,7 +73,7 @@ _group_array = [];
 //////	garrison spawn
 
 _sector = sectorDelta;
-_selected_spawn = [spawnpointsEnemyRoad, getPos _sector] call BIS_fnc_nearestPosition;
+_selected_spawn = [spawnpointsEnemy, getPos _sector] call BIS_fnc_nearestPosition;
 for "_i" from 0 to 2 do
 {
 	_group = [getPos _selected_spawn, EAST, 5] call BIS_fnc_spawnGroup;
@@ -103,7 +103,7 @@ for "_i" from 0 to 2 do
 /////	Attack group spawn
 
 // select random spawn
-_selected_spawn = selectRandom (missionNamespace getVariable "spawnpointsEnemyRoad");
+_selected_spawn = selectRandom (missionNamespace getVariable "spawnpointsEnemy");
 
 //
 _squad_size = random [2, 3, 5];

@@ -1,14 +1,14 @@
 // 1, 2 = road
-spawnpointsEnemyRoad = [spawnHostile_1, spawnHostile_2];
+spawnpointsEnemy = [spawnHostile_1, spawnHostile_2];
 // 3 = distant
 spawnpointsEnemyDistant = [spawnHostile_3];
 // all spawns
 spawnpointsEnemy = [];
-spawnpointsEnemy append spawnpointsEnemyRoad;
+spawnpointsEnemy append spawnpointsEnemy;
 spawnpointsEnemy append spawnpointsEnemyDistant;
 
 // All sectors
-sectorsAll = [sectorAlpha,sectorBeta,sectorGamma,sectorDelta];
+sectorsAll = [ sectorAlpha, sectorBeta, sectorGamma, sectorDelta, sectorEpsilon ];
 diag_log str(sectorsAll);
 // Sectors Array Inits
 sectorsOpfor = [];
