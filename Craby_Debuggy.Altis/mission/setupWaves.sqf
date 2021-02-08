@@ -1,6 +1,6 @@
-// execVM "mission\setup_waves.sqf";
+// execVM "mission\setupWaves.sqf";
 if ((missionNamespace getVariable ["debugMessages",false]) == true) then {
-	diag_log "mission\setup_waves.sqf";
+	diag_log "mission\setupWaves.sqf";
 }; // debugging message
 
 _crb_director_group = createGroup sideLogic;
@@ -17,7 +17,7 @@ _squadTypes = [
 	"truck"
 ];
 _squadTypesWeight = [
-	2,
+	1,
 	2,
 	3
 ];
@@ -209,7 +209,7 @@ crb_fnc_startWaves = {
 				
 				// squad types and selector, including safeguard using a type's cost to not get into negative CP
 				if ((missionNamespace getVariable ["debugMessages",false]) == true) then {
-					diag_log format["_director: %1 | _currentCP: %2", _director, _currentCP];
+					diag_log format["_currentCP: %1", _currentCP];
 				};
 				_squadTypesWeight = (_director getVariable "_squadTypesWeight");
 				if (_currentCP <= 4) then {
@@ -237,21 +237,15 @@ crb_fnc_startWaves = {
 					diag_log format["_squadTypes: %1 | _squadTypesWeight: %2", _director getVariable "_squadTypes", _squadTypesWeight];
 				};
 				_squadTypeSelected = (_director getVariable "_squadTypes") selectRandomWeighted _squadTypesWeight; // actual selector
-				if ((missionNamespace getVariable ["debugMessages",false]) == true) then {
-					diag_log format["_squadTypeSelected: %1 at %2", _squadTypeSelected, _selectedSpawn];
-				};
 
 				// function selector
 				if (_squadTypeSelected isEqualTo "footSoldiers") then {
-					diag_log "FOOTSOLDIER SELECTED AND STARTING"; 
 					_spawnedUnitArray = [_specificSpawn, _nearestSector, _director] call crb_fnc_spawnWaveFootsoldiers;
 				};
 				if (_squadTypeSelected isEqualTo "armedCar") then {
-					diag_log "ARMEDCAR SELECTED AND STARTING"; 
 					_spawnedUnitArray = [_specificSpawn, _nearestSector, _director] call crb_fnc_spawnWaveArmedCar;
 				};
 				if (_squadTypeSelected isEqualTo "truck") then {
-					diag_log "TRUCK SELECTED AND STARTING"; 
 					_spawnedUnitArray = [_specificSpawn, _nearestSector, _director] call crb_fnc_spawnWaveTruck;
 				};
 
@@ -289,47 +283,43 @@ crb_fnc_startWaves = {
 				// add various group options
 				_spawnedGroup deleteGroupWhenEmpty true;
 				_spawnedGroup allowFleeing 0;	// no fleeing
+				_spawnedGroup setVariable ["groupTargetSector",_nearestSector];
 				crb_opforAttackGroups pushback _spawnedGroup;	// add to attack group array
 				// waypoints
 				// basic waypoint if footsoldiers with no vehicle
 				if (isNull _vehicle) then {
 					private ["_wp","_wp1"];
 					// add waypoint to nearest sector, and set it to complete as soon as approaching the sector area
-					_wp = _spawnedGroup addWaypoint [getPos (_nearestSector), _nearestSectorRadius+200];
+					_wp = _spawnedGroup addWaypoint [getPos (_nearestSector), 0];
+					_wp setWaypointCompletionRadius _nearestSectorRadius*6;
 					_wp setWaypointType "MOVE";
 					_wp setWaypointBehaviour "SAFE";
-					_wp = _spawnedGroup addWaypoint [getPos (_nearestSector), 50]; 
+					_wp setWaypointSpeed "NORMAL";
+					_wp = _spawnedGroup addWaypoint [getPos (_nearestSector), 0]; 
 					_wp setWaypointType "SAD";
 					_wp setWaypointBehaviour "COMBAT";
 				};
-
-				if ((missionNamespace getVariable ["debugMessages",false]) == true) then {
-					diag_log format["_transporter #0: %1 ", _transporter #0];
-				}; // debugging message
-
 				// if a vehicle, but not a transporter and not a helo
 				if (!(isNull _vehicle) AND (isNull (_transporter #0)) AND !_helo) then {
 					private ["_wp","_wp1"];
 					// add waypoint to nearest sector, and set it to complete as soon as approaching the sector area
-					_wp = _spawnedGroup addWaypoint [getPos (_nearestSector), _nearestSectorRadius+300];
+					_wp = _spawnedGroup addWaypoint [getPos (_nearestSector), 0];
+					_wp setWaypointCompletionRadius _nearestSectorRadius*6;
 					_wp setWaypointType "MOVE";
 					_wp setWaypointBehaviour "SAFE";
-					_wp1 = _spawnedGroup addWaypoint [getPos (_nearestSector), 100];
+					_wp1 = _spawnedGroup addWaypoint [getPos (_nearestSector), 0];
 					_wp1 setWaypointType "SAD";
 					_wp1 setWaypointBehaviour "COMBAT";
 				};
 				// if a vehicle and a transporter, but not a helo
 				if (!(isNull _vehicle) AND !(isNull (_transporter #0)) AND !_helo) then {
 					private ["_wp","_wp1"];
-					// just debug info message
-					if ((missionNamespace getVariable ["debugMessages",false]) == true) then {
-						diag_log format["_transporter: %1", _transporter];
-					};
 					// add waypoint to nearest sector, and set it to complete as soon as approaching the sector area
-					_wp = _spawnedGroup addWaypoint [getPos (_nearestSector), _nearestSectorRadius+280];
+					_wp = _spawnedGroup addWaypoint [getPos (_nearestSector), 0];
+					_wp setWaypointCompletionRadius (_nearestSectorRadius*6)-100;
 					_wp setWaypointType "MOVE";
 					_wp setWaypointBehaviour "SAFE";
-					_wp1 = _spawnedGroup addWaypoint [getPos (_nearestSector), 80];
+					_wp1 = _spawnedGroup addWaypoint [getPos (_nearestSector), 0];
 					_wp1 setWaypointType "SAD";
 					_wp1 setWaypointBehaviour "COMBAT";
 
@@ -346,11 +336,13 @@ crb_fnc_startWaves = {
 						}];
 					} forEach units (_transporter #2);
 
-					_wp = _transporter #2 addWaypoint [getPos (_nearestSector), _nearestSectorRadius+300];
+					_wp = _transporter #2 addWaypoint [getPos (_nearestSector), 0];
+					_wp setWaypointCompletionRadius _nearestSectorRadius*6;
 					_wp setWaypointType "TR UNLOAD";
 					_wp setWaypointBehaviour "SAFE";
 					_wp setWaypointCombatMode "GREEN";
-					_wp1 = _transporter #2 addWaypoint [_specificSpawn, 100];
+					_wp1 = _transporter #2 addWaypoint [_specificSpawn, 20];
+					_wp1 setWaypointCompletionRadius 100;
 					_wp1 setWaypointType "MOVE";
 					_wp1 setWaypointSpeed "FULL";
 					_wp1 setWaypointStatements ["true", "deleteVehicle vehicle this; {deleteVehicle _x} forEach thisList;"];
@@ -375,10 +367,7 @@ crb_fnc_startWaves = {
 
 		// if most of the command points have returned and are near the base, restart wave spawning
 		_currentCP = _director getVariable "commandPointsCurrent";
-		if ((missionNamespace getVariable ["debugMessages",false]) == true) then {
-			diag_log format["_director: %1 | _currentCP: %2", _director, _currentCP];
-		};// debug
-		if (_currentCP >= (_director getVariable "commandPointsBase")-3) then {
+		if (_currentCP >= (_director getVariable "commandPointsBase")*0.85) then {
 			_director setVariable ["waveInProgress", false];
 		};
 		sleep 10;

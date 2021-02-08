@@ -15,7 +15,7 @@ crb_footholdEstablished = true;
 crb_wavesRunning = false;
 crb_opforGarrisonGroups = [];
 crb_opforAttackGroups = [];
-crb_defaultCommandPoints = 20;
+crb_defaultCommandPoints = 30;
 crb_defaultCRperKill = 10;
 //	income
 crb_incomeMultiplier = 1.2;

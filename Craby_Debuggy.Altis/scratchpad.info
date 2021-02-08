@@ -130,16 +130,23 @@ _wp1 setWaypointType "MOVE";
 
 /// debug radius marker
 
-_marker = createMarker ["m500", getPos (mySector)];
+_sector = sectorEpsilon;
+_marker = createMarker ["m600", getPos (_sector)];
 _marker setMarkerColor "ColorPink";
 _marker setMarkerShape "ELLIPSE";
 private ["_nearestSectorArea","_nearestSectorRadius"];
-_nearestSectorArea = mySector getVariable "objectArea";
+_nearestSectorArea = _sector getVariable "objectArea";
 if (_nearestSectorArea #0 >= _nearestSectorArea #1) then {
 	_nearestSectorRadius = _nearestSectorArea #1;
 } else {
 	_nearestSectorRadius = _nearestSectorArea #0;
 };
+_nearestSectorRadius = _nearestSectorRadius*4;
+_marker setMarkerSize [_nearestSectorRadius, _nearestSectorRadius];
+_marker = createMarker ["m601", getPos (_sector)];
+_marker setMarkerColor "ColorGreen";
+_marker setMarkerShape "ELLIPSE";
+_nearestSectorRadius = _nearestSectorRadius*2;
 _marker setMarkerSize [_nearestSectorRadius, _nearestSectorRadius];
 
 //	CFG display name get
