@@ -1,0 +1,67 @@
+//	Descriptions
+author			= "Araxiel";
+onLoadName		= "Operation Armadillo";
+onLoadMission	= "A sandbox mission set in the general South-Eastern Peninsula.";
+loadScreen		= "loadScreen.jpg";
+
+//	Parameters
+
+enableDebugConsole = 1; // only for logged hosts
+allowFunctionsLog = 0;
+
+//	Respawn stuff
+respawn = 3;
+respawnOnStart = -1;
+respawnDelay = 20;
+respawnTemplates[] = { "Wave", "MenuPosition" };
+
+class Params
+{
+    class initialWeatherParam {
+      title = "Starting Weather";
+      values[] = {0,1,2,3,4};
+      texts[] = {"Clear","Overcast","Rain","Fog","Random"};
+      default = 1;
+    };
+	class BIS_WLStartingDaytime
+	{
+		title = $STR_A3_combatpatrol_params_1;
+		values[] = { 100, -6, 0, 6, -12 };
+		texts[] = { $STR_A3_WL_param37_value1, $STR_A3_combatpatrol_params_3, $STR_A3_MP_COOP_m03_noon, $STR_A3_MP_COOP_m03_evening, $STR_A3_combatpatrol_params_6 };
+		default = 100;
+	};
+	class BIS_WLTimeAcceleration
+	{
+		title = $STR_A3_WL_param2_title;
+		values[] = { 1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24 };
+		texts[] = { $STR_special_none, "x2", "x4", "x6", "x8", "x10", "x12", "x14", "x16", "x18", "x20", "x22", "x24" };
+		default = 8;
+	};
+	class respawnDelay
+	{
+		title = "Respawn Delay";
+		values[] = {0,10,15,20,25,30,35,40,45,50,55,60};
+		texts[] = {"0 sec","10 sec","15 sec","20 sec","25 sec","30 sec","35 sec","40 sec","45 sec","50 sec","55 sec","60 sec"};
+		default = 15;
+	};
+	// #include "\a3\Functions_F\Params\paramRevive.hpp" // commented-out because ACE's system.
+   class BIS_WLMusic
+	{
+		title = $STR_A3_rscattributemusic_title;
+		values[] = { 1, 0 };
+		texts[] = { $STR_DISP_OPT_ENABLED, $STR_DISP_OPT_DISABLED };
+		default = 1;
+	};
+};
+
+//Imported Stuff
+
+#include "modules\grad-listBuymenu\grad_listBuymenu.hpp"
+#include "modules\grad-moneymenu\grad_moneymenu.hpp"
+#include "modules\grad-parameters.hpp"			  //Configuration for buymenu and moneymenu
+#include "stores.hpp"					  //Shops to buy stuff
+
+class CfgFunctions {
+    #include "modules\grad-listBuymenu\cfgFunctions.hpp"
+    #include "modules\grad-moneymenu\cfgFunctions.hpp"
+};

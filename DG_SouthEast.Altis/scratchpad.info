@@ -1,0 +1,41 @@
+ars_defaultCRperKill = 10;
+ars_fnc_enemyKilled = {
+
+	params [
+		['_unit', objNull],
+		['_killer', objNull],
+		['_instigator', objNull]
+	];
+
+  _killerGroupArray = units group _instigator;
+  _killerGroupArrayPlayers = _killerGroupArray select { isPlayer _x };
+ 
+  {
+    if ( (player == _x) AND (missionNamespace getVariable ["killConfirmation",true]) ) then {
+			systemChat format["You got cr%1 for eliminating %2", (missionNamespace getVariable ["ars_defaultCRperKill",10]), gettext (configfile >> "CfgVehicles" >> typeOf(_unit) >> "displayName")];
+		};
+  } forEach _killerGroupArrayPlayers;
+
+  _allPlayers = call BIS_fnc_listPlayers;
+  _otherPlayers = _allPlayers - _killerGroupArrayPlayers;
+
+  {
+    if ( (player == _x) AND (missionNamespace getVariable ["killConfirmation",true]) ) then {
+			systemChat format["Your got cr%1 for your team eliminating %2", (missionNamespace getVariable ["ars_defaultCRperKill",10])/2, gettext (configfile >> "CfgVehicles" >> typeOf(_unit) >> "displayName")];
+		};
+  } forEach _otherPlayers;
+
+};
+
+//Don't forget to add:
+    [_x, (missionNamespace getVariable ["ars_defaultCRperKill",10])] call grad_moneymenu_fnc_addFunds;
+// -----
+
+
+params ["_group", "_module", "_groupData"];
+{ 
+  _x addEventHandler ["Killed", {  
+    params ["_unit", "_killer", "_instigator", "_useEffects"];  
+    [_unit,_killer,_instigator] spawn ars_fnc_enemyKilled;  
+  }];
+} forEach units (_group);
