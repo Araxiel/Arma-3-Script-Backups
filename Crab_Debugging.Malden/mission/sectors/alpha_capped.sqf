@@ -1,1 +1,1 @@
-diag_log "sector_alpha_capped.sqf";
+diag_log "mission\sectors\alpha_capped.sqf";

@@ -1,4 +1,4 @@
-diag_log "sectors\sector_capped.sqf";
+diag_log "mission\sectors\sector_capped.sqf";
 
 params [
 	['_sector', objNull],

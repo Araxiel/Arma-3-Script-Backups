@@ -1,0 +1,26 @@
+//Imported Stuff
+
+#include "modules\grad-listBuymenu\grad_listBuymenu.hpp"
+#include "modules\grad-moneymenu\grad_moneymenu.hpp"
+#include "modules\grad-parameters.hpp"			  //Configuration for buymenu and moneymenu
+#include "mission\stores.hpp"					  //Shops to buy stuff
+
+class CfgFunctions {
+    #include "modules\grad-listBuymenu\cfgFunctions.hpp"
+    #include "modules\grad-moneymenu\cfgFunctions.hpp"
+};
+
+allowFunctionsLog = 0;
+respawnOnStart = -1;
+
+class CfgDebriefing
+{
+	class LOST_SECTORS
+	{
+		title = "MISSION FAILED";
+		subtitle = "";
+		description = "All sectors got captured by enemy forces.";
+		picture = "KIA";
+		pictureColor[] = {0.6,0.1,0.2,1};
+	};
+};

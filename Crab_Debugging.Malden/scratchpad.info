@@ -1,14 +1,14 @@
-_group = [getPos spawn_hostile_1, EAST, 1] call BIS_fnc_spawnGroup; 
+_group = [getPos spawnHostile_1, EAST, 1] call BIS_fnc_spawnGroup; 
 _group deleteGroupWhenEmpty true; 
  
 { 
 	_x addEventHandler ["Killed", { 
 		params ["_unit", "_killer", "_instigator", "_useEffects"]; 
-		[_unit,_killer,_instigator] execVM "mission\enemies\_enemy_killed.sqf"; 
+		[_unit,_killer,_instigator] spawn cbr_fnc_enemyKilled; 
 	}];
 } forEach units _group; 
  
-_wp1 = _group addWaypoint [getPos sector_alpha, 0]; 
+_wp1 = _group addWaypoint [getPos sectorAlpha, 0]; 
 _wp1 setWaypointType "MOVE";
 
 
@@ -18,20 +18,20 @@ _wp1 setWaypointType "MOVE";
 _group = [getPos player, WEST, 6] call BIS_fnc_spawnGroup; 
 _group deleteGroupWhenEmpty true; 
 
-_wp1 = _group addWaypoint [getPos sector_alpha, 0]; 
+_wp1 = _group addWaypoint [getPos sectorAlpha, 0]; 
 _wp1 setWaypointType "MOVE";
 
 /////
 
-_sector = sector_beta;
-_selected_spawn = [spawnpoints_enemy_road, getPos _sector] call BIS_fnc_nearestPosition;
+_sector = sectorBeta;
+_selected_spawn = [spawnpointsEnemyRoad, getPos _sector] call BIS_fnc_nearestPosition;
 _group = [getPos _selected_spawn, EAST, 3] call BIS_fnc_spawnGroup;
 _group deleteGroupWhenEmpty true;
 
 {
 	_x addEventHandler ["Killed", { 
 		params ["_unit", "_killer", "_instigator", "_useEffects"]; 
-		[_unit,_killer,_instigator] execVM "mission\enemies\_enemy_killed.sqf"; 
+		[_unit,_killer,_instigator] spawn cbr_fnc_enemyKilled; 
 	}];
 	;
 } forEach units _group;
@@ -42,10 +42,10 @@ _wp1 setWaypointType "MOVE";
 /////
 // example return for objectArea [5,5,0,false,0]
 
-_sector = sector_beta;
+_sector = sectorBeta;
 _sector_area = _sector getVariable "objectArea";
 _units_in_sector = allUnits inAreaArray [ getPos (_sector), _sector_area # 0, _sector_area # 1, _sector_area # 2, _sector_area # 3];
-_next_sector = [sectors_blufor, getPos _sector] call BIS_fnc_nearestPosition;
+_next_sector = [sectorsBlufor, getPos _sector] call BIS_fnc_nearestPosition;
 
 _group_array = [];
 {
@@ -61,3 +61,149 @@ _group_array = [];
 
 /// 
 
+            class B_UAV_02_dynamicLoadout_F {
+                description = "A fixed-wing recon UCAV.";
+                price = 1200;
+                stock = 2;
+                code = "createVehicleCrew (_this select 2); (_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true; (_this select 2) setVehicleReportOwnPosition true";          
+                previewScale = 0.8;
+            };
+
+
+//////	garrison spawn
+
+_sector = sectorDelta;
+_selected_spawn = [spawnpointsEnemyRoad, getPos _sector] call BIS_fnc_nearestPosition;
+for "_i" from 0 to 2 do
+{
+	_group = [getPos _selected_spawn, EAST, 5] call BIS_fnc_spawnGroup;
+	_group deleteGroupWhenEmpty true;
+
+	{
+		_x addEventHandler ["Killed", { 
+			params ["_unit", "_killer", "_instigator", "_useEffects"]; 
+			[_unit,_killer,_instigator] spawn cbr_fnc_enemyKilled; 
+		}];
+	} forEach units _group;
+	
+	_wp = _group addWaypoint [getPos _sector, 20];
+	_wp setWaypointType "MOVE";
+	_wp setWaypointCompletionRadius 10;
+	if ((_i+1) % 3 == 0) then {
+		_wp setWaypointStatements ["true", format["[group this,getPos %1] call BIS_fnc_taskDefend;",_sector]];
+		diag_log "Defender Squad";
+	}
+	else {
+		_wp setWaypointStatements ["true", format["[group this, getPos %1, 500] call BIS_fnc_taskPatrol;;",_sector]];
+		diag_log "Patrol Squad";
+	};
+};
+
+
+/////	Attack group spawn
+
+// select random spawn
+_selected_spawn = selectRandom (missionNamespace getVariable "spawnpointsEnemyRoad");
+
+//
+_squad_size = random [2, 3, 5];
+
+_group = [getPos _selected_spawn, EAST, _squad_size] call BIS_fnc_spawnGroup; 
+_group deleteGroupWhenEmpty true;
+_group allowFleeing 0;
+ 
+{ 
+	_x addEventHandler ["Killed", { 
+		params ["_unit", "_killer", "_instigator", "_useEffects"]; 
+		[_unit,_killer,_instigator] spawn cbr_fnc_enemyKilled; 
+	}];
+	;
+} forEach units _group;
+
+_wp1 = _group addWaypoint [[sectorsBlufor, getPos (leader _group)] call BIS_fnc_nearestPosition, 0]; 
+_wp1 setWaypointType "MOVE";
+
+
+/// debug radius marker
+
+_marker = createMarker ["m500", getPos (mySector)];
+_marker setMarkerColor "ColorPink";
+_marker setMarkerShape "ELLIPSE";
+private ["_nearestSectorArea","_nearestSectorRadius"];
+_nearestSectorArea = mySector getVariable "objectArea";
+if (_nearestSectorArea #0 >= _nearestSectorArea #1) then {
+	_nearestSectorRadius = _nearestSectorArea #1;
+} else {
+	_nearestSectorRadius = _nearestSectorArea #0;
+};
+_marker setMarkerSize [_nearestSectorRadius, _nearestSectorRadius];
+
+//	CFG display name get
+_unit = "B_crew_F";
+gettext (configfile >> "CfgVehicles" >> _unit >> "displayName")
+
+// garrison vehicle delivery script
+
+_sector = cyanArrow_1; // for debugging
+_selectedSpawn = spawnHostile_2; // for debugging
+
+_roadPoint = [getPos (spawnHostile_2), 100] call BIS_fnc_nearestRoad;
+_roadPoint = getPos _roadPoint;
+diag_log format["_roadPoint: %1", _roadPoint];
+
+_truckModelsArray = [
+	"O_Truck_03_transport_F", // Typhoon
+	"O_Truck_03_covered_F",
+	"O_Truck_02_transport_F",	// Zamak
+	"O_Truck_02_covered_F"
+];
+_truckModel = selectRandom _truckModelsArray;
+diag_log format["Model: %1", _truckModel];
+
+private ["_truck","_truckVehicle","_truckGroup"];
+_truck = [_roadPoint, _roadPoint getDir _drop, _truckModel, EAST] call BIS_fnc_spawnVehicle;
+diag_log format["Truck: %1", _truck];
+_truck params ["_vehicle", "_crew", "_group"];
+_truckVehicle = _truck #0;
+_truckGroup = _truck #2;
+_truckGroup deleteGroupWhenEmpty true;
+diag_log format["_truckVehicle: %1 | _truckGroup: %2 ", _truckVehicle, _truckGroup];
+
+for "_i" from 0 to 2 do {
+
+	_specificSpawn = [getPos _selectedSpawn, 0, 40, 5, 0] call BIS_fnc_findSafePos;	// find a safe spot
+	_group = [_specificSpawn, EAST, 4] call BIS_fnc_spawnGroup;
+	_group deleteGroupWhenEmpty true;
+
+	{
+		_x assignAsCargo _truckVehicle;
+		_x moveInCargo _truckVehicle;
+		_x addEventHandler ["Killed", { 
+			params ["_unit", "_killer", "_instigator", "_useEffects"]; 
+			[_unit,_killer,_instigator] spawn cbr_fnc_enemyKilled; 
+		}];
+	} forEach units _group;
+	
+	_wp = _group addWaypoint [getPos _sector, 20];
+	_wp setWaypointType "MOVE";
+	_wp setWaypointCompletionRadius 10;
+	if ((_i+1) % 3 == 0) then {
+		_wp setWaypointStatements ["true", format["[group this, getPos %1] call BIS_fnc_taskDefend;",_sector]];
+		diag_log "Defender Squad";
+	}
+	else {
+		_wp setWaypointStatements ["true", format["[group this, getPos %1, 500] call BIS_fnc_taskPatrol;;",_sector]];
+		diag_log "Patrol Squad";
+	};
+	crb_opforGarrisonGroups pushback _group;
+};
+
+_wp = _truckGroup addWaypoint [getPos _sector, 20];
+_wp setWaypointType "TR UNLOAD";
+_wp = _truckGroup addWaypoint [_roadPoint, 20];
+_wp setWaypointType "MOVE";
+_wp setWaypointStatements ["true", "deleteVehicle vehicle this; {deleteVehicle _x} forEach thisList;"];
+
+/// change sector
+
+sectorBeta setVariable ["owner", BLUFOR];
