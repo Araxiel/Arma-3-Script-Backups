@@ -3,9 +3,7 @@ diag_log "----------- MAP START ------------------------------------------------
 aDebugMessages = true;
 
 initFunctions = {
-	execVM "ar_fn_flares.sqf";
-	execVM "ar_fn_closestMortarOpfor.sqf";
-	execVM "ar_fn_detected.sqf";
+	execVM "ar_fn_flares\ar_fn_flares.sqf";
 };
 
 [] spawn {

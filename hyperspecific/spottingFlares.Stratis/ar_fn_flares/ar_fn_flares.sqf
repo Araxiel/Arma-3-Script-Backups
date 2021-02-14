@@ -1,11 +1,14 @@
-execVM "\ar_fn_flares\ar_fn_detected.sqf";
-execVM "\ar_fn_flares\ar_fn_closestMortarOpfor.sqf";
+execVM "ar_fn_flares\ar_fn_detected.sqf";
+execVM "ar_fn_flares\ar_fn_closestMortarOpfor.sqf";
 
 fnc_inaccurateArtyFlare = {
-	
-    // [_arty, _flareTarget, _flareDist, _delay, _delayRandom, _clusterAmount, _clusterDelay, _overwriteStartFlares, _overwriteMaxShots, _rearm] spawn fnc_inaccurateArtyFlare;
-    // [manMortar, player, 200, 10, 15, 5, 180, true, 6] spawn fnc_inaccurateArtyFlare;
-    // to stop: missionNamespace setVariable ['startFlares',false]
+	/*
+    	[_arty, _flareTarget, _flareDist, _delay, _delayRandom, _clusterAmount, _clusterDelay, _overwriteStartFlares, _overwriteMaxShots, _rearm] spawn fnc_inaccurateArtyFlare;
+    	[manMortar, player, 200, 10, 15, 5, 180, true, 6] spawn fnc_inaccurateArtyFlare;
+    	to stop: missionNamespace setVariable ['startFlares',false]
+
+		Script intended to be used in conjunction with ar_fn_detected, to simulate OPFOR calling in illuminating flares onto the position of a detected enemy.
+	*/
 
     params [
 		[ "_arty", objNull],
@@ -20,10 +23,10 @@ fnc_inaccurateArtyFlare = {
 		[ "_rearm", true]
     ];
 
-	// for the debug markers
-	// _debugMarker = [_debugMarkerPos, _debugMarkerType, _debugMarkercolor, _debugMarkerText] call _fnc_debugMarkers;
-	// [objNull, "mil_destroy", "ColorYellow", "text"] call _fnc_debugMarkers;
 	_fnc_debugMarkers = {
+		// for the debug markers
+		// _debugMarker = [_debugMarkerPos, _debugMarkerType, _debugMarkercolor, _debugMarkerText] call _fnc_debugMarkers;
+		// [objNull, "mil_destroy", "ColorYellow", "text"] call _fnc_debugMarkers;
 		params [
 			[ "_debugMarkerPos", objNull],
 			[ "_debugMarkerType", "mil_destroy"],
