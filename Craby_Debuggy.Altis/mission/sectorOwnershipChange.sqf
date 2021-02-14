@@ -26,7 +26,7 @@ if (!( _owner isEqualTo sideUnknown) && (Time > 5 ) ) then {	// making sure to n
 		// DEBUG, change value to be higher, and/or maybe specific sectors
 		if ((count sectorsBlufor) > 1) then {
 			crb_footholdEstablished = true;
-			execVM "mission\setupWaves.sqf";
+			execVM "mission\setupDirector.sqf";
 		};
 	};
 	if (_oldOwner isEqualTo blufor) then {
