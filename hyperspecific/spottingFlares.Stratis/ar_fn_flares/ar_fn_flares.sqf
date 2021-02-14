@@ -1,3 +1,6 @@
+execVM "\ar_fn_flares\ar_fn_detected.sqf";
+execVM "\ar_fn_flares\ar_fn_closestMortarOpfor.sqf";
+
 fnc_inaccurateArtyFlare = {
 	
     // [_arty, _flareTarget, _flareDist, _delay, _delayRandom, _clusterAmount, _clusterDelay, _overwriteStartFlares, _overwriteMaxShots, _rearm] spawn fnc_inaccurateArtyFlare;
@@ -18,14 +21,15 @@ fnc_inaccurateArtyFlare = {
     ];
 
 	// for the debug markers
-	// _debugMarker = [_debugMarkerPos, _debugMarkerType, _debugMarkercolor, _debugMarkertext] call _fnc_debugMarkers;
+	// _debugMarker = [_debugMarkerPos, _debugMarkerType, _debugMarkercolor, _debugMarkerText] call _fnc_debugMarkers;
 	// [objNull, "mil_destroy", "ColorYellow", "text"] call _fnc_debugMarkers;
 	_fnc_debugMarkers = {
 		params [
 			[ "_debugMarkerPos", objNull],
 			[ "_debugMarkerType", "mil_destroy"],
 			[ "_debugMarkercolor", "ColorYellow"],
-			[ "_debugMarkertext", ""]
+			[ "_debugMarkerText", ""],
+			[ "_debugMarkerAlpha", 0.9]
 		];
 		private ["_debugMarker"];
 
@@ -35,7 +39,8 @@ fnc_inaccurateArtyFlare = {
 			_debugMarker = createMarker [format["_USER_DEFINED %1",_debugMarkerId], _debugMarkerPos]; 
 			_debugMarker setMarkerType _debugMarkerType; 
 			_debugMarker setMarkerColor _debugMarkercolor;
-			_debugMarker setMarkerText _debugMarkertext;
+			_debugMarker setMarkerText _debugMarkerText;
+			_debugMarker setMarkerAlpha _debugMarkerAlpha;
 		};
 		_debugMarker
 	};
@@ -73,11 +78,13 @@ fnc_inaccurateArtyFlare = {
         _shotsFiredInCluster = _shotsFiredInCluster + 1;
 		if (_shotsFiredInCluster >= _clusterAmount) then {
 			if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log '- Cluster Finished -';};
+			_flaresOn = missionNameSpace getVariable ["startFlares",false];
             sleep _clusterDelay-30 + random 60;
 			_shotsFiredInCluster = 0;
 			// get intended target's position
 			_flareTarget = _flareTarget call BIS_fnc_position;	// update target's actual position
 			// debug marker
+			[_flareTarget, "mil_destroy", "ColorKhaki", "Intended Target",0.5] call _fnc_debugMarkers;
 			[_flareTargetCurrent, "mil_destroy", "ColorYellow", "Old Position"] call _fnc_debugMarkers;
 			// create a new point somwhere between old and actual
 			_adjustedAzimuth = _flareTargetCurrent getDir _flareTarget;
