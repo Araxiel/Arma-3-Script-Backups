@@ -256,3 +256,22 @@ sectorBeta setVariable ["owner", BLUFOR];
 _director = crb_director;
 _squadTypesWeight = (_director getVariable "_squadTypesWeight");
 (_director getVariable "_squadTypes") selectRandomWeighted _squadTypesWeight
+
+//get variables
+copyToClipboard str (allVariables warbase);
+["border","cba_xeh_deleted","bis_wl_timeoutcur_east","bis_wl_sectorscanlastrequest_west","funds","bis_wl_handleclientrunning","bis_wl_timeoutbase","bis_wl_sectormrkrs","bis_wl_sectorlockmrkrs","size","cba_xeh_incomingmissile","bis_fnc_moduleinit_iscuratorplaced","bis_wl_sectorseizetrgguer","service_helipad","bis_wl_vehicles","service_runway","bis_fnc_moduleinit_status","cba_xeh_getin","bis_wl_pointer","bis_fnc_initmodules_activate","cba_xeh_local","bis_wl_sectorside","bis_wl_sectoractivated","bis_wl_responsearr","bis_wl_linkedwith","bis_fnc_initmodules_priroty","cba_xeh_isprocessed","cba_xeh_init","cba_xeh_initpost","cba_xeh_fired","bis_wl_value","bis_wl_sectorspecial","service_harbour","locationname","cba_xeh_engine","cba_xeh_respawn","bis_wl_sectorzr","bis_wl_handleserverrunning","bis_wl_timeoutcur_guer","bis_wl_spawnposarr","bis_wl_sectorscanactivesince_west","side","name","cba_xeh_killed","seizingtime","cba_xeh_getout","cba_xeh_isinitialized","bis_wl_timeoutcur_west","bis_wl_sectorscantrg","bis_wl_sectortext","bis_wl_connectedsectors"]
+
+warblu getVariable "bis_wl_sectorside"
+
+warblu setVariable ["bis_wl_sectorside", EAST]
+
+
+_var = warneu getVariable "bis_wl_pointer";
+_marker = createMarker ["m600", getPos (_var)];
+_marker setMarkerColor "ColorPink";
+_marker setMarkerType "hd_objective";
+
+
+// mortar
+
+magazines[] = {"8Rnd_82mm_Mo_shells","8Rnd_82mm_Mo_shells","8Rnd_82mm_Mo_shells","8Rnd_82mm_Mo_shells","8Rnd_82mm_Mo_Flare_white","8Rnd_82mm_Mo_Smoke_white"};
