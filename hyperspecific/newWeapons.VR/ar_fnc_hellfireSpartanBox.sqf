@@ -1,8 +1,9 @@
 fnc_spawnHellfireSpartan = {
 	/* 	
+		[_pos,_dir,_allowReload] spawn fnc_spawnHellfireSpartan;
 		Spawns a Spartan armed with ACE Hellfire missiles, ontop a platform.
 		Example:
-		[_container] spawn fnc_spawnHellfireSpartan;
+		[_pos,_dir] spawn fnc_spawnHellfireSpartan;
 	*/
 
 	params [
@@ -17,6 +18,7 @@ fnc_spawnHellfireSpartan = {
 	private _platform = "CargoPlaftorm_01_brown_F" createVehicle _spawnPos;
 	_platform setDir _dir;
 	_platform setPos (getPos _platform vectorAdd [0,0,-6.2]);
+    _platform allowDamage false;
 
 	[_platform] spawn {
 		_platform = _this #0;
@@ -34,6 +36,8 @@ fnc_spawnHellfireSpartan = {
 	_spartanVehicle attachTo [_platform, [0,0,5.5]];
 
 	// adds the hellfire missiles
+	_spartanVehicle addWeaponTurret ["Laserdesignator_mounted", [0]]; 
+	_spartanVehicle addMagazineTurret ["Laserbatteries", [0],1];
 	_spartanVehicle addWeaponTurret ["ace_hellfire_launcher_L", [0]]; 
 	_spartanVehicle addMagazineTurret ["6Rnd_ACE_Hellfire_AGM114L", [0],7];
 	_spartanVehicle addWeaponTurret ["ace_hellfire_launcher_N", [0]]; 
@@ -41,7 +45,7 @@ fnc_spawnHellfireSpartan = {
 	_spartanVehicle addWeaponTurret ["ace_hellfire_launcher", [0]]; 
 	_spartanVehicle addMagazineTurret ["6Rnd_ACE_Hellfire_AGM114K", [0],7];
 	_spartanVehicle removeWeaponTurret ["weapon_rim116Launcher", [0]]; 
-	//_spartanVehicle removeMagazineTurret ["magazine_Missile_rim116_x21", [0]];
+	_spartanVehicle removeMagazineTurret ["magazine_Missile_rim116_x21", [0]];
 	_spartanVehicle setAutonomous false; // so the spartan doesn't blow its load
 
 	[_spartanVehicle,	["Sand",1], true] call BIS_fnc_initVehicle;	// gives it the sand color
@@ -123,14 +127,15 @@ fnc_unpackHellfireSpartanStart = {
 		The ACE action's code, starting the progressbar
 	*/
 	params ["_target", "_player", "_params"];
-	_unpackTime = 1;	// for testing reasons
+	_unpackTime = 8;	// for testing reasons
 	
 	_target setVariable ["canBeUnpacked",false];
 
-	[_unpackTime, [_target,_player], fnc_unpackHellfireSpartanDone,{_target setVariable ["canBeUnpacked",true];},"Unpacking Hellfire Spartan"] call ace_common_fnc_progressBar;
+	[_unpackTime, [_target,_player], fnc_unpackHellfireSpartanDone,{_this #0 #0 setVariable ["canBeUnpacked",true];},"Unpacking Hellfire Spartan"] call ace_common_fnc_progressBar;
 };
 
 // simple condition check
+// TODO Reloadable if vehicle ammo nearby?
 unpackHellfireSpartanActionCondition = {
 	params ["_target", "_player", "_params"];
 	_target getVariable ["canBeUnpacked",true];
