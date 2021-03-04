@@ -11,13 +11,6 @@ allowFunctionsLog = 0;
 
 class Params
 {
-	class SentinelCallIns
-	{
-		title = "Sentinel Call-Ins";
-		texts[] = {"0","1","2","3","4","5","6","7","8","9","Unlimited"};
-		values[] = {0,1,2,3,4,5,6,7,8,9,99};
-		default = 4;
-	};
 	class ArsenalBox
 	{
 		title = "Arsenal Box";
@@ -45,6 +38,48 @@ class Params
 		texts[] = {"Enabled","Disabled"};
 		values[] = {true,false};
 		default = true;
+	};
+	class ParamMaxSentinel
+	{
+		title = "Maximum Sentinel Call-Ins";
+		texts[] = {"0","1","2","3","4","5","6","7","8","9","Unlimited"};
+		values[] = {0,1,2,3,4,5,6,7,8,9,99};
+		default = 4;
+	};
+	class ParamMaxHammer
+	{
+		title = "Maximum Destroyer Mk45 Hammer Call-Ins";
+		texts[] = {"0","1","2","3","4","5","6","7","Unlimited"};
+		values[] = {0,1,2,3,4,5,99};
+		default = 0;
+	};
+	class ParamMaxVLS
+	{
+		title = "Maximum Cruise Missile Call-Ins";
+		texts[] = {"0","1","2","3","Unlimited"};
+		values[] = {0,1,2,3,99};
+		default = 0;
+	};
+	class ParamMaxCAS
+	{
+		title = "Maximum CAS Call-Ins";
+		texts[] = {"0","1","2","3","4","5","6","7","8","9","Unlimited"};
+		values[] = {0,1,2,3,4,5,6,7,8,9,99};
+		default = 5;
+	};
+	class ParamMaxUacv
+	{
+		title = "Maximum YABHON-R3 Call-Ins";
+		texts[] = {"0","1","2","3","4","Unlimited"};
+		values[] = {0,1,2,3,4,99};
+		default = 2;
+	};
+	class ParamMaxGunship
+	{
+		title = "Maximum Blackfish Gunship Call-Ins";
+		texts[] = {"0","1","2","Unlimited"};
+		values[] = {0,1,2,99};
+		default = 1;
 	};
 	class BIS_WLTimeAcceleration
 	{
