@@ -8,11 +8,11 @@
 	Description: Spawns a Huron carrying a piece of cargo, dropping it at a nearby empty spot, and leaving again. Cargo is various logistical stuff. Returns an array containing the array of helicopters and the cargo.
 ******
 
-	[[_helos],[_objects]] = [_pos,_amount,_spawn,_distance,_cargo,_potentialType,_cargoInit,_heloInit,_vehicleLock,_debug] spawn ar_fnc_heloRandomCargoDeliveryBlufor;
+	[[_helos],[_objects]] = [_pos,_amount,_spawn,_distance,_cargo,_potentialType,_vehicleLock,_debug] spawn ar_fnc_heloRandomCargoDeliveryBlufor;
 	Example:
 	[player] spawn ar_fnc_heloRandomCargoDeliveryBlufor;
 	[player,4,helo_spawn,70,"B_Slingload_01_Medevac_F"] spawn ar_fnc_heloRandomCargoDeliveryBlufor;
-	[player,3,objNull,50,"",0,"","",True,True] spawn ar_fnc_heloRandomCargoDeliveryBlufor;
+	[player,3,objNull,50,"",0,True,True] spawn ar_fnc_heloRandomCargoDeliveryBlufor;
 	_array = [player,4,objNull,"",2] spawn ar_fnc_heloRandomCargoDeliveryBlufor;
 
 	0: _pos (Array, Object, Marker, Group, Location)  	- Location something should be dropped off near at.
@@ -22,10 +22,8 @@
 	3: _distance (Number) 	 	 						- Maximum distance to look for a safe spot, IF using random spawn || Default: 50
 	4: _cargo (String) 			 						- Specific className of an object that should be carried. || Default: ""
 	5: _potentialType (Number)  						- What type of cargo can be carried. || 0 = Everything / 1 = Only cargo / 2 = Only logistical vehicles. || Default: 0
-	6: _cargoInit (String) 	 							- Init code on cargo || Default: ""
-	7: _heloInit (String) 	 							- Init code on helicopter || Default: ""
-	8: _vehicleLock (Bool) 	 							- Should the vehicle be locked || Default: True
-	9: _debug (Bool) 	 								- For debugging (adds markers etc.) overwrites missionNamespace's "debugMode" value, if that exists || Default: False
+	6: _vehicleLock (Bool) 	 							- Should the vehicle be locked || Default: True
+	7: _debug (Bool) 	 								- For debugging (adds markers etc.) overwrites missionNamespace's "debugMode" value, if that exists || Default: False
 
 	returned:
 		[[_helos],[_objects]]
@@ -49,8 +47,6 @@ params [
 	['_distance', 50],
 	['_cargo', ""],
 	['_potentialType', 0],
-	['_cargoInit', ""],
-	['_heloInit', ""],
 	['_vehicleLock', true],
 	['_debug',(missionNamespace getVariable ["debugMode",false])]
 ];
