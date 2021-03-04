@@ -48,7 +48,7 @@ params [
 	['_cargo', ""],
 	['_potentialType', 0],
 	['_vehicleLock', true],
-	['_debug',(missionNamespace getVariable ["debugMode",false])]
+	['_debug',(missionNamespace getVariable ["aDebugMode",false])]
 ];
 
 private ['_marker','_markerId','_heloArray','_objectArray','_returnArray'];
