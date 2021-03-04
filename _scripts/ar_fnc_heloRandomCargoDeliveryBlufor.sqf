@@ -19,7 +19,7 @@
 	// Optional Parameters
 	1: _amount (Number)  		 						- Amount of Hurons that should be called in. || Default: 1
 	2: _spawn (Array, Object, Marker, Group, Location)  - Location the helicopters should spawn at. || If objNull is used, choses a random spot some 2500 meters away || Default: objNull
-	3: _distance (Number) 	 	 						- Maximum distance to look for a safe spot to drop cargo || Default: 50
+	3: _distance (Number) 	 	 						- Maximum distance to look for a safe spot to drop cargo. Automatically expands as helo amount increases. || Default: 50
 	4: _cargo (String) 			 						- Specific className of an object that should be carried. || Default: ""
 	5: _potentialType (Number)  						- What type of cargo can be carried. || 0 = Everything / 1 = Only cargo / 2 = Only logistical vehicles. || Default: 0
 	6: _vehicleLock (Bool) 	 							- Should the vehicle be locked || Default: True
@@ -51,7 +51,7 @@ params [
 	['_debug',(missionNamespace getVariable ["aDebugMode",false])]
 ];
 
-private ['_marker','_markerId','_heloArray','_objectArray','_returnArray'];
+private ['_marker','_markerId'];
 
 // Security check if _pos is invalid or unassigned
 _pos = _pos call BIS_fnc_position;
@@ -111,6 +111,7 @@ _vehiclesWeight = [
 	1	//B_LSV_01_unarmed_F
 ];
 //return array set-up
+private ["_returnArray", "_heloArray","_objectArray"];
 _returnArray = [];
 _heloArray = [];
 _objectArray = [];
@@ -122,9 +123,14 @@ for "_i" from 0 to _amount-1 do {
 
 	if (_debug) then { diag_log format["Helo #%1 creation started!",_i+1]; };	// just a debug confirmation
 	//Select a safe spot nearby
-	_drop = [_pos, 0, _distance, 5, 0, 0.20, 0,[], [_pos, _pos]] call BIS_fnc_findSafePos;
+	_adjustedDistance = _distance+(50*(_amount-1)*0.35);
+	_drop = [_pos, 0, _adjustedDistance, 5, 0, 0.20, 0,[], [_pos, _pos]] call BIS_fnc_findSafePos;
 	//if (_drop == [worldSize / 2, worldsize / 2]) exitWith { _error = true };
-	_drop pushback 0.1;
+	if (count _drop == 2) then {
+		_drop pushback 0.1;
+	} else {
+		_drop set [2, _drop #2 + 0.1];
+	};
 	if _debug then {
 		_obj = "VR_3DSelector_01_exit_F" createVehicle _drop; // for debugging
 	};
@@ -168,12 +174,14 @@ for "_i" from 0 to _amount-1 do {
 
 	// Waypoint
 	_wp = _result #2 addWaypoint [_drop, 0];
+	_wp setWaypointSpeed "FULL";
 	_wp setWaypointBehaviour "SAFE";
 	_wp setWaypointCombatMode "GREEN";
 	_wp setWaypointType "UNHOOK";
 	_wp2 = _result #2 addWaypoint [_spawn, 0];
 	_wp2 setWaypointType "MOVE";
 	_wp2 setWaypointStatements ["true", "deleteVehicle vehicle this; {deleteVehicle _x} forEach thisList;"];
+	// TODO since it's a called function, sleep slowls down everything. Maybe SPAWN go-commands?
 	// move and space out spawn a little bit so no crashing into each other
 	sleep (10 + round (random 10));
 	_spawn set [1, _spawn #1 + 10 + random 10];
