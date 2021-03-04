@@ -1,0 +1,122 @@
+/*
+Grab data:
+Mission: Warking
+World: Altis
+Anchor position: [15179.9, 16742.1]
+Area size: 50
+Using orientation of objects: no
+*/
+
+[
+	["B_SAM_System_01_F",[1.68359,-2.31055,-0.0763264],134.633,1,0.0453178,[],"hellfireSpartan","",true,false], 
+	["Box_NATO_AmmoVeh_F",[-1.89453,-1.78711,0.0305538],134.512,1,0,[],"","",true,false], 
+	["Land_HBarrier_3_F",[2.1875,0.212891,0.000198364],44.6339,1,0,[],"","",true,false], 
+	["Land_HBarrier_3_F",[-0.725586,-2.91992,0.000213623],44.6339,1,0,[],"","",true,false], 
+	["Land_HBarrier_5_F",[1.81445,-5.48047,0.000213623],313.15,1,0,[],"","",true,false]
+	["Land_PortableGenerator_01_sand_F",[-0.0478516,-1.85938,7.62939e-006],224.304,1,0,[],"","",true,false], 
+]
+
+/*
+Grab data:
+Mission: newWeapons
+World: VR
+Anchor position: [4353.82, 1502.93]
+Area size: 10
+Using orientation of objects: yes
+*/
+
+
+
+
+
+[getPos player, getDir player, hellfireSamComp] call BIS_fnc_ObjectsMapper;
+
+// hellfireSpartan
+// hellfireSpartanAmmobox
+// defenderVLS
+// defenderVLSAmmobox
+
+
+
+actionCode = { 
+	_unit = _this #0;
+	_unit setMagazineTurretAmmo ["6Rnd_ACE_Hellfire_AGM114L", 6, [0]]; 
+	_unit setMagazineTurretAmmo ["6Rnd_ACE_Hellfire_AGM114N", 6, [0]]; 
+	_unit setMagazineTurretAmmo ["6Rnd_ACE_Hellfire_AGM114K", 6, [0]];
+};
+
+_action = ["ResetHellfire","Reset Hellfire Spartan","",{ [hellfireSpartan] call actionCode;},{true}] call ace_interact_menu_fnc_createAction;
+[hellfireSpartanAmmobox, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToObject;
+
+// placed container = hCont
+
+// container unpacking
+
+//----------------------------------
+// spartan spawning
+
+_obj = player;
+_dir = getDir _obj;
+_pos = getPos player;
+_pos set [1, ((getPos player) #1) + 8 ];
+_allowReload = true;
+//Debug Params
+
+_pos = _pos call BIS_fnc_position;
+
+_hellfireSamComp = [
+	["B_SAM_System_01_F",[0.144043,2.42419,-0.07481],0,1,0,[0,0],"","",true,false], //sam
+	["CargoPlaftorm_01_brown_F",[0.11377,1.39087,-6.447],0,1,0,[0,0],"","",true,false],
+	["Land_HBarrier_3_F",[-2.01709,3.59509,0.000189781],90,1,0,[0,-0],"","",true,false], //b left
+	["Land_HBarrier_3_F",[2.31006,3.62903,0.000189781],90,1,0,[0,-0],"","",true,false], //b right
+	["Land_HBarrier_5_F",[2.34863,4.95105,0.000189781],180,1,0,[0,0],"","",true,false],	//b front
+	["Land_PortableGenerator_01_sand_F",[2.13916,0.73291,0.0429363],90.9469,1,0,[-0.704475,2.0866],"","",true,false],
+	["Land_Laptop_03_sand_F",[2.16992,-0.0457764,0.762444],340.914,1,0,[2.2956,-0.0448662],"","",true,false]
+];
+
+_compArray = [_pos, _dir, _hellfireSamComp] call BIS_fnc_ObjectsMapper;
+private _launcher = _compArray #0;
+
+createVehicleCrew _launcher;
+_launcher addWeaponTurret ["ace_hellfire_launcher_L", [0]]; 
+_launcher addMagazineTurret ["6Rnd_ACE_Hellfire_AGM114L", [0],7];
+_launcher addWeaponTurret ["ace_hellfire_launcher_N", [0]]; 
+_launcher addMagazineTurret ["6Rnd_ACE_Hellfire_AGM114N", [0],7];
+_launcher addWeaponTurret ["ace_hellfire_launcher", [0]]; 
+_launcher addMagazineTurret ["6Rnd_ACE_Hellfire_AGM114K", [0],7];
+_launcher removeWeaponTurret ["weapon_rim116Launcher", [0]]; 
+//_launcher removeMagazineTurret ["magazine_Missile_rim116_x21", [0]];
+_launcher setAutonomous false;
+
+[_launcher,	["Sand",1], true] call BIS_fnc_initVehicle;
+
+if (_allowReload) then 
+{
+	reloadHellfireSam = {
+		_unit = _this #0; 
+		_unit setMagazineTurretAmmo ["6Rnd_ACE_Hellfire_AGM114L", 6, [0]]; 
+		_unit setMagazineTurretAmmo ["6Rnd_ACE_Hellfire_AGM114N", 6, [0]]; 
+		_unit setMagazineTurretAmmo ["6Rnd_ACE_Hellfire_AGM114K", 6, [0]];
+	};
+
+	_action = ["ResetHellfire","Reload Hellfire Spartan","",{ [_target] call reloadHellfireSam;},{true}] call ace_interact_menu_fnc_createAction;
+	[_launcher, 0, ["ACE_MainActions"], _action] call ace_interact_menu_fnc_addActionToObject;
+};
+
+//attachments and positioning
+private _platform = _compArray #1;
+private _barrierLeft = _compArray #2;
+private _barrierRight = _compArray #3;
+private _barrierFront = _compArray #4;
+private _generator = _compArray #5;
+private _laptop = _compArray #6;
+
+_launcher attachTo [_platform, [0,0,5.5]];
+_barrierLeft attachTo [_platform, [-2.1,0,4.5]];
+_barrierLeft setVectorDirAndUp [[1,0,0], [0,0,1]];
+_barrierRight attachTo [_platform, [2.1,0,4.5]];
+_barrierRight setVectorDirAndUp [[1,0,0], [0,0,1]];
+_barrierFront attachTo [_platform, [0,2.2,4.5]];
+_generator attachTo [_platform, [1.4,-1.8,4.1]];
+_generator setVectorDirAndUp [[1,0.2,0], [0,0,1]];
+_laptop attachTo [_generator, [0.3,-0.1,0.55]];
