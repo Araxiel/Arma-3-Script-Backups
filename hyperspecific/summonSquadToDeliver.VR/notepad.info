@@ -1,0 +1,5 @@
+	//_vehicle = vehicle _player;
+	//check if in Kamaz
+	//typeOf _vehicle == "O_Truck_02_transport_F";
+	//check if driver or gunner or commander
+	//&& ((driver _vehicle) isEqualTo _player || (gunner _vehicle) isEqualTo _player || (commander _vehicle) isEqualTo _player );
