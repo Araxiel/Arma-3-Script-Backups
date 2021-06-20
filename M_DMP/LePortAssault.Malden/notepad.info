@@ -1,0 +1,84 @@
+        class mainStuffArmored {
+            displayName = "Armored Vehicles";
+            kindOf = "Vehicles";
+
+            class I_APC_Wheeled_03_cannon_F {
+                description = "A wheeled Infantry Fighting Vehicle, armed with a 30mm autocannon and ATGMs. Has space for 8 passengers, excluding the driver, gunner and commander.";
+                price = 140;
+                stock = 4;
+                vehicleInit = "['showBags',1,'showBags2',1,'showTools',1]";
+                previewScale = 0.8;
+            };
+            class I_APC_Wheeled_03_cannon_F {
+                description = "A wheeled Infantry Fighting Vehicle, armed with a 30mm autocannon and ATGMs, draped in camo nets. Has space for 8 passengers, excluding the driver, gunner and commander.";
+                price = 145;
+                stock = 1;
+                vehicleInit = "['showCamonetHull',1,'showTools',1]";
+                previewScale = 0.8;
+            };
+            class I_APC_Wheeled_03_cannon_F {
+                description = "A wheeled Infantry Fighting Vehicle, armed with a 30mm autocannon and ATGMs and upgraded with a SLAT cage. Has space for 8 passengers, excluding the driver, gunner and commander.";
+                price = 150;
+                stock = 2;
+                vehicleInit = "['showSLATHull',1,'showBags2',1]";
+                previewScale = 0.8;
+            };
+            class I_APC_tracked_03_cannon_F {
+                description = "A heavily armored tracked Armoured Personnel Carrier with a 30mm autocannon. Has space for 7 passengers, excluding the driver, gunner and commander.";
+                price = 135;
+                stock = 4;
+                vehicleInit = "[['showBags',1 ,'showBags2',1 ,'showTools',1]]";
+                previewScale = 0.8;
+            };
+            class I_APC_tracked_03_cannon_F {
+                description = "A heavily armored tracked Armoured Personnel Carrier with a 30mm autocannon and a SLAT cage. Has space for 7 passengers, excluding the driver, gunner and commander.";
+                price = 140;
+                stock = 2;
+                vehicleInit = "[['showBags',1 ,'showBags2',1 ,'showTools',1, 'showSLATHull',1, 'showSLATTurret',1]]";
+                previewScale = 0.8;
+            };
+
+            class I_MBT_03_cannon_F {
+                description = "A heavily armored MBT upgraded for urban combat.";
+                price = 270;
+                stock = 2;
+                previewScale = 0.8;
+            };
+            class I_MBT_03_cannon_F {
+                description = "A heavily armored MBT upgraded for urban combat, equipped with camo netting.";
+                price = 275;
+                stock = 1;
+                vehicleInit = "[['showCamonetHull',1,'showCamonetTurret',1]]";
+                previewScale = 0.8;
+            };
+
+            class I_LT_01_scout_F {
+                description = "A multi-purpose Light Tank. This is the unarmed command variant, equipped with improved optics, radar and comms.";
+                price = 120;
+                stock = 2;
+                vehicleInit = "[ ['showCamonetHull',true] ]";
+                condition = "798390 in (getDLCs 1)";
+            };
+            class I_LT_01_cannon_F {
+                description = "A multi-purpose Light Tank. This is the canon variant, equipped with a 20 mm autocannon.";
+                price = 140;
+                stock = 3;
+                vehicleInit = "[ ['showTools',true], ['showBags',true], ['showSLATHull',true] ]";
+                condition = "798390 in (getDLCs 1)";
+            };
+            class I_LT_01_AT_F {
+                description = "A multi-purpose Light Tank. This is the AT variant, equipped with a 12.7 mm heavy machine gun and ATGMs.";
+                price = 160;
+                stock = 3;
+                vehicleInit = "[ ['showTools', true], ['showBags'true ]";
+                condition = "798390 in (getDLCs 1)";
+            };
+            class I_LT_01_AA_F {
+                description = "A multi-purpose Light Tank. This is the AA variant, equipped with a 12.7 mm heavy machine gun and SAMs.";
+                price = 150;
+                stock = 2;
+                vehicleInit = "[['Indep_Olive',true], ['showCamonetHull', true ]";
+                condition = "798390 in (getDLCs 1)";
+            };
+
+        };
