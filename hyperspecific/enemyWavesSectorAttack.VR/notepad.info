@@ -1,0 +1,30 @@
+
+Returns the amount of sectors each side owns, in following order;
+[Opfor, Blufor, Indp, ?Civ?, ?]
+[3,1,5,0,0] = BIS_fnc_moduleSector_sideSectors
+
+Array of all active sectors = [true] call BIS_fnc_moduleSector;
+Number of sectors held by side = [SIDE] call BIS_fnc_moduleSector;
+[object, Side] call BIS_fnc_moduleSector;   // change sector ownership
+
+//
+
+this addAction [ "Spawn Units", { 
+ {[_x] spawn arx_fnc_enemyStartGarrison;;} forEach [sc_alpha,sc_beta];}, 
+ nil, 
+ 2, 
+ true, 
+ true, 
+ "", 
+ "true" 
+];
+
+this addAction [ "Kill Units", { 
+ {[_x] spawn arx_fnc_debug_killGarrison;} forEach [sc_alpha,sc_beta];}, 
+ nil, 
+ 2, 
+ true, 
+ true, 
+ "", 
+ "true" 
+];
