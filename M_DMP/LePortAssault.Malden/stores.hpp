@@ -252,6 +252,7 @@ class CfgGradBuymenu {
                 stock = 6;
                 vehicleInit = "[[],['showBags',1,'showBags2',1,'showTools',1]]";
                 previewScale = 0.8;
+                code = "[_this #2] spawn addAddComponentActions;";
             };
             class I_APC_tracked_03_cannon_F {
                 description = "A heavily armored tracked Armoured Personnel Carrier with a 30mm autocannon. Has space for 7 passengers, excluding the driver, gunner and commander.";
@@ -259,6 +260,7 @@ class CfgGradBuymenu {
                 stock = 4;
                 vehicleInit = "[[],['showBags',1 ,'showBags2',1 ,'showTools',1]]";
                 previewScale = 0.8;
+                code = "[_this #2] spawn addAddComponentActions;";
             };
 
             class I_MBT_03_cannon_F {
@@ -266,6 +268,7 @@ class CfgGradBuymenu {
                 price = 270;
                 stock = 3;
                 previewScale = 0.8;
+                code = "[_this #2] spawn addAddComponentActions;";
             };
 
             class I_LT_01_scout_F {
@@ -274,6 +277,7 @@ class CfgGradBuymenu {
                 stock = 2;
                 vehicleInit = "[[], ['showCamonetHull',1] ]";
                 condition = "798390 in (getDLCs 1)";
+                code = "[_this #2] spawn addAddComponentActions;";
             };
             class I_LT_01_cannon_F {
                 description = "A multi-purpose Light Tank. This is the canon variant, equipped with a 20 mm autocannon.";
@@ -281,6 +285,7 @@ class CfgGradBuymenu {
                 stock = 3;
                 vehicleInit = "[[], ['showTools',1, 'showBags',1, 'showSLATHull',1]]";
                 condition = "798390 in (getDLCs 1)";
+                code = "[_this #2] spawn addAddComponentActions;";
             };
             class I_LT_01_AT_F {
                 description = "A multi-purpose Light Tank. This is the AT variant, equipped with a 12.7 mm heavy machine gun and ATGMs.";
@@ -288,6 +293,7 @@ class CfgGradBuymenu {
                 stock = 3;
                 vehicleInit = "[ [], ['showTools',1, 'showBags',1] ]";
                 condition = "798390 in (getDLCs 1)";
+                code = "[_this #2] spawn addAddComponentActions;";
             };
             class I_LT_01_AA_F {
                 description = "A multi-purpose Light Tank. This is the AA variant, equipped with a 12.7 mm heavy machine gun and SAMs.";
@@ -295,6 +301,7 @@ class CfgGradBuymenu {
                 stock = 2;
                 vehicleInit = "[ [], ['showCamonetHull', 1 ] ]";
                 condition = "798390 in (getDLCs 1)";
+                code = "[_this #2] spawn addAddComponentActions;";
             };
 
         };
