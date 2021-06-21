@@ -1,3 +1,184 @@
+fnc_defaultRandomInfantryArrays = {
+	//	[_randomInfantryArray] = [_side] call fnc_defaultRandomInfantryArrays;
+	// 	Usage:
+	//	["B_soldier_F",7,"B_Soldier_GL_F",4,"B_Soldier_AR_F",4] = [blufor] call fnc_defaultRandomInfantryArrays;
+
+	params [
+		["_side", blufor]
+	];
+
+	private _randomInfantryArray = [];
+	switch (_side) do {
+		case opfor: {
+			_randomInfantryArray = [
+				"O_Soldier_F", 7,
+				"O_Soldier_GL_F", 4,
+				"O_Soldier_AR_F", 4,
+				"O_medic_F", 4,
+				"O_Soldier_A_F", 3, //ammobearer
+				"O_HeavyGunner_F", 3,
+				"O_soldier_M_F", 2, //marksman
+				"O_Soldier_lite_F", 3,
+				"O_Soldier_TL_F", 3,
+				"O_engineer_F", 1,
+				"O_Soldier_AA_F", 1,
+				"O_Soldier_LAT_F", 4, // rpg
+				"O_Soldier_HAT_F", 3,	// metis
+				"O_Soldier_AT_F", 2
+			];
+		};
+		case independent: {
+			_randomInfantryArray = [
+				"I_soldier_F", 7,
+				"I_Soldier_GL_F", 4,
+				"I_Soldier_AR_F", 4,
+				"I_medic_F", 4,
+				"I_Soldier_A_F", 3, //ammobearer
+				"I_Soldier_M_F", 2, //marksman
+				"I_Soldier_lite_F", 3,
+				"I_Soldier_TL_F", 3,
+				"I_engineer_F", 1,
+				"I_Soldier_AA_F", 1,
+				"I_Soldier_LAT_F", 4, // nlaw
+				"I_Soldier_LAT2_F", 4,	// maaws
+				"I_Soldier_AT_F", 2		// atgm
+			];
+		};
+		case blufor: {
+			_randomInfantryArray = [
+				"B_Soldier_F", 6,
+				"B_Soldier_GL_F", 4,
+				"B_Soldier_AR_F", 4,
+				"B_medic_F", 4,
+				"B_Soldier_A_F", 3, //ammobearer
+				"B_HeavyGunner_F", 3,
+				"B_soldier_M_F", 2, //marksman
+				"B_Soldier_lite_F", 3,
+				"B_Soldier_TL_F", 3,
+				"B_engineer_F", 1,
+				"B_Soldier_AA_F", 1,
+				"B_Soldier_LAT_F", 4, // nlaw
+				"B_Soldier_LAT2_F", 4,	// maaws
+				"B_Soldier_AT_F", 2		// atgm
+			];
+		};
+	};
+	if (missionNamespace getVariable ['aDebugMessages',false]) then { diag_log '- fnc_defaultRandomInfantryArrays Done -';};
+	_randomInfantryArray
+};
+
+fnc_defaultBoughtHelpVehicleArrays = {
+	//	_pickedVehicle = [_side, _kind] call fnc_defaultBoughtHelpVehicleArrays;
+	// 	Usage:
+	//	"O_APC_Tracked_02_cannon_F" = [blufor, 3] call fnc_defaultBoughtHelpVehicleArrays;
+	//	_kind values:
+	//	0 = Random, 1 = Cars, 2 = Trucks, 3 = APCs, 4 = Tanks
+
+	params [
+		["_side", blufor],
+		["_kind", 0]
+	];
+
+	if (_kind == 0) then {
+		_kind = selectRandomWeighted [1,4,2,3,3,2,4,1]
+	};
+	if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ['_kind : %1',_kind];};
+
+	private "_pickedVehicle";
+	switch (_kind) do {
+		case 1: { 
+		// cars/jeeps
+			switch (_side) do {
+				case opfor: {
+					_pickedVehicle = selectRandomWeighted [
+						"O_MRAP_02_hmg_F", 5,
+						"O_MRAP_02_gmg_F", 1,
+						"O_LSV_02_armed_F", 3
+					];
+				};
+				case independent: {
+					_pickedVehicle = selectRandomWeighted [
+						"I_MRAP_03_hmg_F", 4,
+						"I_MRAP_03_gmg_F", 1
+					];
+				};
+				case blufor: {
+					_pickedVehicle = selectRandomWeighted [
+						"B_MRAP_01_hmg_F", 5,
+						"B_MRAP_01_gmg_F", 1,
+						"B_LSV_01_armed_F", 3
+					];
+				};
+			};
+		};
+		case 2: { 
+		// trucks
+			switch (_side) do {
+				case opfor: {
+					_pickedVehicle = selectRandomWeighted [
+						"O_Truck_03_covered_F", 1,
+						"O_Truck_02_covered_F", 3
+					];
+				};
+				case independent: {
+					_pickedVehicle = "I_Truck_02_covered_F";
+				};
+				case blufor: {
+					_pickedVehicle = "B_Truck_01_covered_F";
+				};
+			};
+		};
+		case 3: { 
+		// apcs
+			switch (_side) do {
+				case opfor: {
+					_pickedVehicle = selectRandomWeighted [
+						"O_APC_Tracked_02_cannon_F", 1,
+						"O_APC_Wheeled_02_rcws_v2_F", 3
+					];
+				};
+				case independent: {
+					_pickedVehicle = selectRandomWeighted [
+						"I_APC_tracked_03_cannon_F", 1,
+						"I_APC_Wheeled_03_cannon_F", 2
+					];
+				};
+				case blufor: {
+					_pickedVehicle = selectRandomWeighted [
+						"B_APC_Wheeled_01_cannon_F", 2,
+						"B_APC_Tracked_01_rcws_F", 1
+					];
+				};
+			};
+		};
+		case 4: { 
+		// tanks
+			switch (_side) do {
+				case opfor: {
+					_pickedVehicle = selectRandomWeighted [
+						"O_MBT_04_cannon_F", 2,
+						"O_MBT_04_command_F", 1,
+						"O_MBT_02_cannon_F", 6
+					];
+				};
+				case independent: {
+					_pickedVehicle = "I_MBT_03_cannon_F";
+				};
+				case blufor: {
+					_pickedVehicle = selectRandomWeighted [
+						"B_MBT_01_TUSK_F", 1,
+						"B_MBT_01_cannon_F", 6
+					];
+				};
+			};
+		};
+	};
+
+	if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ['_pickedVehicle : %1',_pickedVehicle];};
+	_pickedVehicle
+
+};
+
 fnc_aoSAD = {
 
 	params [
@@ -107,15 +288,15 @@ fnc_summonAoInfantrySAD = {
 };
 
 fnc_boughtHelp = {
-	//	_group = [_spawn, _side, _aoPos, _aoArea, _blacklist] call fnc_summonAoInfantrySAD;
+	//	_group = [_spawn, _caller, _vehicleClass, _maxPassengerAmount, _code] call fnc_boughtHelp;
 	// 	Usage:
-	//	[indySpawn, independent, getPos aoTrigger, triggerArea aoTrigger, []] call fnc_summonAoInfantrySAD;
+	//	_group = [indySpawn, player, ([side player,2] call fnc_defaultBoughtHelpVehicleArrays), 5, {}] call fnc_boughtHelp;
 
 	params [
 		["_spawn", objNull],
 		["_caller", objNull],
-		["_kind", "car"],
-		["_side", blufor],
+		["_vehicleClass", ""],
+		["_maxPassengerAmount", -1],
 		["_code", {}]
 	];
 
@@ -144,136 +325,27 @@ fnc_boughtHelp = {
 		_debugMarker;
 	};
 	if (missionNamespace getVariable ['aDebugMessages',false]) then { diag_log '- fnc_boughtHelp Start -';};
+	//-
+	if (_maxPassengerAmount == -1) then {
+		_maxPassengerAmount = 17;
+	};
 
+	// spawn position selection
 	_spawnPos = _spawn call BIS_fnc_position;
 	_callerPos = _caller call BIS_fnc_position;
 	_specificSpawn = [_spawnPos, 0, 40, 5, 0] call BIS_fnc_findSafePos;	// find a safe spawn spot
 
-	private "_pickedVehicle";
-	private _passengers = 0;
-	switch (_kind) do {
-		case "car": { 
-		// cars/jeeps
-			switch (_side) do {
-				case "opfor": {
-					_pickedVehicle = selectRandomWeighted [
-						"O_MRAP_02_hmg_F", 5,
-						"O_MRAP_02_gmg_F", 1,
-						"O_LSV_02_armed_F", 3
-					];
-				};
-				case "independent": {
-					_pickedVehicle = selectRandomWeighted [
-						"I_MRAP_03_hmg_F", 4,
-						"I_MRAP_03_gmg_F", 1
-					];
-				};
-				default {
-					_pickedVehicle = selectRandomWeighted [
-						"B_MRAP_01_hmg_F", 5,
-						"B_MRAP_01_gmg_F", 1,
-						"B_LSV_01_armed_F", 3
-					];
-				};
-			};
-		};
-		case "truck": { 
-		// trucks
-			switch (_side) do {
-				case "opfor": {
-					_pickedVehicle = selectRandomWeighted [
-						"O_Truck_03_covered_F", 1,
-						"O_Truck_02_covered_F", 3
-					];
-				};
-				case "independent": {
-					_pickedVehicle = "I_Truck_02_covered_F";
-				};
-				default {
-					_pickedVehicle = "B_Truck_01_covered_F";
-				};
-			};
-			_passengers = 13;
-		};
-		case "apc": { 
-		// apcs
-			switch (_side) do {
-				case "opfor": {
-					_pickedVehicle = selectRandomWeighted [
-						"O_APC_Tracked_02_cannon_F", 1,
-						"O_APC_Wheeled_02_rcws_v2_F", 3
-					];
-				};
-				case "independent": {
-					_pickedVehicle = selectRandomWeighted [
-						"I_APC_tracked_03_cannon_F", 1,
-						"I_APC_Wheeled_03_cannon_F", 2
-					];
-				};
-				default {
-					_pickedVehicle = selectRandomWeighted [
-						"B_APC_Wheeled_01_cannon_F", 2,
-						"B_APC_Tracked_01_rcws_F", 1
-					];
-				};
-			};
-			_passengers = 7;
-		};
-		case "tank": { 
-		// tanks
-			switch (_side) do {
-				case "opfor": {
-					_pickedVehicle = selectRandomWeighted [
-						"O_MBT_04_cannon_F", 2,
-						"O_MBT_04_command_F", 1,
-						"O_MBT_02_cannon_F", 6
-					];
-				};
-				case "independent": {
-					_pickedVehicle = "I_MBT_03_cannon_F";
-				};
-				default {
-					_pickedVehicle = selectRandomWeighted [
-						"B_MBT_01_TUSK_F", 1,
-						"B_MBT_01_cannon_F", 6
-					]
-				};
-			};
-		};
-	};
-
-	_result = [_specificSpawn, _specificSpawn getDir _callerPos, _pickedVehicle, _side] call BIS_fnc_spawnVehicle;
+	// vehicle spawning
+	_result = [_specificSpawn, _specificSpawn getDir _callerPos, _vehicleClass, side _caller] call BIS_fnc_spawnVehicle;
 	_result params ["_vehicle", "_crew", "_group"]; 
 	_group deleteGroupWhenEmpty true;
 
-	if (_passengers > 0) then {
-		for "_i" from 0 to (_passengers-1) do {
-			// which side
-			switch (_side) do {
-				case "opfor": {
-					_pickedUnitClass = selectRandomWeighted [
-						"O_MRAP_02_hmg_F", 5,
-						"O_MRAP_02_gmg_F", 1,
-						"O_LSV_02_armed_F", 3
-					];
-				};
-				case "independent": {
-					_pickedUnitClass = selectRandomWeighted [
-						"I_MRAP_03_hmg_F", 4,
-						"I_MRAP_03_gmg_F", 1
-					];
-				};
-				default {
-					_pickedUnitClass = selectRandomWeighted [
-						"B_MRAP_01_hmg_F", 5,
-						"B_MRAP_01_gmg_F", 1,
-						"B_LSV_01_armed_F", 3
-					];
-				};
-			};
-			// creation
-    		_group createUnit [_pickedUnitClass, getPos _vehicle, [], 0, "CARGO"];
-		};
+	// passenger spawning
+	private _spawnedPassengerAmount = 0;
+	while {(_vehicle emptyPositions "cargo" >= 1) && (_spawnedPassengerAmount < _maxPassengerAmount)} do { // as long as there is an empty spot AND _maxPassengerAmount not reached
+		_group createUnit [selectRandomWeighted ([side _caller] call fnc_defaultRandomInfantryArrays), getPos _vehicle, [], 0, "CARGO"];	// creates a random infantry from the _caller's side's list set by fnc_defaultRandomInfantryArrays
+		_spawnedPassengerAmount = _spawnedPassengerAmount+1;
+		if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ['_spawnedPassengerAmount : %1',_spawnedPassengerAmount];};
 	};
 
     _group setVariable ["helpCaller", _caller];	// saves the caller as a variable for the group
@@ -287,5 +359,10 @@ fnc_boughtHelp = {
 	_wp setWaypointCompletionRadius 500;
 	[waypointPosition _wp, "mil_destroy", "ColorYellow", format["Reinforcement Spot %1",_group]] call _fnc_debugMarkers;
 
+	_wp = _group addWaypoint [_wpPos, 20];
+	_wp setWaypointType "SAD";
+	_wp setWaypointSpeed "NORMAL";
+	_wp setWaypointCompletionRadius 20;
+	_wp setWaypointStatements ["true", "[group this, getPos this, 100] call BIS_fnc_taskPatrol"];
 	_group
 };

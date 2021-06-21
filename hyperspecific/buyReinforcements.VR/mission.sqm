@@ -12,7 +12,7 @@ class EditorData
 	};
 	class ItemIDProvider
 	{
-		nextID=110;
+		nextID=155;
 	};
 	class MarkerIDProvider
 	{
@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={1965.6193,6.997036,2321.9348};
-		dir[]={-0.24148484,-0.28300413,-0.92826992};
-		up[]={-0.071256109,0.95910436,-0.2739124};
-		aside[]={-0.96783316,-6.0365346e-007,0.25177619};
+		pos[]={1873.3755,19.554649,2602.7864};
+		dir[]={-0.14085633,-0.3262805,-0.93481249};
+		up[]={-0.048620112,0.9452427,-0.32267895};
+		aside[]={-0.98891169,-1.0538497e-006,0.14900915};
 	};
 };
 binarizationWanted=0;
@@ -221,6 +221,9 @@ class ScenarioData
 {
 	author="Araxiel";
 };
+class CustomAttributes
+{
+};
 class Mission
 {
 	class Intel
@@ -257,8 +260,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={1787.317,5.0014391,2216.2205};
-						angles[]={0,1.0454279,0};
+						position[]={1872.0858,5.0014391,2576.1421};
+						angles[]={0,2.9771268,0};
 					};
 					side="Independent";
 					flags=7;
@@ -419,7 +422,7 @@ class Mission
 			position[]={1895.7178,5,2247.9595};
 			name="marker_0";
 			type="mil_start";
-			angle=269.85919;
+			angle=269.85916;
 			id=57;
 		};
 		class Item3
@@ -490,7 +493,7 @@ class Mission
 		{
 			dataType="Trigger";
 			position[]={1749.7933,5,2262.686};
-			angle=4.7619796;
+			angle=4.7619791;
 			class Attributes
 			{
 				name="aoTrigger";
@@ -512,7 +515,7 @@ class Mission
 			fillName="SolidBorder";
 			a=226.31599;
 			b=126.957;
-			angle=269.89233;
+			angle=269.8923;
 			drawBorder=1;
 			id=58;
 		};
@@ -520,29 +523,11 @@ class Mission
 		{
 			dataType="Group";
 			side="East";
-			class Entities
-			{
-				items=1;
-				class Item0
-				{
-					dataType="Object";
-					class PositionInfo
-					{
-						position[]={1965.2147,5.0014391,2318.8901};
-					};
-					side="East";
-					flags=7;
-					class Attributes
-					{
-					};
-					id=109;
-					type="O_Soldier_A_F";
-				};
-			};
 			class Attributes
 			{
 			};
-			id=108;
+			id=149;
+			atlOffset=-5;
 		};
 	};
 };
