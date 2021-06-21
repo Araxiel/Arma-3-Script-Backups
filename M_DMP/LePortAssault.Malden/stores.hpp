@@ -474,15 +474,13 @@ class CfgGradBuymenu {
 
         };
 
-        //TODO
         class BaseStoreActions {
-            displayName = "Actions";
+            displayName = "Base Actions";
             kindOf = "Other";
 
             class Land_ConnectorTent_01_AAF_closed_F {
                 displayName = "Additional Tickets";
                 description = "Requisiton 5 additional Respawn Tickets.";
-                amount = 1;
                 price = 50;
                 stock = 15;
                 code = "[independent, 5] call BIS_fnc_respawnTickets;";
@@ -491,17 +489,26 @@ class CfgGradBuymenu {
             class I_E_Radar_System_01_F {
                 displayName = "Install Radar";
                 description = "Requisiton a radar.";
-                amount = 1;
                 price = 100;
                 stock = 1;
                 previewScale = 0.8;
                 code = "[] spawn fnc_spawnRadar;";
             };
 
+        };
+
+    };
+
+    //TODO
+    class GlobalStore {
+
+        class GlobalStoreActions {
+            displayName = "Actions";
+            kindOf = "Other";
+
             class I_Truck_02_MRL_F {
                 displayName = "MLR Strike";
                 description = "Requisiton an additional use of the MLR artillery strike.";
-                amount = 1;
                 price = 80;
                 stock = 10;
                 previewScale = 0.8;
@@ -510,7 +517,6 @@ class CfgGradBuymenu {
             class I_UAV_02_dynamicLoadout_F {
                 displayName = "UACV Support";
                 description = "Requisiton an additional UACV call-in.";
-                amount = 1;
                 price = 130;
                 stock = 4;
                 previewScale = 0.7;
@@ -519,10 +525,46 @@ class CfgGradBuymenu {
             class I_Plane_Fighter_03_dynamicLoadout_F {
                 displayName = "CAS Support";
                 description = "Requisiton an additional CAS strike.";
-                amount = 1;
                 price = 80;
                 stock = 10;
                 previewScale = 0.7;
+                code = "";
+            };
+        };
+
+        class GlobalStoreReinforcements {
+            displayName = "Reinforcements";
+            kindOf = "Other";
+
+            class I_soldier_F {
+                displayName = "Send Infantry Squad";
+                description = "Have a footmobile squad advance into the area of operations.";
+                price = 70;
+                stock = 10;
+                code = "";
+            };
+            class I_MRAP_03_hmg_F {
+                displayName = "Call for Motorized Team";
+                description = "Call a small motorized team to secure your current location.";
+                price = 80;
+                stock = 8;
+                previewScale = 0.8;
+                code = "";
+            };
+            class I_APC_tracked_03_cannon_F {
+                displayName = "Call for Mechanized Squad";
+                description = "Call a mechanized squad to secure your current location.";
+                price = 170;
+                stock = 6;
+                previewScale = 0.8;
+                code = "";
+            };
+            class I_MBT_03_cannon_F {
+                displayName = "Call for Armored Support";
+                description = "Call a tank to secure your current location.";
+                price = 280;
+                stock = 3;
+                previewScale = 0.8;
                 code = "";
             };
 
