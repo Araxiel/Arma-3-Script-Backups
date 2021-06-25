@@ -51,3 +51,11 @@ asb_defaultCRperKill = 8;
 
 // init tickets
 [independent, ["startingTickets", 10] call BIS_fnc_getParamValue] call BIS_fnc_respawnTickets;
+
+[independent, "I_SquadLeader"] call BIS_fnc_addRespawnInventory;
+[independent, "I_Medic"] call BIS_fnc_addRespawnInventory;
+[independent, "I_LAT"] call BIS_fnc_addRespawnInventory;
+[independent, "I_Grenadier"] call BIS_fnc_addRespawnInventory;
+[independent, "I_Rifleman"] call BIS_fnc_addRespawnInventory;
+[independent, "I_Tanker"] call BIS_fnc_addRespawnInventory;
+[independent, "I_HeliPilot"] call BIS_fnc_addRespawnInventory;

@@ -12,32 +12,32 @@ allowFunctionsLog = 0;
 respawn = 3;
 respawnOnStart = -1;
 respawnDelay = 15;
-respawnTemplates[] = { "Wave","Tickets","MenuPosition", "EndMission"};
+respawnTemplates[] = { "Wave","Tickets","MenuPosition","MenuInventory", "EndMission"};
 
 class Params
 {
-    class incomeMultiplier {
-      title = "Income Multiplier";
-      values[] = {1,2,3,4,5,6,7,8};
-      texts[] = {"x0.5","x1","x1.25","x1.5","x2","x3","x5","x10"};
-      default = 2;
-    };
-    class startingFunds {
-      title = "Starting Funds";
-      values[] = {50,100,250,300,500,1000,2000,10000};
-      default = 300;
-    };
-    class startingTickets {
-      title = "Starting Tickets";
-      values[] = {0,5,10,15,99};
-      default = 5;
-    };
-    class initialWeatherParam {
-      title = "Starting Weather";
-      values[] = {0,1,2,3,4};
-      texts[] = {"Clear","Overcast","Rain","Fog","Random"};
-      default = 1;
-    };
+  class incomeMultiplier {
+    title = "Income Multiplier";
+    values[] = {1,2,3,4,5,6,7,8};
+    texts[] = {"x0.5","x1","x1.25","x1.5","x2","x3","x5","x10"};
+    default = 2;
+  };
+  class startingFunds {
+    title = "Starting Funds";
+    values[] = {50,100,250,300,500,1000,2000,10000};
+    default = 300;
+  };
+  class startingTickets {
+    title = "Starting Tickets";
+    values[] = {0,5,10,15,99};
+    default = 5;
+  };
+  class initialWeatherParam {
+    title = "Starting Weather";
+    values[] = {0,1,2,3,4};
+    texts[] = {"Clear","Overcast","Rain","Fog","Random"};
+    default = 4;
+  };
 	class BIS_WLStartingDaytime
 	{
 		title = $STR_A3_combatpatrol_params_1;
@@ -55,13 +55,14 @@ class Params
 	class aDebugMessages
 	{
 		title = "Debug Information";
-		texts[] = {"Enabled","Disabled"};
-		values[] = {true,false};
-		default = false;
+		texts[] = {"Disabled", "Enabled"};
+		values[] = {0,1};
+		default = 1;
 	};
 };
 
 //Imported Stuff
+#include "CfgRespawnInventory.hpp"					  // Respawn inventory
 
 #include "modules\grad-listBuymenu\grad_listBuymenu.hpp"
 #include "modules\grad-moneymenu\grad_moneymenu.hpp"
