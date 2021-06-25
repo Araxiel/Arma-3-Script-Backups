@@ -73,3 +73,16 @@ addMusicEventHandler["MusicStop",{
 	);
 	}
 ];
+
+[
+	player,
+	"GlobalStore",
+	baseBuypoint,
+	baseBuyPoint,
+	"Global Requisition",
+	"Global Requisition Menu",
+	{(side player == independent)},
+	[0,0,0],["_distance",3],
+	["ACE_SelfActions"],
+	independent
+] call grad_lbm_fnc_addInteraction;

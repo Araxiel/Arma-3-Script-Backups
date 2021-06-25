@@ -4,7 +4,7 @@ execVM "scripts\maintenanceTimer.sqf";
 execVM "scripts\araaceFunctions.sqf";
 execVM "scripts\randomWeather2.sqf";
 execVM "scripts\missionScripts.sqf";
-execVM "scripts\sandboxFunctions.sqf";
+execVM "scripts\ar_fnc_helpingReinforcement.sqf";
 execVM "scripts\ar_fnc_killEnemyIncome.sqf";
 
 if ((["aDebugMessages", 1] call BIS_fnc_getParamValue) == 1) then 

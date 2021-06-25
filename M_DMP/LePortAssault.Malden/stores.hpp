@@ -165,9 +165,9 @@ class CfgGradBuymenu {
             };
             class I_soldier_UAV_F {
                 description = "An UAV operator carrying a darter.";
-                price = 25;
+                price = 90;
                 amount = 1;
-                stock = 4;
+                stock = 2;
                 code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
             };
             class I_crew_F {
@@ -210,12 +210,13 @@ class CfgGradBuymenu {
                 price = 75;
                 stock = 10;
                 condition = "395180 in (getDLCs 1)";
-                previewScale = 0.8;
+                previewScale = 0.7;
             };
             class I_MRAP_03_F {
                 description = "A lightly armored MRAP. Has space for 4 passengers, including the driver.";
                 price = 65;
                 stock = 20;
+                previewScale = 0.8;
             };
             class I_MRAP_03_hmg_F {
                 description = "A lightly armored MRAP, armed with a remote MG. Has space for 4 people, include the driver and gunner.";
@@ -232,16 +233,29 @@ class CfgGradBuymenu {
                 description = "An unmanned ground vehicle. Along with a full suite of sensors, it can transport 1 passenger.";
                 price = 85;
                 stock = 3;
-                code = "createVehicleCrew (_this select 2); (_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true;(_this select 2) setVehicleReportOwnPosition true";  //add AI crew, give UAV controls, activate data links  
+                code = "createVehicleCrew (_this select 2); (_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true;(_this select 2) setVehicleReportOwnPosition true";  //add AI crew, activate data links  
             };
             class I_UGV_01_rcws_F {
                 description = "An unmanned ground combat vehicle. Armed with an HMG and a GMG, it can also carry 1 passenger.";
                 price = 120;
                 stock = 2;
-                code = "createVehicleCrew (_this select 2); (_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true;(_this select 2) setVehicleReportOwnPosition true";  //add AI crew, give UAV controls, activate data links  
+                code = "createVehicleCrew (_this select 2); (_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true;(_this select 2) setVehicleReportOwnPosition true";  //add AI crew, activate data links  
+            };
+            class I_UAV_01_F {
+                description = "A small recon drone.";
+                price = 80;
+                stock = 4;
+                code = "createVehicleCrew (_this select 2); (_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true;(_this select 2) setVehicleReportOwnPosition true";  //add AI crew, activate data links  
+                previewScale = 1.5;
+            };
+            class I_UAV_06_F {
+                description = "A small utility drone, able to deliver small items.";
+                price = 85;
+                stock = 3;
+                condition = "571710 in (getDLCs 1)";
+                previewScale = 1.5;
             };
         };
-
         class BaseStoreArmored {
             displayName = "Armored Vehicles";
             kindOf = "Vehicles";
@@ -275,7 +289,7 @@ class CfgGradBuymenu {
                 description = "A multi-purpose Light Tank. This is the unarmed command variant, equipped with improved optics, radar and comms.";
                 price = 90;
                 stock = 2;
-                vehicleInit = "[[], ['showCamonetHull',1] ]";
+                vehicleInit = "[ [], ['showTools',1, 'showBags',1] ]";
                 condition = "798390 in (getDLCs 1)";
                 code = "[_this #2] spawn addAddComponentActions;";
             };
@@ -283,7 +297,7 @@ class CfgGradBuymenu {
                 description = "A multi-purpose Light Tank. This is the canon variant, equipped with a 20 mm autocannon.";
                 price = 140;
                 stock = 3;
-                vehicleInit = "[[], ['showTools',1, 'showBags',1, 'showSLATHull',1]]";
+                vehicleInit = "[[], ['showTools',1, 'showBags',1]]";
                 condition = "798390 in (getDLCs 1)";
                 code = "[_this #2] spawn addAddComponentActions;";
             };
@@ -299,7 +313,7 @@ class CfgGradBuymenu {
                 description = "A multi-purpose Light Tank. This is the AA variant, equipped with a 12.7 mm heavy machine gun and SAMs.";
                 price = 150;
                 stock = 2;
-                vehicleInit = "[ [], ['showCamonetHull', 1 ] ]";
+                vehicleInit = "[ [], ['showTools',1, 'showBags',1] ]";
                 condition = "798390 in (getDLCs 1)";
                 code = "[_this #2] spawn addAddComponentActions;";
             };
@@ -366,12 +380,6 @@ class CfgGradBuymenu {
             displayName = "Special Items";
             kindOf = "Items";
             
-            class NVGogglesB_blk_F {
-                description = "Advanced night-vision goggles, that include thermal vision.";
-                amount = 1;
-                price = 6;
-                stock = 24;
-            };
             class optic_NVS {
                 description = "A marksman scope with internal nightvision with 5x magnification.";
                 amount = 1;
@@ -390,50 +398,64 @@ class CfgGradBuymenu {
                 price = 6;
                 stock = 9;
             };
+        };
+        class BaseStoreEquipment {
+            displayName = "Special Equipment";
+            kindOf = "Wearables";
+            
+            class U_I_GhillieSuit {
+                description = "AAF Ghillie Suit.";
+                amount = 1;
+                price = 5;
+                stock = 8;
+            };
+            class U_I_FullGhillie_sard {
+                description = "A full AAF Semi-Arid Ghillie Suit.";
+                amount = 1;
+                price = 7;
+                stock = 6;
+            };
+            class NVGogglesB_blk_F {
+                description = "Advanced night-vision goggles, that include thermal vision.";
+                amount = 1;
+                price = 6;
+                stock = 24;
+            };
+            class ACE_MX2A {
+                description = "Thermal vision binoculars.";
+                amount = 1;
+                price = 2;
+                stock = 24;
+            };
             class I_UavTerminal {
                 description = "A UAV Terminal.";
                 amount = 1;
                 price = 5;
                 stock = 25;
             };
-            class B_UAV_01_backpack_F {
-                description = "A small recon drone.";
-                amount = 1;
-                price = 20;
-                stock = 6;
-            };
-            class B_UAV_06_backpack_F {
-                description = "A small utility drone, able to deliver some small equipment.";
-                amount = 1;
-                price = 20;
-                stock = 6;
-                condition = "571710 in (getDLCs 1)";
-            };
-
             class B_Respawn_TentDome_F {
                 description = "Allows to set up a camp, which is can be used as a forward respawn point.";
                 amount = 1;
                 price = 200;
                 stock = 2;
             };
-
             class H_HelmetO_ViperSP_hex_F {
-                description = "Highly advanced special helmet.";
+                description = "Highly advanced helmet, with integrated multi-vision system.";
                 amount = 1;
                 price = 7;
                 stock = 12;
             };
         };
         class BaseStatics {
-            displayName = "Static Equipment";
+            displayName = "Static Defenses";
             kindOf = "Vehicles";
 
-            class I_HMG_02_high_F {
+            class I_HMG_01_high_F {
                 description = "An HMG.";
                 price = 10;
                 stock = 6;
             };
-            class I_HMG_01_high_F {
+            class I_HMG_02_high_F {
                 description = "An old and trustworthy .50 cal HMG.";
                 price = 7;
                 stock = 12;
@@ -506,21 +528,29 @@ class CfgGradBuymenu {
             displayName = "Actions";
             kindOf = "Other";
 
-            class I_Truck_02_MRL_F {
-                displayName = "MLR Strike";
-                description = "Requisiton an additional use of the MLR artillery strike.";
+            class I_Mortar_01_F {
+                displayName = "Mortar Strike";
+                description = "Requisiton an additional mortar strike.";
                 price = 80;
                 stock = 10;
                 previewScale = 0.8;
-                code = "";
+                code = "missionNameSpace setVariable ['MortarCharges',(missionNameSpace getVariable ['MortarCharges',0])+1];";
             };
+            //class I_Truck_02_MRL_F {
+            //    displayName = "MLR Strike";
+            //    description = "Requisiton an additional MLR artillery strike.";
+            //    price = 120;
+            //    stock = 10;
+            //    previewScale = 0.8;
+            //    code = "missionNameSpace setVariable ['MlrsCharges',(missionNameSpace getVariable ['MlrsCharges',0])+1];";
+            //};
             class I_UAV_02_dynamicLoadout_F {
                 displayName = "UACV Support";
-                description = "Requisiton an additional UACV call-in.";
-                price = 130;
+                description = "Requisiton an additional UACV call-in. (Requires UAV Terminal to interface with)";
+                price = 180;
                 stock = 4;
                 previewScale = 0.7;
-                code = "";
+                code = "missionNameSpace setVariable ['UacvCharges',(missionNameSpace getVariable ['UacvCharges',0])+1];";
             };
             class I_Plane_Fighter_03_dynamicLoadout_F {
                 displayName = "CAS Support";
@@ -528,7 +558,7 @@ class CfgGradBuymenu {
                 price = 80;
                 stock = 10;
                 previewScale = 0.7;
-                code = "";
+                code = "missionNameSpace setVariable ['CasCharges',(missionNameSpace getVariable ['CasCharges',0])+1];";
             };
         };
 
@@ -540,16 +570,26 @@ class CfgGradBuymenu {
                 displayName = "Send Infantry Squad";
                 description = "Have a footmobile squad advance into the area of operations.";
                 price = 70;
-                stock = 10;
-                code = "";
+                stock = 12;
+                code = "[indReinforcementSpawn_1, side (_this #0), getPos areaOfOperationsTrigger, triggerArea areaOfOperationsTrigger, []] call fnc_summonAoInfantrySAD;";
             };
             class I_MRAP_03_hmg_F {
                 displayName = "Call for Motorized Team";
-                description = "Call a small motorized team to secure your current location.";
+                description = "Call a small motorized team with an armed car to secure your current location.";
                 price = 80;
                 stock = 8;
                 previewScale = 0.8;
-                code = "";
+                code = "[indReinforcementSpawn, (_this #0), ([side (_this #0),1] call fnc_defaultBoughtHelpVehicleArrays), 0] call fnc_boughtHelp;";
+                condition = "player inArea areaOfOperationsTrigger";
+            };
+            class I_Truck_02_transport_F {
+                displayName = "Call for Motorized Squad";
+                description = "Call a motorized squad to secure your current location.";
+                price = 80;
+                stock = 8;
+                previewScale = 0.8;
+                code = "[indReinforcementSpawn, (_this #0), ([side (_this #0),2] call fnc_defaultBoughtHelpVehicleArrays)] call fnc_boughtHelp;";
+                condition = "player inArea areaOfOperationsTrigger";
             };
             class I_APC_tracked_03_cannon_F {
                 displayName = "Call for Mechanized Squad";
@@ -557,7 +597,8 @@ class CfgGradBuymenu {
                 price = 170;
                 stock = 6;
                 previewScale = 0.8;
-                code = "";
+                code = "[indReinforcementSpawn, (_this #0), ([side (_this #0),3] call fnc_defaultBoughtHelpVehicleArrays)] call fnc_boughtHelp;";
+                condition = "player inArea areaOfOperationsTrigger";
             };
             class I_MBT_03_cannon_F {
                 displayName = "Call for Armored Support";
@@ -565,7 +606,8 @@ class CfgGradBuymenu {
                 price = 280;
                 stock = 3;
                 previewScale = 0.8;
-                code = "";
+                code = "[indReinforcementSpawn, (_this #0), ([side (_this #0),4] call fnc_defaultBoughtHelpVehicleArrays)] call fnc_boughtHelp;";
+                condition = "player inArea areaOfOperationsTrigger";
             };
 
         };
