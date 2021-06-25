@@ -2,12 +2,11 @@ diag_log "----------- MAP START ------------------------------------------------
 
 execVM "scripts\maintenanceTimer.sqf";
 execVM "scripts\araaceFunctions.sqf";
-execVM "scripts\randomWeather2.sqf";
 execVM "scripts\missionScripts.sqf";
 execVM "scripts\ar_fnc_helpingReinforcement.sqf";
 execVM "scripts\ar_fnc_killEnemyIncome.sqf";
 
-if ((["aDebugMessages", 1] call BIS_fnc_getParamValue) == 1) then 
+if ((["aDebugMessages", 0] call BIS_fnc_getParamValue) == 1) then 
 {
 	aDebugMessages = true;
 } else {
@@ -21,13 +20,7 @@ if ((["aDebugMessages", 1] call BIS_fnc_getParamValue) == 1) then
 	} forEach ((getMissionLayerEntities "Debug Objects") select 0);
 };
 
-_addStores = [] spawn {
-	// [object,buyables set,cargospace,vehiclespawn,shopname,action description,condition,position,distance,action path,account] call grad_lbm_fnc_addInteraction
-	[baseScreen,"BaseStore",baseRequistionBox,baseBuyPoint,"Requisition Menu","Requisition Equipment",{side player == independent},[0,0,0],["_distance",3],["ACE_MainActions"],independent] call grad_lbm_fnc_addInteraction;
-	[heloScreen,"HelipadStore",helipadBox,helipadSpot,"Helo Requisition Menu","Requisition Helicopters",{side player == independent},[0,0,0],["_distance",3],["ACE_MainActions"],independent] call grad_lbm_fnc_addInteraction;
-};
-
-// Init global variables
+// Init income variables
 private "_incomeMultiplier";
 switch (["incomeMultiplier", 2] call BIS_fnc_getParamValue) do {
 	case 1: { _incomeMultiplier = 0.5 };
@@ -59,3 +52,11 @@ asb_defaultCRperKill = 8;
 [independent, "I_Rifleman"] call BIS_fnc_addRespawnInventory;
 [independent, "I_Tanker"] call BIS_fnc_addRespawnInventory;
 [independent, "I_HeliPilot"] call BIS_fnc_addRespawnInventory;
+
+[] spawn {
+	sleep 300;
+	{
+		[_x] call BIS_fnc_deleteTask;
+	} forEach ["tksPrntHints","tskAdditionalArmor","tskArsenal","tskDynamicGroups","tskGlobalStore","tskPhone","tskStore","tskStoreBox"];
+
+};

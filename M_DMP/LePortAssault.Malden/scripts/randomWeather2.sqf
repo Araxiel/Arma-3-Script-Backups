@@ -122,7 +122,7 @@ private ["_weatherUpdateArray","_weatherUpdateForecasts"];
       if(isNil('paramsArray')) then {
         rw2_Current_Weather = floor(random(count(weatherTemplates)));
 		} else {
-        initialWeatherParam = (paramsArray select rw2Param);
+        initialWeatherParam = ["initialWeatherParam", 4] call BIS_fnc_getParamValue;
 		switch (initialWeatherParam) do{
 			case 0: {rw2_Current_Weather = 0;};    										// Clear
             case 1: {rw2_Current_Weather = 1;};    										// Overcast

@@ -21,7 +21,7 @@ fnc_replaceFirstAidWithAceCargo = {
 		[_object, "FirstAidKit"] call CBA_fnc_removeWeaponCargo;
 	
 	} else {
-		if (_debugMsg) then {"No First Aid Kits" call BIS_fnc_error;};
+		//if (_debugMsg) then {"No First Aid Kits" call BIS_fnc_error;};
 	};
 	
 };

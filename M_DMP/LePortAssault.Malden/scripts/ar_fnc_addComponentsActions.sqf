@@ -7,7 +7,7 @@
 //	implement with
 //	[_vehicle, 0, ["ACE_MainActions"], addSlatAction] call ace_interact_menu_fnc_addActionToObject;
 //	[_vehicle, 0, ["ACE_MainActions"], addCamoAction] call ace_interact_menu_fnc_addActionToObject;
-//
+
 params [
 	['_addComponentsActionRepairFacility', "Land_RepairDepot_01_green_F"],
 	['_addComponentsActionTime', 10],
@@ -67,7 +67,7 @@ addSlatActionCondition = {
 
 // Setups the ACE action.
 addSlatAction = [
-	"addSlat","Add SLAT Armor ($10)",
+	"addSlat","Add SLAT Armor",
 	"\a3\ui_f\data\igui\cfg\simpletasks\types\armor_ca.paa",
 	fnc_addSlatStart,
 	addSlatActionCondition
@@ -120,7 +120,7 @@ addCamoActionCondition = {
 
 // Setups the ACE action.
 addCamoAction = [
-	"addSlat","Add Camo Armor ($10)",
+	"addSlat","Add Camo Netting",
 	"\a3\ui_f\data\igui\cfg\simpletasks\types\box_ca.paa",
 	fnc_addCamoStart,
 	addCamoActionCondition

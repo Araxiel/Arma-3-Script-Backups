@@ -120,7 +120,7 @@ addCamoActionCondition = {
 
 // Setups the ACE action.
 addCamoAction = [
-	"addSlat","Add Camo Armor",
+	"addSlat","Add Camo Netting",
 	"\a3\ui_f\data\igui\cfg\simpletasks\types\box_ca.paa",
 	fnc_addCamoStart,
 	addCamoActionCondition
