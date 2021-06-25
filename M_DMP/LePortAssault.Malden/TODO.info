@@ -1,3 +1,21 @@
-Global Store
-Support charges
-Income
+
+
+Long-Term
+    - Optional switch to have civilians that give penalty if killed
+    - Penalty for killing friendlies
+        Empty vehicles are CIV, so potentially add variable at creation that's like "originalSide"
+
+    - Custom Spawn Script (Retire DMP)
+
+Medium-Term:
+    - Check if maybe getting rid of moneyMenu
+    - Switch hints from tasks to drawIcon3D
+    - Fix MLRS
+
+Short-term:
+    - Passive Income
+    - Purchase notification
+    - Investigate unlimited mortar
+
+    - Medical Tent Heal
+        [player] call ace_medical_treatment_fnc_fullHealLocal
