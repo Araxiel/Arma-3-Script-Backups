@@ -5,6 +5,7 @@ execVM "scripts\araaceFunctions.sqf";
 execVM "scripts\randomWeather2.sqf";
 execVM "scripts\missionScripts.sqf";
 execVM "scripts\sandboxFunctions.sqf";
+execVM "scripts\ar_fnc_killEnemyIncome.sqf";
 
 if ((["aDebugMessages", 1] call BIS_fnc_getParamValue) == 1) then 
 {
@@ -43,11 +44,10 @@ asb_incomeMultiplier = _incomeMultiplier;
 
 [independent,["startingFunds", 500] call BIS_fnc_getParamValue] call grad_lbm_fnc_setFunds;
 
-asb_defaultCRperKill = 8;
-
-//	income TODO?
+//	income TODO
 asb_baseIncome = 100;
 asb_gainedIncome = 0;
+asb_defaultCRperKill = 8;
 
 // init tickets
 [independent, ["startingTickets", 10] call BIS_fnc_getParamValue] call BIS_fnc_respawnTickets;
