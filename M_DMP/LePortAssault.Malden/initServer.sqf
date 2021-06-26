@@ -4,7 +4,8 @@ execVM "scripts\ar_fnc_aceFirstadidkitConversion.sqf";
 execVM "scripts\ar_fnc_aceHealthStation.sqf";
 execVM "scripts\ar_fnc_helpingReinforcement.sqf";
 execVM "scripts\ar_fnc_killEnemyIncome.sqf";
-execVM "scripts\maintenanceTimer.sqf";
+execVM "scripts\timerMaintenance.sqf";
+execVM "scripts\timerIncome.sqf";
 execVM "scripts\missionScripts.sqf";
 
 if ((["aDebugMessages", 0] call BIS_fnc_getParamValue) == 1) then 
@@ -37,10 +38,6 @@ switch (["incomeMultiplier", 2] call BIS_fnc_getParamValue) do {
 asb_incomeMultiplier = _incomeMultiplier;
 
 [independent,["startingFunds", 500] call BIS_fnc_getParamValue] call grad_lbm_fnc_setFunds;
-
-//	income TODO
-asb_baseIncome = 100;
-asb_gainedIncome = 0;
 asb_defaultCRperKill = 8;
 
 // init tickets

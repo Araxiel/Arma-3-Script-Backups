@@ -1,13 +1,13 @@
 
 
 Long-Term
-    - Optional switch to have civilians that give penalty if killed
-    - Penalty for killing friendlies
-        Empty vehicles are CIV, so potentially add variable at creation that's like "originalSide"
-
     - Custom Spawn Script (Retire DMP)
+        - Optional switch to have civilians that give penalty if killed
+        - Penalty for killing friendlies
+            Empty vehicles are CIV, so potentially add variable at creation that's like "originalSide"
+    - Custom Mission Script
     
-    - Save income (and other)
+    - Save income (and other data)
 
 Medium-Term:
     - Check if maybe getting rid of moneyMenu
@@ -15,6 +15,4 @@ Medium-Term:
     - Fix MLRS
 
 Short-term:
-    - Passive Income
-
     - Investigate unlimited mortar
