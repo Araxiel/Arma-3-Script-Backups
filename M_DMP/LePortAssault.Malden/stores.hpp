@@ -15,7 +15,7 @@ class CfgGradBuymenu {
                 description = "A multi-purpose utility helicopter. Has space for 6, excluding the two crew.";
                 price = 280;
                 stock = 5;
-                code = "(_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true; (_this select 2) setVehicleReportOwnPosition true";
+                code = "(_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true; (_this select 2) setVehicleReportOwnPosition true; [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
         };
 
@@ -28,7 +28,7 @@ class CfgGradBuymenu {
                 price = 8;
                 amount = 1;
                 stock = 10;
-                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this select 2)";
+                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this select 2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
         };
 
@@ -45,21 +45,21 @@ class CfgGradBuymenu {
                 price = 10;
                 amount = 1;
                 stock = 50;
-                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
             class I_soldier_AR_F {
                 description = "A rifleman with an LMG.";
                 price = 11;
                 amount = 1;
                 stock = 40;
-                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
             class I_Soldier_GL_F {
                 description = "A rifleman with an underbarrel grenade launcher.";
                 price = 11;
                 amount = 1;
                 stock = 30;
-                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
             // No heavy gunner for AAF
             //class B_HeavyGunner_F {
@@ -67,14 +67,14 @@ class CfgGradBuymenu {
             //    price = 13;
             //    amount = 1;
             //    stock = 30;
-            //    code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+            //    code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             //};
             class I_soldier_M_F {
                 description = "A soldier with a marksman rifle.";
                 price = 15;
                 amount = 1;
                 stock = 20;
-                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
             // No sniper for AAF
             //class B_Sharpshooter_F {
@@ -82,21 +82,21 @@ class CfgGradBuymenu {
             //    price = 16;
             //    amount = 1;
             //    stock = 30;
-            //    code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+            //    code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             //};
             class I_Soldier_TL_F {
                 description = "A soldier with the tools to command a fireteam.";
                 price = 13;
                 amount = 1;
                 stock = 15;
-                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
             class I_medic_F {
                 description = "A medic.";
                 price = 12;
                 amount = 1;
                 stock = 20;
-                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
 
             class I_soldier_LAT2_F {
@@ -104,28 +104,28 @@ class CfgGradBuymenu {
                 price = 13;
                 amount = 1;
                 stock = 30;
-                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
             class I_soldier_LAT_F {
                 description = "An anti-tank soldier carrying an anti-tank rocket launcher.";
                 price = 14;
                 amount = 1;
                 stock = 20;
-                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
             class I_soldier_AT_F {
                 description = "An anti-tank soldier with a ATGM.";
                 price = 16;
                 amount = 1;
                 stock = 10;
-                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
             class I_soldier_AA_F {
                 description = "An anti-tank soldier with a light SAM.";
                 price = 13;
                 amount = 1;
                 stock = 15;
-                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
 
             class I_engineer_F {
@@ -133,49 +133,49 @@ class CfgGradBuymenu {
                 price = 13;
                 amount = 1;
                 stock = 15;
-                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
             class I_soldier_exp_F {
                 description = "A explosive weapons specialist that can plant and disarm ordinance.";
                 price = 13;
                 amount = 1;
                 stock = 12;
-                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
             class I_Soldier_A_F {
                 description = "An ammo bearer.";
                 price = 11;
                 amount = 1;
                 stock = 25;
-                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
             class I_spotter_F {
                 description = "A spotter with a ghilli suit.";
                 price = 15;
                 amount = 1;
                 stock = 10;
-                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
             class B_ghillie_sard_F {
                 description = "Sniper.";
                 price = 20;
                 amount = 1;
                 stock = 5;
-                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
             class I_soldier_UAV_F {
                 description = "An UAV operator carrying a darter.";
                 price = 90;
                 amount = 1;
                 stock = 2;
-                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
             class I_crew_F {
                 description = "A crewman.";
                 price = 8;
                 amount = 1;
                 stock = 40;
-                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2)";
+                code = "{[_x] join _this #0; [_x, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;} forEach units (_this #2); [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
         };
 
@@ -187,29 +187,34 @@ class CfgGradBuymenu {
                 description = "A very small ATV for two.";
                 price = 15;
                 stock = 20;
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
             };
             class I_Truck_02_covered_F {
                 description = "A tactical truck. Has space for 16 passengers, excluding the driver.";
                 price = 50;
                 stock = 20;
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
             };
             class B_LSV_01_unarmed_F {
                 description = "A light strike vehicle. Has space for 7 people, including the driver.";
                 price = 50;
                 stock = 20;
                 condition = "395180 in (getDLCs 1)";
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
             };
             class B_LSV_01_armed_F {
                 description = "An armed light strike vehicle. Has space for 5 people, include the driver and gunners.";
                 price = 75;
                 stock = 10;
                 condition = "395180 in (getDLCs 1)";
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
             };
             class B_LSV_01_AT_F {
                 description = "An armed light strike vehicle, equipped with an ATGM. Has space for 5 people, include the driver and gunners.";
                 price = 75;
                 stock = 10;
                 condition = "395180 in (getDLCs 1)";
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
                 previewScale = 0.7;
             };
             class I_MRAP_03_F {
@@ -217,35 +222,38 @@ class CfgGradBuymenu {
                 price = 65;
                 stock = 20;
                 previewScale = 0.8;
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
             };
             class I_MRAP_03_hmg_F {
                 description = "A lightly armored MRAP, armed with a remote MG. Has space for 4 people, include the driver and gunner.";
                 price = 80;
                 stock = 8;
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
             };
             class I_MRAP_03_gmg_F {
                 description = "A lightly armored MRAP, armed with a remote grenade launcher. Has space for 4 people, include the driver and gunner.";
                 price = 100;
                 stock = 8;
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
             };
 
             class I_UGV_01_F {
                 description = "An unmanned ground vehicle. Along with a full suite of sensors, it can transport 1 passenger.";
                 price = 85;
                 stock = 3;
-                code = "createVehicleCrew (_this select 2); (_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true;(_this select 2) setVehicleReportOwnPosition true";  //add AI crew, activate data links  
+                code = "createVehicleCrew (_this select 2); (_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true;(_this select 2) setVehicleReportOwnPosition true; [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"  //add AI crew, activate data links  
             };
             class I_UGV_01_rcws_F {
                 description = "An unmanned ground combat vehicle. Armed with an HMG and a GMG, it can also carry 1 passenger.";
                 price = 120;
                 stock = 2;
-                code = "createVehicleCrew (_this select 2); (_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true;(_this select 2) setVehicleReportOwnPosition true";  //add AI crew, activate data links  
+                code = "createVehicleCrew (_this select 2); (_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true;(_this select 2) setVehicleReportOwnPosition true; [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"  //add AI crew, activate data links  
             };
             class I_UAV_01_F {
                 description = "A small recon drone.";
                 price = 80;
                 stock = 4;
-                code = "createVehicleCrew (_this select 2); (_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true;(_this select 2) setVehicleReportOwnPosition true";  //add AI crew, activate data links  
+                code = "createVehicleCrew (_this select 2); (_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true;(_this select 2) setVehicleReportOwnPosition true; [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"  //add AI crew, activate data links  
                 previewScale = 1.5;
             };
             class I_UAV_06_F {
@@ -254,6 +262,7 @@ class CfgGradBuymenu {
                 stock = 3;
                 condition = "571710 in (getDLCs 1)";
                 previewScale = 1.5;
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
             };
         };
         class BaseStoreArmored {
@@ -266,7 +275,7 @@ class CfgGradBuymenu {
                 stock = 6;
                 vehicleInit = "[[],['showBags',1,'showBags2',1,'showTools',1]]";
                 previewScale = 0.8;
-                code = "[_this #2] spawn addAddComponentActions;";
+                code = "[_this #2] spawn addAddComponentActions; [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
             class I_APC_tracked_03_cannon_F {
                 description = "A heavily armored tracked Armoured Personnel Carrier with a 30mm autocannon. Has space for 7 passengers, excluding the driver, gunner and commander.";
@@ -274,7 +283,7 @@ class CfgGradBuymenu {
                 stock = 4;
                 vehicleInit = "[[],['showBags',1 ,'showBags2',1 ,'showTools',1]]";
                 previewScale = 0.8;
-                code = "[_this #2] spawn addAddComponentActions;";
+                code = "[_this #2] spawn addAddComponentActions; [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
 
             class I_MBT_03_cannon_F {
@@ -282,7 +291,7 @@ class CfgGradBuymenu {
                 price = 270;
                 stock = 3;
                 previewScale = 0.8;
-                code = "[_this #2] spawn addAddComponentActions;";
+                code = "[_this #2] spawn addAddComponentActions; [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
 
             class I_LT_01_scout_F {
@@ -291,7 +300,7 @@ class CfgGradBuymenu {
                 stock = 2;
                 vehicleInit = "[ [], ['showTools',1, 'showBags',1] ]";
                 condition = "798390 in (getDLCs 1)";
-                code = "[_this #2] spawn addAddComponentActions;";
+                code = "[_this #2] spawn addAddComponentActions; [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
             class I_LT_01_cannon_F {
                 description = "A multi-purpose Light Tank. This is the canon variant, equipped with a 20 mm autocannon.";
@@ -299,7 +308,7 @@ class CfgGradBuymenu {
                 stock = 3;
                 vehicleInit = "[[], ['showTools',1, 'showBags',1]]";
                 condition = "798390 in (getDLCs 1)";
-                code = "[_this #2] spawn addAddComponentActions;";
+                code = "[_this #2] spawn addAddComponentActions; [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
             class I_LT_01_AT_F {
                 description = "A multi-purpose Light Tank. This is the AT variant, equipped with a 12.7 mm heavy machine gun and ATGMs.";
@@ -307,7 +316,7 @@ class CfgGradBuymenu {
                 stock = 3;
                 vehicleInit = "[ [], ['showTools',1, 'showBags',1] ]";
                 condition = "798390 in (getDLCs 1)";
-                code = "[_this #2] spawn addAddComponentActions;";
+                code = "[_this #2] spawn addAddComponentActions; [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
             class I_LT_01_AA_F {
                 description = "A multi-purpose Light Tank. This is the AA variant, equipped with a 12.7 mm heavy machine gun and SAMs.";
@@ -315,7 +324,7 @@ class CfgGradBuymenu {
                 stock = 2;
                 vehicleInit = "[ [], ['showTools',1, 'showBags',1] ]";
                 condition = "798390 in (getDLCs 1)";
-                code = "[_this #2] spawn addAddComponentActions;";
+                code = "[_this #2] spawn addAddComponentActions; [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";
             };
 
         };
@@ -328,21 +337,25 @@ class CfgGradBuymenu {
                 description = "Medical support/transport variant of the heavy tactical truck. Allows better treatment of those transported. Has space for 13 passengers, excluding the driver.";
                 price = 25;
                 stock = 5;
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
             };
             class I_Truck_02_box_F {
                 description = "A repair variant with spare parts, tools, and components of the heavy tactical truck. Allows much better repairs of other vehicles.";
                 price = 25;
                 stock = 5;
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
             };
             class I_Truck_02_fuel_F {
                 description = "A large fuel tanker variant of the heavy tactical truck.";
                 price = 25;
                 stock = 5;
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
             };
             class I_Truck_02_ammo_F {
                 description = "An ammunition supply variant of the heavy tactical truck, with a large semi-hexagon shaped, tarpaulin-covered container. Helps with the rearming of vehicles.";
                 price = 30;
                 stock = 5;
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
             };
         };
 
@@ -355,24 +368,28 @@ class CfgGradBuymenu {
                 amount = 1;
                 price = 6;
                 stock = 12;
+                code = "[_this #0, _this #1, 'CfgWeapons', 1] spawn fnc_purchaseMessage; hint format['%1',_this #1]"
             };
             class srifle_LRR_LRPS_F {
                 description = "A high powered sniper rifle.";
                 amount = 1;
                 price = 9;
                 stock = 5;
+                code = "[_this #0, _this #1, 'CfgWeapons', 1] spawn fnc_purchaseMessage;"
             };
             class srifle_GM6_LRPS_F {
                 description = "A high powered anti-material sniper rifle.";
                 amount = 1;
                 price = 11;
                 stock = 4;
+                code = "[_this #0, _this #1, 'CfgWeapons', 1] spawn fnc_purchaseMessage;"
             };
             class launch_I_Titan_short_F {
                 description = "A guided anti-tank missile launcher.";
                 amount = 1;
                 price = 8;
                 stock = 10;
+                code = "[_this #0, _this #1, 'CfgWeapons', 1] spawn fnc_purchaseMessage;"
             };
 
         };
@@ -385,18 +402,21 @@ class CfgGradBuymenu {
                 amount = 1;
                 price = 3;
                 stock = 20;
+                code = "[_this #0, _this #1, 'CfgWeapons', 1] spawn fnc_purchaseMessage;"
             };
             class optic_tws {
                 description = "A infrared scope with 4x-10x magnification.";
                 amount = 1;
                 price = 4;
                 stock = 12;
+                code = "[_this #0, _this #1, 'CfgWeapons', 1] spawn fnc_purchaseMessage;"
             };
             class optic_nightstalker {
                 description = "A high-tech multi-vision scope with 4x-10x magnification.";
                 amount = 1;
                 price = 6;
                 stock = 9;
+                code = "[_this #0, _this #1, 'CfgWeapons', 1] spawn fnc_purchaseMessage;"
             };
         };
         class BaseStoreEquipment {
@@ -408,42 +428,49 @@ class CfgGradBuymenu {
                 amount = 1;
                 price = 5;
                 stock = 8;
+                code = "[_this #0, _this #1, 'CfgWeapons', 1] spawn fnc_purchaseMessage;"
             };
             class U_I_FullGhillie_sard {
                 description = "A full AAF Semi-Arid Ghillie Suit.";
                 amount = 1;
                 price = 7;
                 stock = 6;
+                code = "[_this #0, _this #1, 'CfgWeapons', 1] spawn fnc_purchaseMessage;"
             };
             class NVGogglesB_blk_F {
                 description = "Advanced night-vision goggles, that include thermal vision.";
                 amount = 1;
                 price = 6;
                 stock = 24;
+                code = "[_this #0, _this #1, 'CfgWeapons', 1] spawn fnc_purchaseMessage;"
             };
             class ACE_MX2A {
                 description = "Thermal vision binoculars.";
                 amount = 1;
                 price = 2;
                 stock = 24;
+                code = "[_this #0, _this #1, 'CfgWeapons', 1] spawn fnc_purchaseMessage;"
             };
             class I_UavTerminal {
                 description = "A UAV Terminal.";
                 amount = 1;
                 price = 5;
                 stock = 25;
+                code = "[_this #0, _this #1, 'CfgWeapons', 1] spawn fnc_purchaseMessage;"
             };
             class B_Respawn_TentDome_F {
                 description = "Allows to set up a camp, which is can be used as a forward respawn point.";
                 amount = 1;
                 price = 200;
                 stock = 2;
+                code = "[_this #0, _this #1, 'CfgWeapons', 1] spawn fnc_purchaseMessage;"
             };
             class H_HelmetO_ViperSP_hex_F {
                 description = "Highly advanced helmet, with integrated multi-vision system.";
                 amount = 1;
                 price = 7;
                 stock = 12;
+                code = "[_this #0, _this #1, 'CfgWeapons', 1] spawn fnc_purchaseMessage;"
             };
         };
         class BaseStatics {
@@ -454,44 +481,50 @@ class CfgGradBuymenu {
                 description = "An HMG.";
                 price = 10;
                 stock = 6;
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
             };
             class I_HMG_02_high_F {
                 description = "An old and trustworthy .50 cal HMG.";
                 price = 7;
                 stock = 12;
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
             };
             class I_static_AA_F {
                 description = "A manpad SAM.";
                 price = 10;
                 stock = 8;
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
             };
             class I_static_AT_F {
                 description = "A static ATGM.";
                 price = 10;
                 stock = 8;
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
             };
             class I_GMG_01_F {
                 description = "A grenade machine gun.";
                 amount = 1;
                 price = 16;
                 stock = 7;
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
             };
             class I_Mortar_01_F {
                 description = "A mortar.";
                 price = 100;
                 stock = 2;
+                code = "[_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;"
             };
             class I_GMG_01_A_F {
                 description = "An autonomous GMG.";
                 price = 25;
                 stock = 7;
-                code = "createVehicleCrew (_this select 2); (_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true;(_this select 2) setVehicleReportOwnPosition true";  //add AI crew, give UAV controls, activate data links  
+                code = "createVehicleCrew (_this select 2); (_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true;(_this select 2) setVehicleReportOwnPosition true; [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";  //add AI crew, give UAV controls, activate data links  
             };
             class I_HMG_01_A_F {
                 description = "An autonomous HMG.";
                 price = 15;
                 stock = 9;
-                code = "createVehicleCrew (_this select 2); (_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true;(_this select 2) setVehicleReportOwnPosition true";  //add AI crew, give UAV controls, activate data links  
+                code = "createVehicleCrew (_this select 2); (_this select 2) setVehicleReceiveRemoteTargets true; (_this select 2) setVehicleReportRemoteTargets true;(_this select 2) setVehicleReportOwnPosition true; [_this #0, _this #1, 'CfgVehicles', 1] spawn fnc_purchaseMessage;";  //add AI crew, give UAV controls, activate data links  
             };
 
         };
@@ -505,7 +538,7 @@ class CfgGradBuymenu {
                 description = "Requisiton 5 additional Respawn Tickets.";
                 price = 50;
                 stock = 15;
-                code = "[independent, 5] call BIS_fnc_respawnTickets;";
+                code = "[independent, 5] call BIS_fnc_respawnTickets; [_this #0, 'Additional Tickets', '', 0] spawn fnc_purchaseMessage;";
             };
 
             class I_E_Radar_System_01_F {
@@ -514,7 +547,7 @@ class CfgGradBuymenu {
                 price = 100;
                 stock = 1;
                 previewScale = 0.8;
-                code = "[] spawn fnc_spawnRadar;";
+                code = "[] spawn fnc_spawnRadar; [_this #0, 'Radar', '', 0] spawn fnc_purchaseMessage;";
             };
 
         };
@@ -534,7 +567,7 @@ class CfgGradBuymenu {
                 price = 80;
                 stock = 10;
                 previewScale = 0.8;
-                code = "missionNameSpace setVariable ['MortarCharges',(missionNameSpace getVariable ['MortarCharges',0])+1];";
+                code = "missionNameSpace setVariable ['MortarCharges',(missionNameSpace getVariable ['MortarCharges',0])+1]; [_this #0, 'Mortar Strike', '', 0] spawn fnc_purchaseMessage;";
             };
             //class I_Truck_02_MRL_F {
             //    displayName = "MLR Strike";
@@ -550,7 +583,7 @@ class CfgGradBuymenu {
                 price = 180;
                 stock = 4;
                 previewScale = 0.7;
-                code = "missionNameSpace setVariable ['UacvCharges',(missionNameSpace getVariable ['UacvCharges',0])+1];";
+                code = "missionNameSpace setVariable ['UacvCharges',(missionNameSpace getVariable ['UacvCharges',0])+1]; [_this #0, 'UACV Support', '', 0] spawn fnc_purchaseMessage;";
             };
             class I_Plane_Fighter_03_dynamicLoadout_F {
                 displayName = "CAS Support";
@@ -558,7 +591,7 @@ class CfgGradBuymenu {
                 price = 80;
                 stock = 10;
                 previewScale = 0.7;
-                code = "missionNameSpace setVariable ['CasCharges',(missionNameSpace getVariable ['CasCharges',0])+1];";
+                code = "missionNameSpace setVariable ['CasCharges',(missionNameSpace getVariable ['CasCharges',0])+1]; [_this #0, 'CAS Strike', '', 0] spawn fnc_purchaseMessage;";
             };
         };
 
@@ -571,7 +604,7 @@ class CfgGradBuymenu {
                 description = "Have a footmobile squad advance into the area of operations.";
                 price = 70;
                 stock = 12;
-                code = "[indReinforcementSpawn_1, side (_this #0), getPos areaOfOperationsTrigger, triggerArea areaOfOperationsTrigger, []] call fnc_summonAoInfantrySAD;";
+                code = "[indReinforcementSpawn_1, side (_this #0), getPos areaOfOperationsTrigger, triggerArea areaOfOperationsTrigger, []] call fnc_summonAoInfantrySAD; [_this #0, 'Infantry Squad Reinforcements', '', 0] spawn fnc_purchaseMessage;";
             };
             class I_MRAP_03_hmg_F {
                 displayName = "Call for Motorized Team";
@@ -579,7 +612,7 @@ class CfgGradBuymenu {
                 price = 80;
                 stock = 8;
                 previewScale = 0.8;
-                code = "[indReinforcementSpawn, (_this #0), ([side (_this #0),1] call fnc_defaultBoughtHelpVehicleArrays), 0] call fnc_boughtHelp;";
+                code = "[indReinforcementSpawn, (_this #0), ([side (_this #0),1] call fnc_defaultBoughtHelpVehicleArrays), 0] call fnc_boughtHelp; [_this #0, 'Motorized Team Reinforcements', '', 0] spawn fnc_purchaseMessage;";
                 condition = "player inArea areaOfOperationsTrigger";
             };
             class I_Truck_02_transport_F {
@@ -588,7 +621,7 @@ class CfgGradBuymenu {
                 price = 80;
                 stock = 8;
                 previewScale = 0.8;
-                code = "[indReinforcementSpawn, (_this #0), ([side (_this #0),2] call fnc_defaultBoughtHelpVehicleArrays)] call fnc_boughtHelp;";
+                code = "[indReinforcementSpawn, (_this #0), ([side (_this #0),2] call fnc_defaultBoughtHelpVehicleArrays)] call fnc_boughtHelp; [_this #0, 'Motorized Squad Reinforcements', '', 0] spawn fnc_purchaseMessage;";
                 condition = "player inArea areaOfOperationsTrigger";
             };
             class I_APC_tracked_03_cannon_F {
@@ -597,7 +630,7 @@ class CfgGradBuymenu {
                 price = 170;
                 stock = 6;
                 previewScale = 0.8;
-                code = "[indReinforcementSpawn, (_this #0), ([side (_this #0),3] call fnc_defaultBoughtHelpVehicleArrays)] call fnc_boughtHelp;";
+                code = "[indReinforcementSpawn, (_this #0), ([side (_this #0),3] call fnc_defaultBoughtHelpVehicleArrays)] call fnc_boughtHelp; [_this #0, 'Mechanized Squad Reinforcements', '', 0] spawn fnc_purchaseMessage;";
                 condition = "player inArea areaOfOperationsTrigger";
             };
             class I_MBT_03_cannon_F {
@@ -606,7 +639,7 @@ class CfgGradBuymenu {
                 price = 280;
                 stock = 3;
                 previewScale = 0.8;
-                code = "[indReinforcementSpawn, (_this #0), ([side (_this #0),4] call fnc_defaultBoughtHelpVehicleArrays)] call fnc_boughtHelp;";
+                code = "[indReinforcementSpawn, (_this #0), ([side (_this #0),4] call fnc_defaultBoughtHelpVehicleArrays)] call fnc_boughtHelp; [_this #0, 'Armored Reinforcements', '', 0] spawn fnc_purchaseMessage;";
                 condition = "player inArea areaOfOperationsTrigger";
             };
 

@@ -70,3 +70,24 @@ fnc_dmp_unitInit = {
 
 	// [dood] call fnc_dmp_unitInit;
 };
+
+fnc_purchaseMessage = {
+	// [_buyer, _object, _objectType, _stringType] call fnc_purchaseMessage;
+	params[
+		["_buyer",objNull],
+		["_object",""],
+		["_objectType","CfgVehicles"],
+		["_stringType",1]
+	];
+	// _stringType: 0 for string, 1 for Cfg Name
+	// _objectTypes examples:
+	// CfgVehicles, CfgWeapons, 
+
+	if (_stringType == 1) then {
+		_object = gettext (configfile >> _objectType >> _object >> "displayName"); 
+	};
+	if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ['- STORE: %1 purchased %2',name _buyer, _object];};
+	_msgString = format ['%1 purchased %2',name _buyer, _object];
+	
+	[[side _buyer, "Base"], _msgString] remoteExec ["sideChat", [0, -2] select isDedicated];
+};
