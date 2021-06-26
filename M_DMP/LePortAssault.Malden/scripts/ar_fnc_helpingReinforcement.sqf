@@ -179,6 +179,30 @@ fnc_defaultBoughtHelpVehicleArrays = {
 
 };
 
+// unit interactions
+// TODO Instead of deleting, unit will move to base (and gets deleted there)
+as_acea_dismissUnit = [
+	"Dismiss",
+	"Dismiss Unit",
+	"",
+	{
+		deleteVehicle _target;
+	},
+	{true}
+] call ace_interact_menu_fnc_createAction;
+
+as_acea_recruitUnit = [
+	"Recruit",
+	"Recruit Unit",
+	"",
+	{
+		[_target] join _player;
+		[_target, 0, ['ACE_MainActions'], as_acea_dismissUnit] call ace_interact_menu_fnc_addActionToObject;
+		_target setVariable ["gotRecruited", true]
+	},
+	{!(_target getVariable ["gotRecruited",false])}
+] call ace_interact_menu_fnc_createAction;
+
 fnc_aoSAD = {
 
 	params [
@@ -247,18 +271,16 @@ fnc_summonAoInfantrySAD = {
 			[ "_debugMarkerText", ""],
 			[ "_debugMarkerAlpha", 0.9]
 		];
+		if !(missionNamespace getVariable ['aDebugMessages',false]) exitWith {};
 		private "_debugMarker";
-
-		if (missionNamespace getVariable ['aDebugMessages',false]) then {
-			_debugMarkerPos = _debugMarkerPos call BIS_fnc_position;
-			_debugMarkerId = round(random 50000)+100000; 
-			_debugMarker = createMarker [format["_USER_DEFINED %1",_debugMarkerId], _debugMarkerPos]; 
-			_debugMarker setMarkerType _debugMarkerType; 
-			_debugMarker setMarkerColor _debugMarkercolor;
-			_debugMarker setMarkerText _debugMarkerText;
-			_debugMarker setMarkerAlpha _debugMarkerAlpha;
-		};
-		//_debugMarker
+		_debugMarkerPos = _debugMarkerPos call BIS_fnc_position;
+		_debugMarkerId = round(random 50000)+100000; 
+		_debugMarker = createMarker [format["_USER_DEFINED %1",_debugMarkerId], _debugMarkerPos]; 
+		_debugMarker setMarkerType _debugMarkerType; 
+		_debugMarker setMarkerColor _debugMarkercolor;
+		_debugMarker setMarkerText _debugMarkerText;
+		_debugMarker setMarkerAlpha _debugMarkerAlpha;
+		_debugMarker
 	};
 
 	if (missionNamespace getVariable ['aDebugMessages',false]) then { diag_log '- aoInfantry Start -';};
@@ -266,6 +288,10 @@ fnc_summonAoInfantrySAD = {
 	_specificSpawn = [_spawn, 0, 40, 5, 0] call BIS_fnc_findSafePos;	// find a safe spawn spot
 	_group = [_specificSpawn, _side, 7] call BIS_fnc_spawnGroup;
 	_group deleteGroupWhenEmpty true;
+
+	{
+		[_x, 0, ['ACE_MainActions'], as_acea_recruitUnit] call ace_interact_menu_fnc_addActionToObject		
+	} forEach units _group;
 
 	//	reformats the trigger pos and area into a usable format of [[x,y,z], [a, b, angle, rect]], or [[0,0,0], [0,0,0,-1]]
 	private _aoAreaArray = [_aoPos, _aoArea];
@@ -348,6 +374,9 @@ fnc_boughtHelp = {
 		if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ['_spawnedPassengerAmount : %1',_spawnedPassengerAmount];};
 	};
 
+	{
+		[_x, 0, ['ACE_MainActions'], as_acea_recruitUnit] call ace_interact_menu_fnc_addActionToObject		
+	} forEach units _group;
     _group setVariable ["helpCaller", _caller];	// saves the caller as a variable for the group
 
 	_wpPos = [_callerPos, 0, 10, 2, 0, 30] call BIS_fnc_findSafePos;	// get a random (accessible) spot for the WP

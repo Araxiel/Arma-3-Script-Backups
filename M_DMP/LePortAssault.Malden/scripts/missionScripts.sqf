@@ -40,8 +40,6 @@ fnc_supportChargesCalc = {
 
 };
 
-as_acea_dismissUnit = ["Dismiss","Dismiss Unit","",{deleteVehicle _target;},{true}] call ace_interact_menu_fnc_createAction;
-
 // teleport
 _actionToHeliport = ["toHeliport","Travel to Heliport","",{_player setPos (getPos heloTeleportSpot);},{true}] call ace_interact_menu_fnc_createAction;
 _actionToBase = ["toBase","Travel to Base","",{_player setPos (getPos baseTeleportSpot);},{true}] call ace_interact_menu_fnc_createAction;

@@ -13,6 +13,8 @@ Medium-Term:
     - Check if maybe getting rid of moneyMenu
     - Switch hints from tasks to drawIcon3D
     - Fix MLRS
+    - When dismissing, instead of deleting, unit will move to base (and gets deleted there)
+    - Reinforcements that get dropped off and join
 
 Short-term:
     - Investigate unlimited mortar
