@@ -1,4 +1,3 @@
-// TODO
 // enemy killed income given to team
 ars_fnc_enemyKilled = {
 
@@ -35,6 +34,9 @@ ars_fnc_enemyKilled = {
 
 	_unitDisplayName = gettext (configfile >> "CfgVehicles" >> typeOf(_unit) >> "displayName");
 
+	// sleep timer
+	private _sleepTimer = 10+random(10);
+
 	if ((_unit isKindof "LandVehicle") || (_unit isKindof "Air") || (_unit isKindof "Ship")) then {
 
 		_unit setVariable ["asb_killer", _instigator];
@@ -57,9 +59,7 @@ ars_fnc_enemyKilled = {
 			// debug info
 			if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ['- %2 ---- _instigator : %1',_instigator,_unit];};
 			if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ['- %2 ---- _unitDisplayName : %1',_unitDisplayName,_unit];};
-			// --
-			// 	TODO sleep timer
-			_sleepTimer = 10+random(10);
+			// sleep timer
 			sleep _sleepTimer;
 
 			if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ["- %4 - %3 got cr%1 for eliminating %2", _gainedCR, _unitDisplayName, side _instigator,_unit];};
@@ -85,8 +85,6 @@ ars_fnc_enemyKilled = {
 			if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ['- %2 --- _instigator : %1',_instigator,_unit];};
 			if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ['- %2 --- _unitDisplayName : %1',_unitDisplayName,_unit];};
 			// --
-			// 	TODO sleep timer
-			_sleepTimer = 1+random(1);
 			sleep _sleepTimer;
 			
 			if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ["- %4 - %3 got cr%1 for eliminating %2", _gainedCR, _unitDisplayName, side _instigator,_unit];};
