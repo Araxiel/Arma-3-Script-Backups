@@ -6,6 +6,8 @@ Long-Term
         Empty vehicles are CIV, so potentially add variable at creation that's like "originalSide"
 
     - Custom Spawn Script (Retire DMP)
+    
+    - Save income (and other)
 
 Medium-Term:
     - Check if maybe getting rid of moneyMenu
@@ -16,6 +18,3 @@ Short-term:
     - Passive Income
     - Purchase notification
     - Investigate unlimited mortar
-
-    - Medical Tent Heal
-        [player] call ace_medical_treatment_fnc_fullHealLocal

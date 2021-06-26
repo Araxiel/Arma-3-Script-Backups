@@ -1,10 +1,11 @@
 diag_log "----------- MAP START -------------------------------------------------------------------------------------------------------------------------";
 
-execVM "scripts\maintenanceTimer.sqf";
-execVM "scripts\araaceFunctions.sqf";
-execVM "scripts\missionScripts.sqf";
+execVM "scripts\ar_fnc_aceFirstadidkitConversion.sqf";
+execVM "scripts\ar_fnc_aceHealthStation.sqf";
 execVM "scripts\ar_fnc_helpingReinforcement.sqf";
 execVM "scripts\ar_fnc_killEnemyIncome.sqf";
+execVM "scripts\maintenanceTimer.sqf";
+execVM "scripts\missionScripts.sqf";
 
 if ((["aDebugMessages", 0] call BIS_fnc_getParamValue) == 1) then 
 {
