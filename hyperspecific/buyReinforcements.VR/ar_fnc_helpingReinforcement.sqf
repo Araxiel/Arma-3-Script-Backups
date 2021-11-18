@@ -1,5 +1,6 @@
 fnc_defaultRandomInfantryArrays = {
 	//	[_randomInfantryArray] = [_side] call fnc_defaultRandomInfantryArrays;
+	//	Returns an array of infantry units of a side, formatted to be used in selectRandomWeighted.
 	// 	Usage:
 	//	["B_soldier_F",7,"B_Soldier_GL_F",4,"B_Soldier_AR_F",4] = [blufor] call fnc_defaultRandomInfantryArrays;
 
@@ -69,6 +70,7 @@ fnc_defaultRandomInfantryArrays = {
 
 fnc_defaultBoughtHelpVehicleArrays = {
 	//	_pickedVehicle = [_side, _kind] call fnc_defaultBoughtHelpVehicleArrays;
+	//	Returns a string with a vehicle of a given side and type.
 	// 	Usage:
 	//	"O_APC_Tracked_02_cannon_F" = [blufor, 3] call fnc_defaultBoughtHelpVehicleArrays;
 	//	_kind values:
@@ -180,6 +182,7 @@ fnc_defaultBoughtHelpVehicleArrays = {
 };
 
 fnc_aoSAD = {
+	// gives group a SAD waypoint somewhere in the AO, after which completion another one is given.
 
 	params [
 		["_group", grpNull]
@@ -225,6 +228,7 @@ fnc_aoSAD = {
 
 fnc_summonAoInfantrySAD = {
 	//	_group = [_spawn, _side, _aoPos, _aoArea, _blacklist] call fnc_summonAoInfantrySAD;
+	//	Spawns an infantry group at _spawn, that then will be giving a neverending chain of random SAD waypoints somewhere in the AO.
 	// 	Usage:
 	//	[indySpawn, independent, getPos aoTrigger, triggerArea aoTrigger, []] call fnc_summonAoInfantrySAD;
 
@@ -233,7 +237,7 @@ fnc_summonAoInfantrySAD = {
 		["_side", sideUnknown],
 		["_aoPos", [0,0,0]],
 		["_aoArea", [0,0,0,false,-1]],
-		["_blacklist", []]	// optional
+		["_blacklist", ["water"]]	// optional
 	];
 
 	_fnc_debugMarkers = {
@@ -289,6 +293,7 @@ fnc_summonAoInfantrySAD = {
 
 fnc_boughtHelp = {
 	//	_group = [_spawn, _caller, _vehicleClass, _maxPassengerAmount, _code] call fnc_boughtHelp;
+	//	Spawns a vehicle at _spawn, that will move to the current position of _caller, and then will be giving a neverending chain of random SAD waypoints in the area.
 	// 	Usage:
 	//	_group = [indySpawn, player, ([side player,2] call fnc_defaultBoughtHelpVehicleArrays), 5, {}] call fnc_boughtHelp;
 

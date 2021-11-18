@@ -257,7 +257,7 @@ fnc_summonAoInfantrySAD = {
 		["_side", sideUnknown],
 		["_aoPos", [0,0,0]],
 		["_aoArea", [0,0,0,false,-1]],
-		["_blacklist", []]	// optional
+		["_blacklist", ["water"]]	// optional
 	];
 
 	_fnc_debugMarkers = {

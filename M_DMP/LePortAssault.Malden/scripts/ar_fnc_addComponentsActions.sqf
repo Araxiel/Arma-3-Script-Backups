@@ -143,4 +143,4 @@ fnc_debugSpawnComponentsAPC = {
 	[_apc, 0, ["ACE_MainActions"], addCamoAction] call ace_interact_menu_fnc_addActionToObject;
 };
 
-if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log '- VlsDefenderScripting init -';};
+if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log '- ar_fnc_addComponentsActions Done -';};
