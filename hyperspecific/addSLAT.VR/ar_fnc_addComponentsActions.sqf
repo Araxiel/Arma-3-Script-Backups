@@ -1,5 +1,13 @@
-// [addComponentsActionRepairFacility, addComponentsActionTime, addComponentsActionExtraCondition, addComponentsActionDoneCode] execVM "ar_fnc_addComponentsActions.sqf";
+// [addComponentsActionRepairFacility, addComponentsActionTime, addComponentsActionExtraCondition, addComponentsActionDoneCode] execVM "scripts\ar_fnc_addComponentsActions.sqf";
 //	addComponentsActionDoneCode passed arguments [_target, _player, "slat" or "camo"]
+//
+//	Example:
+//	["Land_RepairDepot_01_green_F", 4, someCondition, someAction] execVM "scripts\ar_fnc_addComponentsActions.sqf";
+//
+//	implement with
+//	[_vehicle, 0, ["ACE_MainActions"], addSlatAction] call ace_interact_menu_fnc_addActionToObject;
+//	[_vehicle, 0, ["ACE_MainActions"], addCamoAction] call ace_interact_menu_fnc_addActionToObject;
+
 params [
 	['_addComponentsActionRepairFacility', "Land_RepairDepot_01_green_F"],
 	['_addComponentsActionTime', 10],
