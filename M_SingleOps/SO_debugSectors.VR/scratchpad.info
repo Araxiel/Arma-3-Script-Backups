@@ -1,0 +1,63 @@
+copyToClipboard str (allVariables mySector);
+//["taskowner","cba_xeh_deleted","costwheeled","bis_fnc_moduleexecute_activate","finalized","pos","tasks","onownerchange","designation","costair","costwater","cba_xeh_incomingmissile","bis_fnc_moduleinit_iscuratorplaced","step","bis_fnc_moduleinit_status","cba_xeh_getin","defaultowner","ownerlimit","bis_fnc_initmodules_activate","cba_xeh_local","owner","bis_fnc_initmodules_priroty","cba_xeh_isprocessed","cba_xeh_init","cba_xeh_initpost","cba_xeh_fired","costtracked","sidescore","objectarea","costplayers","cba_xeh_engine","cba_xeh_respawn","contested","areas","flags","scorereward","name","cba_xeh_killed","costinfantry","taskdescription","cba_xeh_getout","cba_xeh_isinitialized","#var","sides","tasktitle","bis_fnc_addscriptedeventhandler_ownerchanged"]
+
+mySector setVariable ["designation", "B"];
+mySector getVariable "tasks";
+
+// gets or sets the owner
+mySector setVariable ["owner", resistance];
+mySector getVariable "owner";
+
+// sides that can cap it. Can be set.
+// an get wonky, if a unit is in the middle of uncapping, and then their side get's locked out. Will keep on uncapping, even if no one is inside.
+mySector setVariable ["sides", [resistance,west,east]];
+mySector getVariable "sides"
+
+// gets and sets if the sector is finalized
+// a finalized sector can't be captured anymore. Can only be finalized, can't be un-finalized. But can still force change with "owner", but creates wonky results.
+// This is also different from deleting the sector module, which "finalizes" the map markers, but deletes the object
+mySector setVariable ["finalized", true];
+mySector getVariable "finalized";
+
+// not set-able, only get-able
+mySector getVariable "objectarea";
+// returns something like [10,10,0,false,0]
+
+// true if being capped/contested
+mySector getVariable "contested"
+
+// name
+mySector setVariable ["name", "Fart"];
+mySector getVariable "name"
+
+// The actual expression that fires. Can be changed.
+// Reminder; this fires everytime the sector changes ownership, including when turning neutral/unknown
+mySector getVariable "bis_fnc_addscriptedeventhandler_ownerchanged"
+mySector setVariable ["bis_fnc_addscriptedeventhandler_ownerchanged", [{hint "new hint"}]];
+mySector getVariable "onownerchange" // this will only get what is put at start into the eden editor
+
+
+format ["Capped by: %1, player's side:%2", player, side player];
+
+// configs
+[missionConfigFile >> "CfgSoPop" >> "Units" >> "InfantrySquads" >> "FullSquad" >> "cost", "NUMBER", ""] call CBA_fnc_getConfigEntry
+[missionConfigFile >> "CfgSoPop" >> "Units" >> "InfantrySquads" >> "FullSquad" >> "sides", "ARRAY", ""] call CBA_fnc_getConfigEntry
+configProperties [missionConfigFile >> "CfgSoPop" >> "Units" >> "InfantrySquads" >> "FullSquad"]
+
+configName (selectRandom [configProperties [missionConfigFile >> "CfgSoPop" >> "Units" >> "InfantrySquads"]])
+
+// vanilla option
+_x = configProperties [missionConfigFile >> "CfgSoPop" >> "Units" >> "InfantrySquads"];
+_x = selectRandom _x;
+_xName = configName _x;
+getNumber (_x >> "cost")
+// CBA option
+_x = configProperties [missionConfigFile >> "CfgSoPop" >> "Units" >> "InfantrySquads"];
+_x = selectRandom _x;
+[_x >> "sides", "ARRAY", ""] call CBA_fnc_getConfigEntry;
+[_x >> "cost", "NUMBER", ""] call CBA_fnc_getConfigEntry;
+
+//search tags
+// e.g. will search through tags to find any that has the "attack" tag.
+// _x is an array flled with matching config classes
+_x = "getArray (_x >> 'tags') find 'attack' >= 0" configClasses (missionConfigFile >> "CfgSoPop" >> "Units" >> "InfantrySquads");
