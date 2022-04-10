@@ -21,5 +21,6 @@ private _medicalObjectsCondition = {
 allMedicalObjects = allMissionObjects "" select { [_x] call _medicalObjectsCondition }; 
 
 { 
-	[_x] spawn fnc_addAceFullHealStation; 
+	[_x] spawn fnc_addAceFullHealStation;
+	_x setVariable ["ace_medical_isMedicalFacility", true, true];
 } forEach allMedicalObjects;
