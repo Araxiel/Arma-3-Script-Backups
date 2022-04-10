@@ -1,3 +1,4 @@
+diag_log "----------- MAP START -------------------------------------------------------------------------------------------------------------------------";
 missionNamespace setVariable ["aDebugMessages", true];
 
 someCondition = (
