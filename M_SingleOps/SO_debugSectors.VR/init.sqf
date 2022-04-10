@@ -1,9 +1,7 @@
 diag_log "----------- MAP START -------------------------------------------------------------------------------------------------------------------------";
 missionNamespace setVariable ["aDebugMessages", true];
 
-_handle = [] execVM "ar_fnc_SoUnits.sqf";
-waitUntil { isNull _handle };
-_handle = [] execVM "ar_fnc_SoUnits2.sqf";
+_handle = [] execVM "ar_fnc_SoPop.sqf";
 waitUntil { isNull _handle };
 _handle = [] execVM "ar_fnc_SoSectors.sqf";
 waitUntil { isNull _handle };

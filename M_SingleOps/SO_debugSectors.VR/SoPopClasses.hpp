@@ -2,89 +2,237 @@ class CfgSoPop {
 
 	class Units {
 
-		class InfantrySquads {
+		class Infantry {
 
 			class Sentry {
 				cost = 2;
-				tags[] = {"defense"};
+				tags[] = {"defense","basic"};
 				class Opfor {
-					tags[] = {"east","arid"};
-					randomGruntAmount = 0;
+					tags[] = {"EAST","arid"};
+					randomGrunts = 0;
+					leader = "";
 					units[] = {
 						"O_Soldier_GL_F",
 						"O_Soldier_F"
 					};
 				};
 				class OpforT {
-					tags[] = {"east","tropical"};
-					randomGruntAmount = 0;
+					tags[] = {"EAST","tropical"};
+					randomGrunts = 0;
+					leader = "";
 					units[] = {
 						"O_T_Soldier_GL_F",
 						"O_T_Soldier_F"
 					};
 				};
 				class Blufor {
-					tags[] = {"west","arid"};
-					randomGruntAmount = 0;
+					tags[] = {"WEST","arid"};
+					randomGrunts = 0;
+					leader = "";
 					units[] = {
 						"B_Soldier_GL_F",
 						"B_Soldier_F"
 					};
 				};
 				class BluforT {
-					tags[] = {"west","tropical"};
-					randomGruntAmount = 0;
+					tags[] = {"WEST","tropical"};
+					randomGrunts = 0;
+					leader = "";
 					units[] = {
 						"B_T_Soldier_GL_F",
 						"B_T_Soldier_F"
 					};
 				};
 				class Independent {
-					tags[] = {"independent","AAF"};
-					randomGruntAmount = 0;
+					tags[] = {"GUER","AAF"};
+					randomGrunts = 0;
+					leader = "";
 					units[] = {
 						"I_Soldier_GL_F",
 						"I_Soldier_F"
 					};
 				};
 			};
-
+			//todo
 			class FullSquad {
 				cost = 6;
-				tags[] = {"defense","attack"};
+				tags[] = {"defense","attack","basic"};
 				class Opfor {
-					tags[] = {"east","arid"};
-					randomGruntAmount = 6;
+					tags[] = {"EAST","arid"};
+					randomGrunts = 6;
+					leader = "O_Soldier_SL_F";
 					units[] = {
-						"O_Soldier_SL_F"
+						
 					};
 				};
 				class OpforT {
-					tags[] = {"east","tropical"};
-					randomGruntAmount = 6;
+					tags[] = {"EAST","tropical","fart"};
+					randomGrunts = 6;
+					leader = "O_T_Soldier_SL_F";
 					units[] = {
-						"O_T_Soldier_SL_F"
+						
 					};
 				};
 				class Blufor {
-					tags[] = {"west","arid"};
-					randomGruntAmount = 6;
+					tags[] = {"WEST","arid"};
+					randomGrunts = 6;
+					leader = "B_Soldier_SL_F";
 					units[] = {
-						"B_Soldier_SL_F"
+						
 					};
 				};
 				class BluforT {
-					tags[] = {"west","tropical"};
-					randomGruntAmount = 6;
+					tags[] = {"WEST","tropical"};
+					randomGrunts = 6;
+					leader = "B_T_Soldier_SL_F";
 					units[] = {
-						"B_T_Soldier_SL_F"
+						
 					};
 				};
 				class Independent {
-					tags[] = {"independent","AAF"};
-					randomGruntAmount = 6;
+					tags[] = {"GUER","AAF"};
+					randomGrunts = 6;
+					leader = "I_Soldier_SL_F";
 					units[] = {
-						"I_Soldier_SL_F"
+						
+					};
+				};
+			};
+
+			class GruntSquad {
+				cost = 6;
+				tags[] = {"defense","attack","basic"};
+				class Opfor {
+					tags[] = {"EAST","arid"};
+					randomGrunts = 6;
+					leader = "O_Soldier_SL_F";
+				};
+				class OpforT {
+					tags[] = {"EAST","tropical"};
+					randomGrunts = 6;
+					leader = "O_T_Soldier_SL_F";
+				};
+				class Blufor {
+					tags[] = {"WEST","arid"};
+					randomGrunts = 6;
+					leader = "B_Soldier_SL_F";
+				};
+				class BluforT {
+					tags[] = {"WEST","tropical"};
+					randomGrunts = 6;
+					leader = "B_T_Soldier_SL_F";
+				};
+				class Independent {
+					tags[] = {"GUER","AAF"};
+					randomGrunts = 6;
+					leader = "I_Soldier_SL_F";
+				};
+			};
+
+			class ATTeam {
+				cost = 5;
+				tags[] = {"defense","attack","team"};
+				class Opfor {
+					tags[] = {"EAST","arid"};
+					randomGrunts = 0;
+					leader = "O_Soldier_TL_F";
+					units[] = {
+						"O_Soldier_AT_F",
+						"O_Soldier_AAT_F", // assist missile specialist
+						"O_Soldier_HAT_F"
+					};
+					//code, give assistant one less titan of each, and one more vorona HEAT
+				};
+				class OpforT {
+					tags[] = {"EAST","tropical"};
+					randomGrunts = 0;
+					leader = "O_T_Soldier_TL_F";
+					units[] = {
+						"O_T_Soldier_AT_F",
+						"O_T_Soldier_AAT_F", // assist missile specialist
+						"O_T_Soldier_HAT_F"
+					};
+				};
+				class Blufor {
+					tags[] = {"WEST","arid"};
+					randomGrunts = 0;
+					leader = "B_Soldier_TL_F";
+					units[] = {
+						"B_soldier_AT_F",
+						"B_soldier_AT_F",
+						"B_soldier_AAT_F"	// assist missile specialist
+					};
+				};
+				class BluforT {
+					tags[] = {"WEST","tropical"};
+					randomGrunts = 1;
+					leader = "B_T_Soldier_TL_F";
+					units[] = {
+						"B_T_soldier_AT_F",
+						"B_T_soldier_AT_F",
+						"B_T_soldier_AAT_F"	// assist missile specialist
+					};
+				};
+				class Independent {
+					tags[] = {"GUER","AAF"};
+					randomGrunts = 1;
+					leader = "I_Soldier_TL_F";
+					units[] = {
+						"I_soldier_AT_F",
+						"I_soldier_AT_F",
+						"I_soldier_AAT_F"	// assist missile specialist
+					};
+				};
+			};
+
+			class OfficerRetinue {
+				cost = 4;
+				tags[] = {"defense","attack","officer"};
+				class Opfor {
+					tags[] = {"EAST","arid"};
+					randomGrunts = 1;
+					leader = "O_officer_F";
+					units[] = {
+						"O_Soldier_lite_F",
+						"O_soldier_M_F"
+					};
+					code = "fnc_OfficerRetinue";
+				};
+				class OpforT {
+					tags[] = {"EAST","tropical"};
+					randomGrunts = 1;
+					leader = "O_T_officer_F";
+					units[] = {
+						"O_T_Soldier_F",
+						"O_T_soldier_M_F"
+					};
+					code = "fnc_OfficerRetinue";
+				};
+				class Blufor {
+					tags[] = {"WEST","arid"};
+					randomGrunts = 1;
+					leader = "B_officer_F";
+					units[] = {
+						"B_Soldier_lite_F",
+						"B_soldier_M_F"
+					};
+				};
+				class BluforT {
+					tags[] = {"WEST","tropical"};
+					randomGrunts = 1;
+					leader = "B_T_officer_F";
+					units[] = {
+						"B_T_Soldier_lite_F",
+						"B_T_soldier_M_F"
+					};
+				};
+				class Independent {
+					tags[] = {"GUER","AAF"};
+					randomGrunts = 1;
+					leader = "I_officer_F";
+					units[] = {
+						"I_Soldier_lite_F",
+						"I_Soldier_M_F"
 					};
 				};
 			};
@@ -123,7 +271,7 @@ class CfgSoPop {
 				"O_T_Soldier_A_F", 3, //ammobearer
 				"O_T_HeavyGunner_F", 3,
 				"O_T_soldier_M_F", 2, //marksman
-				"O_T_Soldier_lite_F", 3,
+				//"O_T_Soldier_lite_F", 3, // doesn't exist for tropics
 				"O_T_Soldier_TL_F", 3,
 				"O_T_engineer_F", 1,
 				"O_T_Soldier_AA_F", 1,
@@ -182,48 +330,53 @@ class CfgSoPop {
 
 		class Grunts {
 			class Opfor {
-				tags[] = {"east","arid"};
+				tags[] = {"EAST","arid"};
 				weightArray[] = {
-					"O_Soldier_F", 7,
-					"O_Soldier_GL_F", 2,
+					"O_Soldier_F", 8,
+					"O_Soldier_GL_F", 3,
 					"O_Soldier_AR_F", 1,
+					"O_Soldier_LAT_F", 1,
 					"O_Soldier_lite_F", 2
 				};
 			};
 
 			class OpforT {
-				tags[] = {"east","tropical"};
+				tags[] = {"EAST","tropical"};
 				weightArray[] = {
-					"O_T_Soldier_F", 7,
-					"O_T_Soldier_GL_F", 2,
+					"O_T_Soldier_F", 8,
+					"O_T_Soldier_GL_F", 3,
 					"O_T_Soldier_AR_F", 1,
-					"O_T_Soldier_lite_F", 2
+					"O_T_Soldier_LAT_F", 1,
+					"O_T_Soldier_F", 2
 				};
 			};
 			class Blufor {
-				tags[] = {"west","arid"};
+				tags[] = {"WEST","arid"};
 				weightArray[] = {
-					"B_Soldier_F", 7,
-					"B_Soldier_GL_F", 2,
+					"B_Soldier_F", 8,
+					"B_Soldier_GL_F", 3,
 					"B_Soldier_AR_F", 1,
+					"B_Soldier_LAT2_F", 1,
 					"B_Soldier_lite_F", 2
 				};
 			};
 			class BluforT {
-				tags[] = {"west","tropical"};
+				tags[] = {"WEST","tropical"};
 				weightArray[] = {
-					"B_T_Soldier_F", 7,
-					"B_T_Soldier_GL_F", 2,
+					"B_T_Soldier_F", 8,
+					"B_T_Soldier_GL_F", 3,
 					"B_T_Soldier_AR_F", 1,
+					"B_T_Soldier_LAT2_F", 1,
 					"B_T_Soldier_lite_F", 2
 				};
 			};
 			class Independent {
-				tags[] = {"independent","AAF"};
+				tags[] = {"GUER","AAF"};
 				weightArray[] = {
-					"I_Soldier_F", 7,
-					"I_Soldier_GL_F", 2,
+					"I_Soldier_F", 8,
+					"I_Soldier_GL_F", 3,
 					"I_Soldier_AR_F", 1,
+					"I_Soldier_LAT2_F", 1,
 					"I_Soldier_lite_F", 2
 				};
 			};
