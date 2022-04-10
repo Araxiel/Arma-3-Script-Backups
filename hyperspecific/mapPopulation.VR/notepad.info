@@ -1,0 +1,32 @@
+fnc_mapPop_autoDebugMarker = {
+	// places some markers
+
+    private ["_debugMarker", "_debugMarkerPos", "_debugMarkerText"];
+	private _debugMarkerType = "mil_destroy";
+	private _debugMarkercolor = "ColorYellow";
+	private _debugMarkerAlpha = 0.9;
+
+	if (missionNamespace getVariable ['aDebugMessages',false]) then {
+		_debugMarkerPos = _debugMarkerPos call BIS_fnc_position;
+		_debugMarkerId = round(random 50000)+100000; 
+		_debugMarker = createMarker [format["_USER_DEFINED %1",_debugMarkerId], _debugMarkerPos]; 
+		_debugMarker setMarkerType _debugMarkerType; 
+		_debugMarker setMarkerColor _debugMarkercolor;
+		_debugMarker setMarkerText _debugMarkerText;
+		_debugMarker setMarkerAlpha _debugMarkerAlpha;
+	};
+	_debugMarker;
+};
+
+_spawn = homeOPFOR;
+_spawnPos = _spawn call BIS_fnc_position;
+_pos = [_spawnPos, 0, ((triggerArea _spawn #0)+(triggerArea _spawn #1))/2, 5, 0] call BIS_fnc_findSafePos;
+[_pos, "mil_destroy", "ColorYellow", "4"] call fnc_mapPop_DebugMarker;
+
+
+// [[patrol],[guard],[station],[travel]]
+datArray = [ [],[],[],[] ] ];
+push
+
+
+( ( ( mapPopDirector getVariable "groupsOpforTarget" ) #0) #1 )
