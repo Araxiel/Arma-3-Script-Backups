@@ -267,9 +267,11 @@ class CfgSoPop {
 			};
 		};
 
+		//todo
 		class Vehicles {
-			class MRAP {
-				desc = "empty";
+			class CarUnarmed {
+				cost = 6;
+				tags[] = {"defense","attack","basic"};
 			};
 		};
 	};
