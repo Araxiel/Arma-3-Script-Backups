@@ -59,42 +59,71 @@ class CfgSoPop {
 				tags[] = {"defense","attack","basic"};
 				class Opfor {
 					tags[] = {"EAST","arid"};
-					randomGrunts = 6;
+					randomGrunts = 0;
 					leader = "O_Soldier_SL_F";
 					units[] = {
-						
+						"O_medic_F",
+						"O_Soldier_M_F",
+						"O_Soldier_TL_F",
+						"O_Soldier_A_F",
+						"O_Soldier_GL_F",
+						"O_Soldier_LAT_F",
+						"O_HeavyGunner_F"
 					};
 				};
 				class OpforT {
 					tags[] = {"EAST","tropical","fart"};
-					randomGrunts = 6;
+					randomGrunts = 0;
 					leader = "O_T_Soldier_SL_F";
 					units[] = {
-						
+						"O_T_medic_F",
+						"O_T_Soldier_M_F",
+						"O_T_Soldier_TL_F",
+						"O_T_Soldier_A_F",
+						"O_T_Soldier_GL_F",
+						"O_T_Soldier_LAT_F",
+						"O_T_HeavyGunner_F"
 					};
 				};
 				class Blufor {
 					tags[] = {"WEST","arid"};
-					randomGrunts = 6;
+					randomGrunts = 0;
 					leader = "B_Soldier_SL_F";
 					units[] = {
-						
+						"B_medic_F",
+						"B_Soldier_M_F",
+						"B_Soldier_TL_F",
+						"B_Soldier_A_F",
+						"B_Soldier_GL_F",
+						"B_Soldier_LAT_F",
+						"B_HeavyGunner_F"
 					};
 				};
 				class BluforT {
 					tags[] = {"WEST","tropical"};
-					randomGrunts = 6;
+					randomGrunts = 0;
 					leader = "B_T_Soldier_SL_F";
 					units[] = {
-						
+						"B_T_medic_F",
+						"B_T_Soldier_M_F",
+						"B_T_Soldier_TL_F",
+						"B_T_Soldier_A_F",
+						"B_T_Soldier_GL_F",
+						"B_T_Soldier_LAT_F",
+						"B_T_HeavyGunner_F"
 					};
 				};
 				class Independent {
 					tags[] = {"GUER","AAF"};
-					randomGrunts = 6;
+					randomGrunts = 1;
 					leader = "I_Soldier_SL_F";
 					units[] = {
-						
+						"I_medic_F",
+						"I_Soldier_M_F",
+						"I_Soldier_TL_F",
+						"I_Soldier_A_F",
+						"I_Soldier_LAT_F",
+						"I_Soldier_GL_F"
 					};
 				};
 			};
@@ -104,27 +133,27 @@ class CfgSoPop {
 				tags[] = {"defense","attack","basic"};
 				class Opfor {
 					tags[] = {"EAST","arid"};
-					randomGrunts = 6;
+					randomGrunts = 7;
 					leader = "O_Soldier_SL_F";
 				};
 				class OpforT {
 					tags[] = {"EAST","tropical"};
-					randomGrunts = 6;
+					randomGrunts = 7;
 					leader = "O_T_Soldier_SL_F";
 				};
 				class Blufor {
 					tags[] = {"WEST","arid"};
-					randomGrunts = 6;
+					randomGrunts = 7;
 					leader = "B_Soldier_SL_F";
 				};
 				class BluforT {
 					tags[] = {"WEST","tropical"};
-					randomGrunts = 6;
+					randomGrunts = 7;
 					leader = "B_T_Soldier_SL_F";
 				};
 				class Independent {
 					tags[] = {"GUER","AAF"};
-					randomGrunts = 6;
+					randomGrunts = 7;
 					leader = "I_Soldier_SL_F";
 				};
 			};
@@ -246,7 +275,7 @@ class CfgSoPop {
 	};
 
 	class RandomUnitArrays {
-		class Infantry {
+		class InfantryLists {
 			Opfor[] = {
 				"O_Soldier_F", 7,
 				"O_Soldier_GL_F", 4,

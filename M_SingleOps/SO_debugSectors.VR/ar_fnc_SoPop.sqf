@@ -169,12 +169,12 @@ fnc_SoPop_selectUnitFromTags = {
 	_return
 };
 
-fnc_SoPop_spawnSelectUnitFromTags = {
-	//	_group = [_spawn,_selectedType,_selectedTypeTags,_selectedSubType,_selectedSubTypeTags,_director] call fnc_SoPop_spawnSelectUnitFromTags;
+fnc_SoPop_spawnInfantrySelectedUnitFromTags = {
+	//	_group = [_spawn,_selectedType,_selectedTypeTags,_selectedSubType,_selectedSubTypeTags,_director] call fnc_SoPop_spawnInfantrySelectedUnitFromTags;
 	//	Intended to be used together with and after fnc_SoPop_selectUnitFromTags. Spawns inputed unit. Needs tags and config.
 	// 	Usage:
-	//	[spawn1, _selectedUnitFromTags #0, _typeTags, _selectedUnitFromTags #1, _subTypeTags, SoPopDirector] call fnc_SoPop_spawnSelectUnitFromTags;
-	//	_group = [_spawnTrigger, _selectedUnitFromTags #0, _typeTags, _selectedUnitFromTags #1, _subTypeTags] call fnc_SoPop_spawnSelectUnitFromTags;
+	//	[spawn1, _selectedUnitFromTags #0, _typeTags, _selectedUnitFromTags #1, _subTypeTags, SoPopDirector] call fnc_SoPop_spawnInfantrySelectedUnitFromTags;
+	//	_group = [_spawnTrigger, _selectedUnitFromTags #0, _typeTags, _selectedUnitFromTags #1, _subTypeTags] call fnc_SoPop_spawnInfantrySelectedUnitFromTags;
 	//	
 
 	params [
@@ -264,8 +264,8 @@ fnc_SoPop_spawnSelectUnitFromTags = {
 	_group
 };
 //-------------------------------------------------------------
-
 // dedicated unit functions
+
 fnc_OfficerRetinue = {
 	params [
 		["_group", grpNull],
