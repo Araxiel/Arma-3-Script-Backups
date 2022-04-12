@@ -209,3 +209,8 @@ if ("CIV" in _selectedSubTypeTags) then {
 	_side = "CIV";
 };
 _side
+
+// debug entry list
+_array = ["bla","blo","some"];
+_entry = "bla";
+diag_log _entry;

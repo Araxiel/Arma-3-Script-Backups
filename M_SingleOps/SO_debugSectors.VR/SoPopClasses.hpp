@@ -72,7 +72,7 @@ class CfgSoPop {
 					};
 				};
 				class OpforT {
-					tags[] = {"EAST","tropical","fart"};
+					tags[] = {"EAST","tropical"};
 					randomGrunts = 0;
 					leader = "O_T_Soldier_SL_F";
 					units[] = {

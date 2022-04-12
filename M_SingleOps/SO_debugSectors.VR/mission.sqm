@@ -20,10 +20,10 @@ class EditorData
 	};
 	class Camera
 	{
-		pos[]={6553.8159,24.897425,796.85266};
-		dir[]={-0.42765737,-0.47441068,0.76944375};
-		up[]={-0.23047186,0.88030368,0.41466641};
-		aside[]={0.87406635,0,0.48580667};
+		pos[]={6510.1167,12.173227,778.68866};
+		dir[]={0.74663806,-0.41708988,0.51823515};
+		up[]={0.34264174,0.90886527,0.23782474};
+		aside[]={0.5702002,1.4901161e-008,-0.82150578};
 	};
 };
 binarizationWanted=0;
@@ -277,6 +277,47 @@ class CustomAttributes
 {
 	class Category0
 	{
+		name="Alk_3DEN";
+		class Attribute0
+		{
+			property="Alk_List_NodeBank";
+			expression="false";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"ARRAY"
+						};
+					};
+				};
+			};
+		};
+		class Attribute1
+		{
+			property="Alk_List";
+			expression="false";
+			class Value
+			{
+				class data
+				{
+					class type
+					{
+						type[]=
+						{
+							"ARRAY"
+						};
+					};
+				};
+			};
+		};
+		nAttributes=2;
+	};
+	class Category1
+	{
 		name="Scenario";
 		class Attribute0
 		{
@@ -447,12 +488,13 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={6519.498,5.0014391,784.74359};
+						position[]={6519.9092,5.0014391,784.10297};
 					};
 					side="West";
 					flags=6;
 					class Attributes
 					{
+						name="bluforguy";
 						isPlayer=1;
 						isPlayable=1;
 						class Inventory
@@ -965,7 +1007,7 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={6521.5264,5.0014391,784.83838};
+						position[]={6522.0264,5.0014391,784.07813};
 					};
 					side="East";
 					flags=7;
@@ -1195,8 +1237,8 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={6545.814,5.556623,797.02063};
-				angles[]={0,5.8697209,0};
+				position[]={6534.2085,5.556623,793.68494};
+				angles[]={-0,6.0579433,0};
 			};
 			side="Empty";
 			flags=4;
@@ -1324,7 +1366,7 @@ class Mission
 			class PositionInfo
 			{
 				position[]={6483.7573,5.556623,805.46204};
-				angles[]={0,0.38198867,0};
+				angles[]={-0,0.62796324,0};
 			};
 			side="Empty";
 			flags=4;
@@ -1394,7 +1436,7 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={6517.8003,5.0014391,784.77661};
+						position[]={6517.9604,5.0014391,784.04065};
 					};
 					side="Independent";
 					flags=7;
