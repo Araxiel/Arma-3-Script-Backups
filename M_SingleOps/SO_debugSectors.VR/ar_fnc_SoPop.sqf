@@ -127,18 +127,19 @@ fnc_SoPop_director = {
 };
 
 fnc_SoPop_selectUnitFromTags = {
-	//	[_selectedType,_selectedSubType] = [_searchKind, _searchTypeTags, _searchSubTypeTags] call fnc_SoPop_selectUnitFromTags;
+	//	[_selectedType,_selectedSubType] = [_searchKind, _searchTypeTags, _searchSubTypeTags, _budget] call fnc_SoPop_selectUnitFromTags;
 	//	Uses input tags, to return a random unit. #0 is the unit type, #1 is the subtype
 	// 	Usage:
-	//	[missionConfigFile >> "CfgSoPop" >> "Units" >> "Infantry" >> "Sentry", missionConfigFile >> "CfgSoPop" >> "Units" >> "Infantry" >> "Sentry" >> "OpforT] = ["Infantry", ["basic","defense"],["EAST","tropical"] ] call fnc_SoPop_selectUnitFromTags;
-	//	_selectedUnitFromTags = ["Infantry", ["basic","defense"],["EAST","tropical"] ] call fnc_SoPop_selectUnitFromTags;
+	//	[missionConfigFile >> "CfgSoPop" >> "Units" >> "Infantry" >> "Sentry", missionConfigFile >> "CfgSoPop" >> "Units" >> "Infantry" >> "Sentry" >> "OpforT] = ["Infantry", ["basic","defense"],["EAST","tropical"], 2] call fnc_SoPop_selectUnitFromTags;
+	//	_selectedUnitFromTags = ["Infantry", ["basic","defense"],["EAST","tropical"],6] call fnc_SoPop_selectUnitFromTags;
 	//	
 	//	_searchKind values: Infantry, Vehicles
 
 	params [
 		["_searchKind", ["Infantry"] ],
 		["_searchTypeTags", [] ],
-		["_searchSubTypeTags", [] ]
+		["_searchSubTypeTags", [] ],
+		["_budget", -1 ]
 	];
 
 	private ["_searchTypeCondition","_searchSubTypeCondition"];
@@ -146,10 +147,14 @@ fnc_SoPop_selectUnitFromTags = {
 	if (count _searchTypeTags > 0) then {
 		// string assembly
 		_searchTypeCondition = _searchTypeTags apply {format ["'%1' in getArray (_x >> 'tags')",_x]};
+		if !(_budget == -1) then {
+			_searchTypeCondition pushBack (format ["getNumber (_x >> 'cost') <= %1",_budget])
+		};
 		_searchTypeCondition = _searchTypeCondition joinString " && ";
 	} else {
 		_searchTypeCondition = "true";
 	};
+
 
 	if (count _searchSubTypeTags > 0) then {
 		// string assembly
@@ -167,6 +172,29 @@ fnc_SoPop_selectUnitFromTags = {
 
 	_return = [_selectedType,_selectedSubType];
 	_return
+};
+
+fnc_SoPop_selectUnitFromTagsDebugSelection = {
+	// _x = [10,"Infantry", ["defense"],["EAST"],8] call fnc_SoPop_selectUnitFromTagsDebugSelection; _x
+	params [
+		["_queries", 10 ],
+		["_searchKind", ["Infantry"] ],
+		["_searchTypeTags", [] ],
+		["_searchSubTypeTags", [] ],
+		["_budget", -1 ]
+	];
+	private _returnArray = [];
+	private _queryCurrentNum = 0;
+	while {_queryCurrentNum < _queries} do {
+		_selectedUnitFromTags = [_searchKind, _searchTypeTags,_searchSubTypeTags,_budget] call fnc_SoPop_selectUnitFromTags;
+		_selectedUnit = configName (_selectedUnitFromTags #0);
+		_selectedSubUnit = configName (_selectedUnitFromTags #1);
+		_selectedUnitName = _selectedUnit + ":" + _selectedSubUnit + endl;
+		_returnArray pushBack _selectedUnitName;
+		_queryCurrentNum = _queryCurrentNum + 1;
+	};
+	diag_log _returnArray;
+	_returnArray
 };
 
 fnc_SoPop_spawnInfantrySelectedUnitFromTags = {
