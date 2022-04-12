@@ -1,0 +1,216 @@
+copyToClipboard str (allVariables mySector);
+//["taskowner","cba_xeh_deleted","costwheeled","bis_fnc_moduleexecute_activate","finalized","pos","tasks","onownerchange","designation","costair","costwater","cba_xeh_incomingmissile","bis_fnc_moduleinit_iscuratorplaced","step","bis_fnc_moduleinit_status","cba_xeh_getin","defaultowner","ownerlimit","bis_fnc_initmodules_activate","cba_xeh_local","owner","bis_fnc_initmodules_priroty","cba_xeh_isprocessed","cba_xeh_init","cba_xeh_initpost","cba_xeh_fired","costtracked","sidescore","objectarea","costplayers","cba_xeh_engine","cba_xeh_respawn","contested","areas","flags","scorereward","name","cba_xeh_killed","costinfantry","taskdescription","cba_xeh_getout","cba_xeh_isinitialized","#var","sides","tasktitle","bis_fnc_addscriptedeventhandler_ownerchanged"]
+
+mySector setVariable ["designation", "B"];
+mySector getVariable "tasks";
+
+// gets or sets the owner
+mySector setVariable ["owner", resistance];
+mySector getVariable "owner";
+
+// sides that can cap it. Can be set.
+// an get wonky, if a unit is in the middle of uncapping, and then their side get's locked out. Will keep on uncapping, even if no one is inside.
+mySector setVariable ["sides", [resistance,west,east]];
+mySector getVariable "sides"
+
+// gets and sets if the sector is finalized
+// a finalized sector can't be captured anymore. Can only be finalized, can't be un-finalized. But can still force change with "owner", but creates wonky results.
+// This is also different from deleting the sector module, which "finalizes" the map markers, but deletes the object
+mySector setVariable ["finalized", true];
+mySector getVariable "finalized";
+
+// not set-able, only get-able
+mySector getVariable "objectarea";
+// returns something like [10,10,0,false,0]
+
+// true if being capped/contested
+mySector getVariable "contested"
+
+// name
+mySector setVariable ["name", "Fart"];
+mySector getVariable "name"
+
+// The actual expression that fires. Can be changed.
+// Reminder; this fires everytime the sector changes ownership, including when turning neutral/unknown
+mySector getVariable "bis_fnc_addscriptedeventhandler_ownerchanged"
+mySector setVariable ["bis_fnc_addscriptedeventhandler_ownerchanged", [{hint "new hint"}]];
+mySector getVariable "onownerchange" // this will only get what is put at start into the eden editor
+
+
+format ["Capped by: %1, player's side:%2", player, side player];
+
+// configs
+[missionConfigFile >> "CfgSoPop" >> "Units" >> "InfantrySquads" >> "FullSquad" >> "cost", "NUMBER", ""] call CBA_fnc_getConfigEntry
+[missionConfigFile >> "CfgSoPop" >> "Units" >> "InfantrySquads" >> "FullSquad" >> "sides", "ARRAY", ""] call CBA_fnc_getConfigEntry
+configProperties [missionConfigFile >> "CfgSoPop" >> "Units" >> "InfantrySquads" >> "FullSquad"]
+
+configName (selectRandom [configProperties [missionConfigFile >> "CfgSoPop" >> "Units" >> "InfantrySquads"]])
+
+// vanilla option
+_x = configProperties [missionConfigFile >> "CfgSoPop" >> "Units" >> "InfantrySquads"];
+_x = selectRandom _x;
+_xName = configName _x;
+getNumber (_x >> "cost")
+// CBA option
+_x = configProperties [missionConfigFile >> "CfgSoPop" >> "Units" >> "InfantrySquads"];
+_x = selectRandom _x;
+[_x >> "sides", "ARRAY", ""] call CBA_fnc_getConfigEntry;
+[_x >> "cost", "NUMBER", ""] call CBA_fnc_getConfigEntry;
+
+//search tags
+// e.g. will search through tags to find any that has the "attack" tag.
+// _x is an array flled with matching config classes
+_x = "getArray (_x >> 'tags') find 'attack' >= 0" configClasses (missionConfigFile >> "CfgSoPop" >> "Units" >> "InfantrySquads");
+
+//dynamic condition
+_search = ["bla","blo"];
+_search = _search apply {format ["This is %1",_x]};
+_result = _search joinString " && ";
+_result
+
+// spawn a random one
+// selection
+private ["_searchTypeCondition","_searchSubTypeCondition"];
+// tags 
+_searchTypeTags = ["basic"];
+_searchSubTypeTags = ["east","tropical"];
+// string assembly
+_searchTypeCondition = _searchTypeTags apply {format ["'%1' in getArray (_x >> 'tags')",_x]};
+_searchTypeCondition = _searchTypeCondition joinString " && ";
+_searchSubTypeCondition = _searchSubTypeTags apply {format ["'%1' in getArray (_x >> 'tags')",_x]};
+_searchSubTypeCondition = _searchSubTypeCondition joinString " && ";
+// selection
+_potentialTypes = _searchTypeCondition configClasses (missionConfigFile >> "CfgSoPop" >> "Units" >> "OfficerRetinue");
+_selectedType = selectRandom _potentialTypes; // 'missionConfigFile >> "CfgSoPop" >> "Units" >> "InfantrySquads" >> "Sentry"
+_potentialSubTypes = _searchSubTypeCondition configClasses (_selectedType);
+_selectedSubType = selectRandom _potentialSubTypes; // 'missionConfigFile >> "CfgSoPop" >> "Units" >> "InfantrySquads" >> "Sentry" >> "OpforT"
+
+// compiling
+_player = player;
+_string = "(_this #0) setPos [(getPos (_this #0) select 0)-10, getPos (_this #0) select 1, getPos (_this #0) select 2]";
+_code = compile _string;
+[_player] call _code;
+
+// ------------------------------------------------
+// spawn
+// -- temp debug
+_side = east;
+_spawn = spawn3;
+_searchSubTypeTags = [str(_side),"tropical"];
+_searchSubTypeCondition = _searchSubTypeTags apply {format ["'%1' in getArray (_x >> 'tags')",_x]};
+_searchSubTypeCondition = _searchSubTypeCondition joinString " && ";
+_selectedType = missionConfigFile >> "CfgSoPop" >> "Units" >> "InfantrySquads" >> "OfficerRetinue";
+_selectedSubType = _selectedType >> "OpforT";
+//--
+
+_leaderClass = [_selectedSubType >> "leader", "STRING", ""] call CBA_fnc_getConfigEntry;
+_units = [_selectedSubType >> "units", "ARRAY", ""] call CBA_fnc_getConfigEntry;
+//grunts
+_gruntAmount = [_selectedSubType >> "randomGrunts", "NUMBER", "0"] call CBA_fnc_getConfigEntry;
+_potentialGruntTypes = _searchSubTypeCondition configClasses (missionConfigFile >> "CfgSoPop" >> "RandomUnitArrays" >> "Grunts");
+_selectedGruntTypes = selectRandom _potentialGruntTypes; // 'missionConfigFile >> "CfgSoPop" >> "Units" >> "InfantrySquads" >> "Sentry" >> "OpforT"
+_gruntArray = [_selectedGruntTypes >> "weightArray", "ARRAY", "0"] call CBA_fnc_getConfigEntry;
+
+_spawnPos = _spawn call BIS_fnc_position;
+_specificSpawn = [_spawnPos, 0, ((triggerArea _spawn #0)+(triggerArea _spawn #1))/2, 8, 0] call BIS_fnc_findSafePos;	// find a safe spawn spot
+		//maxDist is the average of the length and the width of the trigger
+
+// leader
+private _group = createGroup [_side, true];
+if !(_leaderClass == "") then {
+	_leader = _group createUnit [_leaderClass, _specificSpawn,[], 0, "FORM"];
+};
+// units
+{
+	_currentSquaddie = _group createUnit [_x, _specificSpawn, [], 0, "FORM"];
+} forEach _units;
+// spawn grunts
+private _spawnedGrunts = 0;
+while {_spawnedGrunts < _gruntAmount} do {
+	_currentSquaddie = _group createUnit [selectRandomWeighted _gruntArray, _specificSpawn, [], 0, "FORM"];
+	_spawnedGrunts = _spawnedGrunts+1;
+};
+
+private _code = [_selectedSubType >> "code", "STRING", ""] call CBA_fnc_getConfigEntry;
+if !(_code == "") then {
+	_codeCompiled = call compile _code;
+	[_group,_selectedType,_selectedSubType] call _codeCompiled;
+};
+
+testgroup = _group;
+
+_group setCombatMode "RED"; // set's group to open fire (default), but engage at will
+
+	// save group to director
+	private "_varname";
+	switch (_side) do {
+		case "BLUFOR": { _varname = "groupsBlufor" };
+		case "independent": { _varname = "groupsGuer" };
+		default { _varname = "groupsOpfor" };
+	};
+
+	private _directorGroupArray = _director getVariable _varname;
+	// [[patrol],[guard],[station],[travel]]
+	(_directorGroupArray #_job) pushBack _group;
+	_director setVariable [_varname, _directorGroupArray];	// saves the group to the director
+
+    _group setVariable ["mapPopType", 0];	// saves the group's type ("tank", "apc" etc.)
+    _group setVariable ["mapPopJob", _job];	// saves the group's job
+    _group setVariable ["mapPopGroupAO", _ao];	// saves the AO to the group
+	[_group, _ao] spawn fnc_mapPop_giveOrders;
+
+	[getPos leader _group, "mil_destroy", "ColorBlue", format ["Spawn for %2 %3 Group %1", _group, [_job] call fnc_mapPop_jobStringer,[0] call fnc_mapPop_typeStringer] ] call fnc_mapPop_DebugMarker;
+
+	_group
+
+
+//-------------------------------------------------------------
+
+// officer 
+fnc_OfficerRetinue = {
+	params [
+		["_group", grpNull],
+		["_selectedType", configNull ],
+		["_selectedSubType", configNull ]
+	];
+	_groupArray = units _group;
+	_radiomanArrayID = _groupArray findIf {
+		typeOf _x == "O_Soldier_lite_F" ||
+		typeOf _x == "O_T_Soldier_F"	||
+		typeOf _x == "B_Soldier_lite_F"	||
+		typeOf _x == "B_T_Soldier_lite_F"||
+		typeOf _x == "I_Soldier_lite_F"
+		};
+	_designatedRadioman = _groupArray select _radiomanArrayID;
+	private "_radio";
+	switch (side _designatedRadioman) do {
+		case "EAST": { _radio = "B_RadioBag_01_black_F"};
+		case "WEST": { _radio = "B_RadioBag_01_mtp_F"};
+		case "GUER": { _radio = "B_RadioBag_01_digi_F"};
+		default { _radio = "B_RadioBag_01_black_F"};
+	};
+	removeBackpack _designatedRadioman;
+	_designatedRadioman addBackpack _radio;
+};
+
+// switch
+_selectedSubTypeTags = ["WEST","tropical"];
+private "_side";
+if ("WEST" in _selectedSubTypeTags) then {
+	_side = "WEST";
+};
+if ("EAST" in _selectedSubTypeTags) then {
+	_side = "EAST";
+};
+if ("GUER" in _selectedSubTypeTags) then {
+	_side = "GUER";
+};
+if ("CIV" in _selectedSubTypeTags) then {
+	_side = "CIV";
+};
+_side
+
+// debug entry list
+_array = ["bla","blo","some"];
+_entry = "bla";
+diag_log _entry;
