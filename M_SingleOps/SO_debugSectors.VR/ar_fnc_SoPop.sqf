@@ -136,10 +136,10 @@ fnc_SoPop_selectUnitFromTags = {
 	//	_searchKind values: Infantry, Vehicles
 
 	params [
-		["_searchKind", ["Infantry"] ],
-		["_searchTypeTags", [] ],
-		["_searchSubTypeTags", [] ],
-		["_budget", -1 ]
+		["_searchKind", ["Infantry"] ],		// basic type, like "infantry" or "vehicle"
+		["_searchTypeTags", [] ],			// tags array like ["basic","defense"]
+		["_searchSubTypeTags", [] ],		// tags array like ["basic","defense"]
+		["_budget", -1 ]					// budget available for search, aka max cost of a unit; optional, unlimited if left at -1
 	];
 
 	private ["_searchTypeCondition","_searchSubTypeCondition"];
@@ -177,11 +177,11 @@ fnc_SoPop_selectUnitFromTags = {
 fnc_SoPop_selectUnitFromTagsDebugSelection = {
 	// _x = [10,"Infantry", ["defense"],["EAST"],8] call fnc_SoPop_selectUnitFromTagsDebugSelection; _x
 	params [
-		["_queries", 10 ],
-		["_searchKind", ["Infantry"] ],
-		["_searchTypeTags", [] ],
-		["_searchSubTypeTags", [] ],
-		["_budget", -1 ]
+		["_queries", 10 ],					// how many times it should run
+		["_searchKind", ["Infantry"] ],		// basic type, like "infantry" or "vehicle"
+		["_searchTypeTags", [] ],			// tags array like ["basic","defense"]
+		["_searchSubTypeTags", [] ],		// tags array like ["basic","defense"]
+		["_budget", -1 ]					// available budget for each search (individual per search, not total); optional, unlimited if left at -1
 	];
 	private _returnArray = [];
 	private _queryCurrentNum = 0;
@@ -198,35 +198,39 @@ fnc_SoPop_selectUnitFromTagsDebugSelection = {
 };
 
 fnc_SoPop_spawnInfantrySelectedUnitFromTags = {
-	//	_group = [_spawn,_selectedType,_selectedTypeTags,_selectedSubType,_selectedSubTypeTags,_director] call fnc_SoPop_spawnInfantrySelectedUnitFromTags;
+	//	_group = [_spawn,_selectedType,_selectedTypeTags,_selectedSubType,_selectedSubTypeTags,_gruntTypeTags,_director] call fnc_SoPop_spawnInfantrySelectedUnitFromTags;
 	//	Intended to be used together with and after fnc_SoPop_selectUnitFromTags. Spawns inputed unit. Needs tags and config.
 	// 	Usage:
-	//	[spawn1, _selectedUnitFromTags #0, _typeTags, _selectedUnitFromTags #1, _subTypeTags, SoPopDirector] call fnc_SoPop_spawnInfantrySelectedUnitFromTags;
+	//	[spawn1, _selectedUnitFromTags #0, _typeTags, _selectedUnitFromTags #1, _subTypeTags] call fnc_SoPop_spawnInfantrySelectedUnitFromTags;
 	//	_group = [_spawnTrigger, _selectedUnitFromTags #0, _typeTags, _selectedUnitFromTags #1, _subTypeTags] call fnc_SoPop_spawnInfantrySelectedUnitFromTags;
 	//	
 
 	params [
-		["_spawn", objNull ],
-		["_selectedType", configNull ],
-		["_selectedTypeTags", [] ],
-		["_selectedSubType", configNull ],
-		["_selectedSubTypeTags", [] ],
-		["_director", SoPopDirector ]
+		["_spawn", objNull ],				// trigger area
+		["_selectedType", configNull ],		// config entry, like FullSquad
+		["_selectedTypeTags", [] ],			// tags array like ["basic","defense"]
+		["_selectedSubType", configNull ],	// config entry, like OpforT
+		["_selectedSubTypeTags", [] ],		// tags array like ["EAST","tropical"]
+		["_gruntTypeTags", [] ],			// tags array like ["EAST","tropical"]; optional, if not set just gonna use _selectedSubTypeTags
+		["_director", SoPopDirector ]		// director logic; optional
 	];
-	if (missionNamespace getVariable ['aDebugMessages',false]) then { diag_log '-- fnc_SoPop_spawnSelectedUnitFromTags Start --';};
+	if (missionNamespace getVariable ['aDebugMessages',false]) then { diag_log '-- fnc_SoPop_spawnInfantrySelectedUnitFromTags Start --';};
 	if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ['_selectedType : %1', configName _selectedType];};
 	if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ['_selectedSubType : %1', configName _selectedSubType];};
 
 	_leaderClass = [_selectedSubType >> "leader", "STRING", ""] call CBA_fnc_getConfigEntry;
 	if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ['_leaderClass : %1',_leaderClass];};
-	_units = [_selectedSubType >> "units", "ARRAY", ""] call CBA_fnc_getConfigEntry;
+	_units = [_selectedSubType >> "units", "ARRAY", "[]"] call CBA_fnc_getConfigEntry;
 	//grunts
+	if (count _gruntTypeTags == 0) then {
+		_gruntTypeTags = _selectedSubTypeTags;
+	};
 	_gruntAmount = [_selectedSubType >> "randomGrunts", "NUMBER", "0"] call CBA_fnc_getConfigEntry;
-	_searchGruntTypesCondition = _selectedSubTypeTags apply {format ["'%1' in getArray (_x >> 'tags')",_x]};
+	_searchGruntTypesCondition = _gruntTypeTags apply {format ["'%1' in getArray (_x >> 'tags')",_x]};
 	_searchGruntTypesCondition = _searchGruntTypesCondition joinString " && ";
 	_potentialGruntTypes = _searchGruntTypesCondition configClasses (missionConfigFile >> "CfgSoPop" >> "RandomUnitArrays" >> "Grunts");
 	_selectedGruntTypes = selectRandom _potentialGruntTypes; // 'missionConfigFile >> "CfgSoPop" >> "Units" >> "Infantry" >> "Sentry" >> "OpforT"
-	_gruntArray = [_selectedGruntTypes >> "weightArray", "ARRAY", "0"] call CBA_fnc_getConfigEntry;
+	_gruntArray = [_selectedGruntTypes >> "weightArray", "ARRAY", "[]"] call CBA_fnc_getConfigEntry;
 
 	_spawnPos = _spawn call BIS_fnc_position;
 	_specificSpawn = [_spawnPos, 0, ((triggerArea _spawn #0)+(triggerArea _spawn #1))/2, 8, 0] call BIS_fnc_findSafePos;	// find a safe spawn spot
@@ -287,8 +291,8 @@ fnc_SoPop_spawnInfantrySelectedUnitFromTags = {
 	_group setVariable ["SoPopSubTypeConfig", _selectedSubType];	// saves the group's type ("tank", "apc" etc.)
 	_group setVariable ["SoPopGroupSpawnArea", _spawn];	// saves the spawn to the group
 
-	[getPos leader _group, "mil_destroy", "ColorBlue", format ["Spawn for %2 %3 Group %1", _group, [_job] call fnc_mapPop_jobStringer,[0] call fnc_mapPop_typeStringer] ] call fnc_mapPop_DebugMarker;
-	if (missionNamespace getVariable ['aDebugMessages',false]) then { diag_log '-- fnc_SoPop_spawnSelectedUnitFromTags Done --';};
+	//[getPos leader _group, "mil_destroy", "ColorBlue", format ["Spawn for %2 %3 Group %1", _group, [_job] call fnc_mapPop_jobStringer,[0] call fnc_mapPop_typeStringer] ] call fnc_mapPop_DebugMarker;
+	if (missionNamespace getVariable ['aDebugMessages',false]) then { diag_log '-- fnc_SoPop_spawnInfantrySelectedUnitFromTags Done --';};
 	_group
 };
 //-------------------------------------------------------------
