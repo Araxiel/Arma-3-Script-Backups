@@ -270,8 +270,87 @@ class CfgSoPop {
 		//todo
 		class Vehicles {
 			class CarUnarmed {
-				cost = 6;
-				tags[] = {"defense","attack","basic"};
+				cost = 5;
+				tags[] = {"defense","attack","unarmed","car"};
+
+				class LsvUnarmed {
+					tags[] = {"EAST","arid"};
+					vehicle = "O_T_LSV_02_unarmed_F";
+					randomGrunts = 5;
+					gruntTags[] = {"EAST","arid"};
+				};
+				class LsvUnarmedT {
+					tags[] = {"EAST","tropical"};
+					vehicle = "O_T_LSV_02_unarmed_F";
+					randomGrunts = 5;
+					gruntTags[] = {"EAST","tropical"};
+				};
+				class MrapUnarmed {
+					tags[] = {"EAST","arid","armored"};
+					vehicle = "O_T_MRAP_02_F";
+					randomGrunts = 3;
+					gruntTags[] = {"EAST","arid"};
+				};
+				class MrapUnarmedT {
+					tags[] = {"EAST","tropical","armored"};
+					vehicle = "O_T_MRAP_02_F";
+					randomGrunts = 3;
+					gruntTags[] = {"EAST","tropical"};					
+				};
+			};
+
+			class CarArmed {
+				cost = 8;
+				tags[] = {"defense","attack","armed","car"};
+
+				class LsvArmed {
+					tags[] = {"EAST","arid","machinegun"};
+					vehicle = "O_LSV_02_armed_F";
+					randomGrunts = 3;
+					gruntTags[] = {"EAST","arid"};
+				};
+				class LsvArmedT {
+					tags[] = {"EAST","tropical","machinegun"};
+					vehicle = "O_T_LSV_02_armed_F";
+					randomGrunts = 3;
+					gruntTags[] = {"EAST","tropical"};					
+				};
+				class MrapGmg {
+					tags[] = {"EAST","arid","grenadelauncher","armored"};
+					vehicle = "O_MRAP_02_gmg_F";
+					randomGrunts = 1;
+					gruntTags[] = {"EAST","arid"};
+				};
+				class MrapGmgT {
+					tags[] = {"EAST","tropical","grenadelauncher","armored"};
+					vehicle = "O_T_MRAP_02_gmg_F";
+					randomGrunts = 1;
+					gruntTags[] = {"EAST","tropical"};
+				};
+				class MrapHmg {
+					tags[] = {"EAST","arid","machinegun","armored"};
+					vehicle = "O_MRAP_02_hmg_F";
+					randomGrunts = 1;
+					gruntTags[] = {"EAST","arid"};
+				};
+				class MrapHmgT {
+					tags[] = {"EAST","tropical","machinegun","armored"};
+					vehicle = "O_T_MRAP_02_hmg_F";
+					randomGrunts = 1;
+					gruntTags[] = {"EAST","tropical"};
+				};
+				class LsvAt {
+					tags[] = {"EAST","arid","antitank"};
+					vehicle = "O_LSV_02_AT_F";
+					randomGrunts = 1;
+					gruntTags[] = {"EAST","arid"};
+				};
+				class LsvAtT {
+					tags[] = {"EAST","tropical","antitank"};
+					vehicle = "O_T_LSV_02_AT_F";
+					randomGrunts = 1;
+					gruntTags[] = {"EAST","tropical"};
+				};
 			};
 		};
 	};
@@ -370,7 +449,6 @@ class CfgSoPop {
 					"O_Soldier_lite_F", 2
 				};
 			};
-
 			class OpforT {
 				tags[] = {"EAST","tropical"};
 				weightArray[] = {

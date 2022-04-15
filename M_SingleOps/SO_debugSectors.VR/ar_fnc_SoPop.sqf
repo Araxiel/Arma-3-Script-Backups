@@ -295,6 +295,49 @@ fnc_SoPop_spawnInfantrySelectedUnitFromTags = {
 	if (missionNamespace getVariable ['aDebugMessages',false]) then { diag_log '-- fnc_SoPop_spawnInfantrySelectedUnitFromTags Done --';};
 	_group
 };
+
+fnc_SoPop_spawnVehicleSelectedUnitFromTags = {
+
+	params [
+		["_spawn", objNull ],				// trigger area
+		["_selectedType", configNull ],		// config entry, like FullSquad
+		["_selectedTypeTags", [] ],			// tags array like ["basic","defense"]
+		["_selectedSubType", configNull ],	// config entry, like OpforT
+		["_selectedSubTypeTags", [] ],		// tags array like ["EAST","tropical"]
+		["_randomize", true ],				// boolean if vehicle attributes (like camo-netting etc.) should be randomized (if available); optional
+		["_spawnGrunts", true ],			// boolean if passenger grunts should be spawned; optional
+		["_director", SoPopDirector ]		// director logic; optional
+	];
+
+	if (missionNamespace getVariable ['aDebugMessages',false]) then { diag_log '-- fnc_SoPop_spawnVehicleSelectedUnitFromTags Start --';};
+	if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ['_selectedType : %1', configName _selectedType];};
+	if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ['_selectedSubType : %1', configName _selectedSubType];};
+
+	_vehicle = [_selectedSubType >> "vehicle", "STRING", ""] call CBA_fnc_getConfigEntry;
+	//grunts
+	_gruntAmount = [_selectedSubType >> "randomGrunts", "NUMBER", "0"] call CBA_fnc_getConfigEntry;
+	_gruntTypeTags = [_selectedSubType >> "gruntTags", "ARRAY", "[]"] call CBA_fnc_getConfigEntry;
+	_searchGruntTypesCondition = _gruntTypeTags apply {format ["'%1' in getArray (_x >> 'tags')",_x]};
+	_searchGruntTypesCondition = _searchGruntTypesCondition joinString " && ";
+	_potentialGruntTypes = _searchGruntTypesCondition configClasses (missionConfigFile >> "CfgSoPop" >> "RandomUnitArrays" >> "Grunts");
+	_selectedGruntTypes = selectRandom _potentialGruntTypes; // 'missionConfigFile >> "CfgSoPop" >> "Units" >> "Infantry" >> "Sentry" >> "OpforT"
+	_gruntArray = [_selectedGruntTypes >> "weightArray", "ARRAY", "[]"] call CBA_fnc_getConfigEntry;
+
+	_spawnPos = _spawn call BIS_fnc_position;
+	_specificSpawn = [_spawnPos, 0, ((triggerArea _spawn #0)+(triggerArea _spawn #1))/2, 8, 0] call BIS_fnc_findSafePos;	// find a safe spawn spot
+			//maxDist is the average of the length and the width of the trigger
+
+	private "_side";
+	if ("WEST" in _selectedSubTypeTags) then {_side = WEST ;};
+	if ("EAST" in _selectedSubTypeTags) then {_side = EAST ;};
+	if ("GUER" in _selectedSubTypeTags) then {_side = independent ;};
+	if ("CIV" in _selectedSubTypeTags) then {_side = civilian ;};
+	if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ['_side : %1',_side];};
+
+	// leader
+	private _group = createGroup [_side, true];
+
+};
 //-------------------------------------------------------------
 // dedicated unit functions
 
