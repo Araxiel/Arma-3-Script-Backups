@@ -132,13 +132,14 @@ fnc_SoPop_selectUnitFromTags = {
 	// 	Usage:
 	//	[missionConfigFile >> "CfgSoPop" >> "Units" >> "Infantry" >> "Sentry", missionConfigFile >> "CfgSoPop" >> "Units" >> "Infantry" >> "Sentry" >> "OpforT] = ["Infantry", ["basic","defense"],["EAST","tropical"], 2] call fnc_SoPop_selectUnitFromTags;
 	//	_selectedUnitFromTags = ["Infantry", ["basic","defense"],["EAST","tropical"],6] call fnc_SoPop_selectUnitFromTags;
+	//	_selectedUnitFromTags = ["Vehicles", ["armed","car"],["EAST","arid"],-1] call fnc_SoPop_selectUnitFromTags;
 	//	
 	//	_searchKind values: Infantry, Vehicles
 
 	params [
-		["_searchKind", ["Infantry"] ],		// basic type, like "infantry" or "vehicle"
+		["_searchKind", ["Infantry"] ],		// basic type, like "Infantry" or "Vehicles"
 		["_searchTypeTags", [] ],			// tags array like ["basic","defense"]
-		["_searchSubTypeTags", [] ],		// tags array like ["basic","defense"]
+		["_searchSubTypeTags", [] ],		// tags array like ["EAST","arid"]
 		["_budget", -1 ]					// budget available for search, aka max cost of a unit; optional, unlimited if left at -1
 	];
 
@@ -297,13 +298,14 @@ fnc_SoPop_spawnInfantrySelectedUnitFromTags = {
 };
 
 fnc_SoPop_spawnVehicleSelectedUnitFromTags = {
+	// _group = [_spawnTrigger, _selectedUnitFromTags #0, _typeTags, _selectedUnitFromTags #1, _subTypeTags] call fnc_SoPop_spawnInfantrySelectedUnitFromTags;
 
 	params [
 		["_spawn", objNull ],				// trigger area
-		["_selectedType", configNull ],		// config entry, like FullSquad
-		["_selectedTypeTags", [] ],			// tags array like ["basic","defense"]
-		["_selectedSubType", configNull ],	// config entry, like OpforT
-		["_selectedSubTypeTags", [] ],		// tags array like ["EAST","tropical"]
+		["_selectedType", configNull ],		// config entry, like CarArmed
+		["_selectedTypeTags", [] ],			// tags array like ["attack","armed"]
+		["_selectedSubType", configNull ],	// config entry, like MrapHmgT
+		["_selectedSubTypeTags", [] ],		// tags array like ["EAST","tropical","machinegun"]
 		["_randomize", true ],				// boolean if vehicle attributes (like camo-netting etc.) should be randomized (if available); optional
 		["_spawnGrunts", true ],			// boolean if passenger grunts should be spawned; optional
 		["_director", SoPopDirector ]		// director logic; optional
@@ -336,6 +338,38 @@ fnc_SoPop_spawnVehicleSelectedUnitFromTags = {
 
 	// leader
 	private _group = createGroup [_side, true];
+    _resultVehicle = [_specificSpawn, 0, _vehicle, _group] call BIS_fnc_spawnVehicle;
+	_resultVehicle params ["_vehicle", "_crew", "_group"];
+
+	private _spawnedPassengerAmount = 0;
+	while {(_vehicle emptyPositions "cargo" >= 1) && (_spawnedPassengerAmount < _gruntAmount)} do { // as long as there is an empty spot AND _gruntAmount not reached
+		_currentSquaddie = _group createUnit [selectRandomWeighted _gruntArray, getPos _vehicle, [], 0, "CARGO"];
+	    _currentSquaddie moveInCargo _vehicle;
+		_spawnedPassengerAmount = _spawnedPassengerAmount+1;
+		if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ['_spawnedPassengerAmount : %1',_spawnedPassengerAmount];};
+	};
+
+	private _code = [_selectedSubType >> "code", "STRING", ""] call CBA_fnc_getConfigEntry;
+	if !(_code == "") then {
+		_codeCompiled = call compile _code;
+		[_group,_selectedType,_selectedSubType] call _codeCompiled;
+	};
+
+	// save group to director
+	private "_varname";
+	switch (_side) do {
+		case "BLUFOR": { _varname = "groupsBlufor" };
+		case "independent": { _varname = "groupsGuer" };
+		default { _varname = "groupsOpfor" };
+	};
+
+	_group setVariable ["SoPopTypeConfig", _selectedType];	// saves the group's type ("tank", "apc" etc.)
+	_group setVariable ["SoPopSubTypeConfig", _selectedSubType];	// saves the group's type ("tank", "apc" etc.)
+	_group setVariable ["SoPopGroupSpawnArea", _spawn];	// saves the spawn to the group
+
+	//[getPos leader _group, "mil_destroy", "ColorBlue", format ["Spawn for %2 %3 Group %1", _group, [_job] call fnc_mapPop_jobStringer,[0] call fnc_mapPop_typeStringer] ] call fnc_mapPop_DebugMarker;
+	if (missionNamespace getVariable ['aDebugMessages',false]) then { diag_log '-- fnc_SoPop_spawnInfantrySelectedUnitFromTags Done --';};
+	_group
 
 };
 //-------------------------------------------------------------

@@ -273,29 +273,60 @@ class CfgSoPop {
 				cost = 5;
 				tags[] = {"defense","attack","unarmed","car"};
 
-				class LsvUnarmed {
-					tags[] = {"EAST","arid"};
-					vehicle = "O_T_LSV_02_unarmed_F";
+				class OpforLsvUnarmed {
+					tags[] = {"EAST","arid","open"};
+					vehicle = "O_LSV_02_unarmed_F";
 					randomGrunts = 5;
 					gruntTags[] = {"EAST","arid"};
 				};
-				class LsvUnarmedT {
-					tags[] = {"EAST","tropical"};
+				class OpforLsvUnarmedT {
+					tags[] = {"EAST","tropical","open"};
 					vehicle = "O_T_LSV_02_unarmed_F";
 					randomGrunts = 5;
 					gruntTags[] = {"EAST","tropical"};
 				};
-				class MrapUnarmed {
+				class OpforMrapUnarmed {
 					tags[] = {"EAST","arid","armored"};
-					vehicle = "O_T_MRAP_02_F";
+					vehicle = "O_MRAP_02_F";
 					randomGrunts = 3;
 					gruntTags[] = {"EAST","arid"};
 				};
-				class MrapUnarmedT {
+				class OpforMrapUnarmedT {
 					tags[] = {"EAST","tropical","armored"};
-					vehicle = "O_T_MRAP_02_F";
+					vehicle = "O_T_MRAP_02_ghex_F";
 					randomGrunts = 3;
 					gruntTags[] = {"EAST","tropical"};					
+				};
+
+				class BlueforLsvUnarmed {
+					tags[] = {"WEST","arid","open"};
+					vehicle = "B_LSV_01_unarmed_F";
+					randomGrunts = 5;
+					gruntTags[] = {"WEST","arid"};
+				};
+				class BlueforLsvUnarmedT {
+					tags[] = {"WEST","tropical","open"};
+					vehicle = "B_T_LSV_01_unarmed_F";
+					randomGrunts = 5;
+					gruntTags[] = {"WEST","tropical"};
+				};
+				class BlueforMrapUnarmed {
+					tags[] = {"WEST","arid","armored"};
+					vehicle = "B_MRAP_01_F";
+					randomGrunts = 3;
+					gruntTags[] = {"WEST","arid"};
+				};
+				class BlueforMrapUnarmedT {
+					tags[] = {"WEST","tropical","armored"};
+					vehicle = "B_T_MRAP_01_F";
+					randomGrunts = 3;
+					gruntTags[] = {"WEST","tropical"};					
+				};
+				class AAFMrapUnarmed {
+					tags[] = {"GUER","arid","armored"};
+					vehicle = "I_MRAP_03_F";
+					randomGrunts = 3;
+					gruntTags[] = {"GUER","AAF"};
 				};
 			};
 
@@ -303,53 +334,114 @@ class CfgSoPop {
 				cost = 8;
 				tags[] = {"defense","attack","armed","car"};
 
-				class LsvArmed {
-					tags[] = {"EAST","arid","machinegun"};
+				class OpforLsvArmed {
+					tags[] = {"EAST","arid","machinegun","open"};
 					vehicle = "O_LSV_02_armed_F";
-					randomGrunts = 3;
+					randomGrunts = 2;
 					gruntTags[] = {"EAST","arid"};
 				};
-				class LsvArmedT {
-					tags[] = {"EAST","tropical","machinegun"};
+				class OpforLsvArmedT {
+					tags[] = {"EAST","tropical","machinegun","open"};
 					vehicle = "O_T_LSV_02_armed_F";
-					randomGrunts = 3;
+					randomGrunts = 2;
 					gruntTags[] = {"EAST","tropical"};					
 				};
-				class MrapGmg {
+				class OpforMrapGmg {
 					tags[] = {"EAST","arid","grenadelauncher","armored"};
 					vehicle = "O_MRAP_02_gmg_F";
 					randomGrunts = 1;
 					gruntTags[] = {"EAST","arid"};
 				};
-				class MrapGmgT {
+				class OpforMrapGmgT {
 					tags[] = {"EAST","tropical","grenadelauncher","armored"};
-					vehicle = "O_T_MRAP_02_gmg_F";
+					vehicle = "O_T_MRAP_02_gmg_ghex_F";
 					randomGrunts = 1;
 					gruntTags[] = {"EAST","tropical"};
 				};
-				class MrapHmg {
+				class OpforMrapHmg {
 					tags[] = {"EAST","arid","machinegun","armored"};
 					vehicle = "O_MRAP_02_hmg_F";
 					randomGrunts = 1;
 					gruntTags[] = {"EAST","arid"};
 				};
-				class MrapHmgT {
+				class OpforMrapHmgT {
 					tags[] = {"EAST","tropical","machinegun","armored"};
-					vehicle = "O_T_MRAP_02_hmg_F";
+					vehicle = "O_T_MRAP_02_hmg_ghex_F";
 					randomGrunts = 1;
 					gruntTags[] = {"EAST","tropical"};
 				};
-				class LsvAt {
-					tags[] = {"EAST","arid","antitank"};
+				class OpforLsvAt {
+					tags[] = {"EAST","arid","antitank","open"};
 					vehicle = "O_LSV_02_AT_F";
 					randomGrunts = 1;
 					gruntTags[] = {"EAST","arid"};
 				};
-				class LsvAtT {
-					tags[] = {"EAST","tropical","antitank"};
+				class OpforLsvAtT {
+					tags[] = {"EAST","tropical","antitank","open"};
 					vehicle = "O_T_LSV_02_AT_F";
 					randomGrunts = 1;
 					gruntTags[] = {"EAST","tropical"};
+				};
+
+				class BluforLsvArmed {
+					tags[] = {"WEST","arid","machinegun","open"};
+					vehicle = "B_LSV_01_armed_F";
+					randomGrunts = 2;
+					gruntTags[] = {"WEST","arid"};
+				};
+				class BluforLsvArmedT {
+					tags[] = {"WEST","tropical","machinegun","open"};
+					vehicle = "B_T_LSV_01_armed_F";
+					randomGrunts = 2;
+					gruntTags[] = {"WEST","tropical"};					
+				};
+				class BluforMrapGmg {
+					tags[] = {"WEST","arid","grenadelauncher","armored"};
+					vehicle = "B_MRAP_01_gmg_F";
+					randomGrunts = 1;
+					gruntTags[] = {"WEST","arid"};
+				};
+				class BluforMrapGmgT {
+					tags[] = {"WEST","tropical","grenadelauncher","armored"};
+					vehicle = "B_T_MRAP_01_gmg_F";
+					randomGrunts = 1;
+					gruntTags[] = {"WEST","tropical"};
+				};
+				class BluforMrapHmg {
+					tags[] = {"WEST","arid","machinegun","armored"};
+					vehicle = "B_MRAP_01_hmg_F";
+					randomGrunts = 1;
+					gruntTags[] = {"WEST","arid"};
+				};
+				class BluforMrapHmgT {
+					tags[] = {"WEST","tropical","machinegun","armored"};
+					vehicle = "B_T_MRAP_01_hmg_F";
+					randomGrunts = 1;
+					gruntTags[] = {"WEST","tropical"};
+				};
+				class BluforLsvAt {
+					tags[] = {"WEST","arid","antitank","open"};
+					vehicle = "B_LSV_01_AT_F";
+					randomGrunts = 1;
+					gruntTags[] = {"WEST","arid"};
+				};
+				class BluforLsvAtT {
+					tags[] = {"WEST","tropical","antitank","open"};
+					vehicle = "B_T_LSV_01_AT_F";
+					randomGrunts = 1;
+					gruntTags[] = {"WEST","tropical"};
+				};
+				class AAFMrapGmg {
+					tags[] = {"GUER","AAF","grenadelauncher","armored"};
+					vehicle = "I_MRAP_03_gmg_F";
+					randomGrunts = 1;
+					gruntTags[] = {"GUER","AAF"};
+				};
+				class AAFMrapHmg {
+					tags[] = {"GUER","AAF","machinegun","armored"};
+					vehicle = "I_MRAP_03_hmg_F";
+					randomGrunts = 1;
+					gruntTags[] = {"GUER","AAF"};
 				};
 			};
 		};
