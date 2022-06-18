@@ -245,15 +245,17 @@ class CfgSoPop {
 						"B_Soldier_lite_F",
 						"B_soldier_M_F"
 					};
+					code = "fnc_OfficerRetinue";
 				};
 				class BluforT {
 					tags[] = {"WEST","tropical"};
 					randomGrunts = 1;
 					leader = "B_T_officer_F";
 					units[] = {
-						"B_T_Soldier_lite_F",
+						"B_T_Soldier_F",
 						"B_T_soldier_M_F"
 					};
+					code = "fnc_OfficerRetinue";
 				};
 				class Independent {
 					tags[] = {"GUER","AAF"};
@@ -263,6 +265,7 @@ class CfgSoPop {
 						"I_Soldier_lite_F",
 						"I_Soldier_M_F"
 					};
+					code = "fnc_OfficerRetinue";
 				};
 			};
 		};

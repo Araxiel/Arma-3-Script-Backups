@@ -279,6 +279,7 @@ fnc_SoPop_spawnInfantrySelectedUnitFromTags = {
 	if !(_code == "") then {
 		_codeCompiled = call compile _code;
 		[_group,_selectedType,_selectedSubType] call _codeCompiled;
+		if (missionNamespace getVariable ['aDebugMessages',false]) then {diag_log Format ['code run: %1',_codeCompiled];};
 	};
 
 	// save group to director
@@ -394,16 +395,16 @@ fnc_OfficerRetinue = {
 		typeOf _x == "O_Soldier_lite_F" ||
 		typeOf _x == "O_T_Soldier_F"	||
 		typeOf _x == "B_Soldier_lite_F"	||
-		typeOf _x == "B_T_Soldier_lite_F"||
+		typeOf _x == "B_T_Soldier_F"    ||
 		typeOf _x == "I_Soldier_lite_F"
-		};
+	};
 	_designatedRadioman = _groupArray select _radiomanArrayID;
 	private "_radio";
 	switch (side _designatedRadioman) do {
-		case "EAST": { _radio = "B_RadioBag_01_black_F"};
-		case "WEST": { _radio = "B_RadioBag_01_mtp_F"};
-		case "GUER": { _radio = "B_RadioBag_01_digi_F"};
-		default { _radio = "B_RadioBag_01_black_F"};
+		case EAST:			{ _radio = "B_RadioBag_01_black_F"};
+		case WEST: 			{ _radio = "B_RadioBag_01_mtp_F"};
+		case independent: 	{ _radio = "B_RadioBag_01_digi_F"};
+		default 			{ _radio = "B_RadioBag_01_black_F"};
 	};
 	removeBackpack _designatedRadioman;
 	_designatedRadioman addBackpack _radio;
