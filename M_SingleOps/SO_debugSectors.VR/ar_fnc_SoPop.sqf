@@ -145,15 +145,20 @@ fnc_SoPop_selectUnitFromTags = {
 
 	private ["_searchTypeCondition","_searchSubTypeCondition"];
 	// set
-	if (count _searchTypeTags > 0) then {
+	if (count _searchTypeTags > 0) then {	// if input _searchTypeTags are not empty
 		// string assembly
+		// turns each entry in the _searchTypeTags array (aka each tag) into a string works as a condition. So "basic" turns into "'basic' in getArray (_x >> 'tags')"
 		_searchTypeCondition = _searchTypeTags apply {format ["'%1' in getArray (_x >> 'tags')",_x]};
+		// if there is a budget, appends a condition that compares the budget number with the cost entry in the config class 	
 		if !(_budget == -1) then {
 			_searchTypeCondition pushBack (format ["getNumber (_x >> 'cost') <= %1",_budget])
 		};
+		// joins all the tag condition strings into one big condition
 		_searchTypeCondition = _searchTypeCondition joinString " && ";
+		// So ["basic","defense"] and a _budget of 8, turns into: 'basic' in getArray (_x >> 'tags') && 'defense' in getArray (_x >> 'tags') && getNumber (_x >> 'cost') <= 8
 	} else {
 		_searchTypeCondition = "true";
+		// if no tags are given, all tags are accepted
 	};
 
 
@@ -166,8 +171,11 @@ fnc_SoPop_selectUnitFromTags = {
 	};
 
 	// selection
+	// this command searches through all classes that satisfy the condition; the condition is the assembled string up there
 	_potentialTypes = _searchTypeCondition configClasses (missionConfigFile >> "CfgSoPop" >> "Units" >> _searchKind);
+	// the command returns an array containing every match, the following selects a random one.
 	_selectedType = selectRandom _potentialTypes; // missionConfigFile >> "CfgSoPop" >> "Units" >> "Infantry" >> "Sentry"
+	// ditto for subType
 	_potentialSubTypes = _searchSubTypeCondition configClasses (_selectedType);
 	_selectedSubType = selectRandom _potentialSubTypes; // missionConfigFile >> "CfgSoPop" >> "Units" >> "Infantry" >> "Sentry" >> "OpforT"
 
